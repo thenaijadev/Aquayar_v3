@@ -1,6 +1,9 @@
 class Routes {
   static const String homeScreen = '/';
   static const String registration = '/registeration';
+  static const String login = '/login';
+  static const String gender = '/gender';
+
   // static const String cartScreen = '/cart';
   // static const String productScreen = '/product';
   // static const String loginScreen = '/login';

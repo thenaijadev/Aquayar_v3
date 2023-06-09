@@ -9,4 +9,5 @@ class AppColors {
   static const Color inputBorder = Color(0xffD6E1EA);
   static const Color hintColor = Color(0xffAEB0C3);
   static const Color disabledBtn = Color(0xffFAFAFA);
+  static const Color richText = Color(0xff6B729D);
 }

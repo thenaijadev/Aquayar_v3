@@ -1,21 +1,21 @@
+import 'package:aquayar/app/presentation/widgets/auth/apple_auth_btn.dart';
 import 'package:aquayar/app/presentation/widgets/auth/oauth_btn.dart';
 import 'package:aquayar/app/presentation/widgets/blue_btn.dart';
 import 'package:aquayar/app/presentation/widgets/text_input.dart';
 import 'package:aquayar/app/presentation/widgets/title_text.dart';
 import 'package:aquayar/router/routes.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
-import 'package:aquayar/app/presentation/widgets/auth/apple_auth_btn.dart';
 import 'package:aquayar/utilities/validators.dart';
 import 'package:flutter/material.dart';
 
-class RegisterationForm extends StatefulWidget {
-  const RegisterationForm({super.key});
+class LoginForm extends StatefulWidget {
+  const LoginForm({super.key});
 
   @override
-  State<RegisterationForm> createState() => _RegisterationFormState();
+  State<LoginForm> createState() => _LoginFormState();
 }
 
-class _RegisterationFormState extends State<RegisterationForm> {
+class _LoginFormState extends State<LoginForm> {
   final formKey = GlobalKey<FormState>();
   final formfieldkey_1 = GlobalKey<FormFieldState>();
   final formfieldkey_2 = GlobalKey<FormFieldState>();
@@ -88,9 +88,7 @@ class _RegisterationFormState extends State<RegisterationForm> {
                 fontWeight: FontWeight.bold,
                 fontSize: 14,
               ),
-              onPressed: () {
-                Navigator.pushNamed(context, Routes.gender);
-              }),
+              onPressed: () {}),
           const SizedBox(
             height: 10,
           ),
@@ -119,7 +117,7 @@ class _RegisterationFormState extends State<RegisterationForm> {
             padding: const EdgeInsets.only(top: 35.0, bottom: 20),
             child: OutlinedButtonWidget(
               image: Image.asset("assets/images/google.png"),
-              label: "Sign up with Google",
+              label: "Log in with Google",
               onPressed: () {
                 debugPrint("Google");
               },
@@ -137,7 +135,7 @@ class _RegisterationFormState extends State<RegisterationForm> {
                 child: TextWidget(
                   fontSize: 16,
                   fontWeight: FontWeight.w300,
-                  text: "Already have an account?",
+                  text: "Dont have an account?",
                 ),
               ),
               const SizedBox(
@@ -146,38 +144,12 @@ class _RegisterationFormState extends State<RegisterationForm> {
               OutlinedButtonWidgetNoIcon(
                   width: 80,
                   height: 40,
-                  label: "Login",
+                  label: "Sign up",
                   onPressed: () {
-                    Navigator.pushNamed(context, Routes.login);
+                    Navigator.pushReplacementNamed(
+                        context, Routes.registration);
                   })
             ],
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 30),
-            child: Text.rich(
-              textAlign: TextAlign.center,
-              TextSpan(
-                style: TextStyle(fontSize: 12), //apply style to all
-                children: [
-                  TextSpan(
-                    text: 'By continuing , you agree to our',
-                    style: TextStyle(color: AppColors.richText),
-                  ),
-                  TextSpan(
-                    text: ' Terms of Use ',
-                    style: TextStyle(color: Color(0xff61C7F9)),
-                  ),
-                  TextSpan(
-                    text: 'and confirm that you have read our ',
-                    style: TextStyle(color: AppColors.richText),
-                  ),
-                  TextSpan(
-                    text: 'Privacy Policy',
-                    style: TextStyle(color: Color(0xff0579CE)),
-                  )
-                ],
-              ),
-            ),
           ),
         ],
       ),
