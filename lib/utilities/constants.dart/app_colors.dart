@@ -5,4 +5,8 @@ class AppColors {
 
   static const Color white = Color.fromARGB(255, 255, 255, 255);
   static const Color titleBlack = Color(0xff212550);
+  static const Color textGrey = Color(0xff868fae);
+  static const Color inputBorder = Color(0xffD6E1EA);
+  static const Color hintColor = Color(0xffAEB0C3);
+  static const Color disabledBtn = Color(0xffFAFAFA);
 }

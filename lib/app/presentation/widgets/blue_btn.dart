@@ -6,9 +6,17 @@ class BlueBtn extends StatelessWidget {
     super.key,
     required this.label,
     required this.onPressed,
+    this.paddingHorizontal = 15,
+    this.paddingVertical = 15,
+    this.width,
+    this.enabled = true,
   });
   final Widget label;
   final void Function() onPressed;
+  final double paddingHorizontal;
+  final double paddingVertical;
+  final double? width;
+  final bool enabled;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -17,25 +25,31 @@ class BlueBtn extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20),
         child: Material(
           borderRadius: BorderRadius.circular(30),
-          elevation: 10,
+          elevation: enabled ? 5 : 0,
           shadowColor: const Color(0xff61C7F9),
           child: Container(
-            padding: const EdgeInsets.all(15),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
-              gradient: const LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.centerRight,
-                stops: [
-                  0.1,
-                  0.6,
-                ],
-                colors: [
-                  Color(0xff61C7F9),
-                  Color.fromARGB(255, 4, 136, 231),
-                ],
-              ),
-            ),
+            width: width,
+            padding: EdgeInsets.symmetric(
+                vertical: paddingVertical, horizontal: paddingHorizontal),
+            decoration: enabled
+                ? BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    gradient: const LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.centerRight,
+                      stops: [
+                        0.1,
+                        0.6,
+                      ],
+                      colors: [
+                        Color(0xff61C7F9),
+                        Color.fromARGB(255, 4, 136, 231),
+                      ],
+                    ),
+                  )
+                : BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: AppColors.disabledBtn),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -48,9 +62,9 @@ class BlueBtn extends StatelessWidget {
                     width: 160,
                   ),
                 ),
-                const Icon(
+                Icon(
                   Icons.arrow_forward_ios,
-                  color: AppColors.white,
+                  color: enabled ? AppColors.white : AppColors.inputBorder,
                   size: 15,
                 )
               ],
