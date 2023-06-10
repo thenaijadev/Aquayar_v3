@@ -11,7 +11,8 @@ class InputFieldWidget extends StatelessWidget {
       required this.onChanged,
       this.validator,
       required this.textFieldkey,
-      this.obscureText = false});
+      this.obscureText = false,
+      this.suffixIcon});
   final String label;
   final String hintText;
   final double hintSize;
@@ -19,6 +20,7 @@ class InputFieldWidget extends StatelessWidget {
   final String? Function(String?)? validator;
   final GlobalKey<FormFieldState> textFieldkey;
   final bool obscureText;
+  final Widget? suffixIcon;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -40,6 +42,7 @@ class InputFieldWidget extends StatelessWidget {
             validator: validator,
             obscureText: obscureText,
             decoration: InputDecoration(
+              suffixIcon: suffixIcon,
               hintStyle:
                   TextStyle(color: AppColors.hintColor, fontSize: hintSize),
               contentPadding:

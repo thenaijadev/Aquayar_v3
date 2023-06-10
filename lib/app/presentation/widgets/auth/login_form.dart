@@ -22,6 +22,7 @@ class _LoginFormState extends State<LoginForm> {
   bool? emailState = false;
   bool? passwordState = false;
   bool enabled = false;
+  bool obscureText = false;
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -63,6 +64,20 @@ class _LoginFormState extends State<LoginForm> {
           Padding(
             padding: const EdgeInsets.only(top: 20.0),
             child: InputFieldWidget(
+              obscureText: obscureText,
+              suffixIcon: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    obscureText = !obscureText;
+                  });
+                },
+                child: Icon(
+                  obscureText
+                      ? Icons.visibility_off_outlined
+                      : Icons.visibility_outlined,
+                  color: AppColors.titleBlack,
+                ),
+              ),
               textFieldkey: formfieldkey_2,
               label: "Choose a password",
               hintText: "•••••••••",

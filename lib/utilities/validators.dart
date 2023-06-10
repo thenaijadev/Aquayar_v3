@@ -13,9 +13,10 @@ class Validator {
   static String? validateText(String? value, String? label) {
     if (value == null || value.isEmpty) {
       return '$label cannot be empty';
-    } else {
-      return null;
+    } else if (value.length < 3) {
+      return "Your name is too short";
     }
+    return null;
   }
 
   static String? validatePhoneNumber(String? value) {
