@@ -10,4 +10,5 @@ class AppColors {
   static const Color hintColor = Color(0xffAEB0C3);
   static const Color disabledBtn = Color(0xffFAFAFA);
   static const Color richText = Color(0xff6B729D);
+  static const Color darkTitleGrey = Color(0xff868FAE);
 }

@@ -19,6 +19,15 @@ class Validator {
     return null;
   }
 
+  static String? validateAddress(String? value, String? label) {
+    if (value == null || value.isEmpty) {
+      return '$label cannot be empty';
+    } else if (value.length < 10) {
+      return "This address seems to be too short";
+    }
+    return null;
+  }
+
   static String? validatePhoneNumber(String? value) {
     if (value == null || value.isEmpty) {
       return 'This field is required.';
