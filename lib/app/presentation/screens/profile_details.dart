@@ -91,6 +91,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                   ),
                 ),
                 Form(
+                  key: formKey,
                   child: Column(
                     children: [
                       Padding(
@@ -130,7 +131,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                               ),
                             ),
                             SearchField(
-                              key: formKey,
+                              onSubmit: (value) {},
                               controller: cityController,
                               suggestions: nigerianStates
                                   .map((e) => SearchFieldListItem(e))
@@ -144,11 +145,25 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                               ),
                               validator: (x) {
                                 if (!nigerianStates.contains(x) || x!.isEmpty) {
-                                  return 'Please Enter a valid State';
+                                  return 'Please Enter a valid city';
                                 }
                                 return null;
                               },
                               searchInputDecoration: InputDecoration(
+                                errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                  borderSide: const BorderSide(
+                                    color: Color.fromARGB(255, 255, 0, 0),
+                                    width: 2.0,
+                                  ),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                  borderSide: const BorderSide(
+                                    color: Color.fromARGB(255, 255, 0, 0),
+                                    width: 2.0,
+                                  ),
+                                ),
                                 suffixIcon: const Icon(
                                   Icons.expand_more,
                                   color: Color.fromARGB(183, 33, 37, 80),
@@ -286,9 +301,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                         fontSize: 14,
                       ),
                       onPressed: () {
-                        print(addressState! &&
-                            city.isNotEmpty &&
-                            phoneNumberHasError!);
+                        final formIsValid = formKey.currentState?.validate();
                       }),
                 ),
               ],
