@@ -28,14 +28,15 @@ class Validator {
     return null;
   }
 
-  static String? validatePhoneNumber(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'This field is required.';
-    } else if (!(value.length > 6 && value.length < 20)) {
-      return 'Enter a valid phone number';
-    } else {
-      return null;
+  static String? validatePhoneNumber(String value) {
+    String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+    RegExp regExp = RegExp(pattern);
+    if (value.isEmpty) {
+      return 'Please enter mobile number';
+    } else if (!regExp.hasMatch(value)) {
+      return 'Please enter valid mobile number';
     }
+    return null;
   }
 
   static String? validateConfirmPassword(String? value, String firstPassword) {

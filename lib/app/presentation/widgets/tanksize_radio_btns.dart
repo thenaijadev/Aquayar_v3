@@ -1,57 +1,47 @@
 import 'package:aquayar/app/presentation/widgets/title_text.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
-import 'package:aquayar/utilities/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
-class RadioBtns extends StatefulWidget {
-  const RadioBtns({super.key});
+class TankSizeRadioBtns extends StatefulWidget {
+  const TankSizeRadioBtns({super.key});
 
   @override
-  State<RadioBtns> createState() => _RadioBtnsState();
+  State<TankSizeRadioBtns> createState() => _TankSizeRadioBtnsState();
 }
 
-class _RadioBtnsState extends State<RadioBtns> {
+class _TankSizeRadioBtnsState extends State<TankSizeRadioBtns> {
   String? choice;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          RadioBtn(
-              choice: choice,
-              label: Gender.Male.name,
-              onPressed: () {
-                setState(() {
-                  choice = Gender.Male.name;
-                });
-              }),
-          RadioBtn(
-              choice: choice,
-              label: Gender.Female.name.toString(),
-              onPressed: () {
-                setState(() {
-                  choice = Gender.Female.name;
-                });
-              }),
-          RadioBtn(
-              choice: choice,
-              label: "Choose not to say",
-              onPressed: () {
-                setState(() {
-                  choice = "Choose not to say";
-                });
-              })
-        ],
+      child: SizedBox(
+        height: 50,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, int) {
+            return Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: TankSizeRadioBtn(
+                  label: tankSizes[int],
+                  onPressed: () {
+                    setState(() {
+                      choice = tankSizes[int];
+                    });
+                  },
+                  choice: choice),
+            );
+          },
+          itemCount: tankSizes.length,
+        ),
       ),
     );
   }
 }
 
-class RadioBtn extends StatefulWidget {
-  const RadioBtn(
+class TankSizeRadioBtn extends StatefulWidget {
+  const TankSizeRadioBtn(
       {super.key,
       required this.label,
       required this.onPressed,
@@ -60,10 +50,10 @@ class RadioBtn extends StatefulWidget {
   final void Function() onPressed;
   final String? choice;
   @override
-  State<RadioBtn> createState() => _RadioBtnState();
+  State<TankSizeRadioBtn> createState() => _TankSizeRadioBtnState();
 }
 
-class _RadioBtnState extends State<RadioBtn> {
+class _TankSizeRadioBtnState extends State<TankSizeRadioBtn> {
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
@@ -72,7 +62,7 @@ class _RadioBtnState extends State<RadioBtn> {
           backgroundColor: const MaterialStatePropertyAll(AppColors.white),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20.0),
+              borderRadius: BorderRadius.circular(14.0),
               side: const BorderSide(width: 3, color: Colors.black),
             ),
           ),
@@ -103,9 +93,20 @@ class _RadioBtnState extends State<RadioBtn> {
               )
             : TextWidget(
                 text: widget.label,
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                fontWeight: FontWeight.normal,
                 color: const Color.fromARGB(255, 149, 159, 193),
               ));
   }
 }
+
+final List<String> tankSizes = [
+  "200",
+  "500",
+  "750",
+  "1000",
+  "1200",
+  "1500",
+  "2000",
+  "2500",
+];
