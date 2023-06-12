@@ -2,6 +2,8 @@ import 'package:aquayar/app/error/error_screen.dart';
 import 'package:aquayar/app/presentation/screens/gender_screen.dart';
 import 'package:aquayar/app/presentation/screens/home_screen.dart';
 import 'package:aquayar/app/presentation/screens/login_screen.dart';
+import 'package:aquayar/app/presentation/screens/otp_screen.dart';
+import 'package:aquayar/app/presentation/screens/phone_verification_screen.dart';
 import 'package:aquayar/app/presentation/screens/profile_details.dart';
 import 'package:aquayar/app/presentation/screens/registration_screen.dart';
 import 'package:aquayar/router/routes.dart';
@@ -30,6 +32,14 @@ class AppRouter {
       case Routes.profileDetails:
         return MaterialPageRoute(
           builder: (_) => const ProfileDetailsScreen(),
+        );
+      case Routes.phoneVerification:
+        return MaterialPageRoute(
+          builder: (_) => const PhoneVerificationScreen(),
+        );
+      case Routes.otp:
+        return MaterialPageRoute(
+          builder: (_) => const OtpScreen(),
         );
       // case Routes.cartScreen:
       //   return MaterialPageRoute(

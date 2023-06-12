@@ -1,5 +1,4 @@
 import 'package:aquayar/app/presentation/widgets/title_text.dart';
-import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:aquayar/utilities/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
@@ -68,13 +67,13 @@ class _RadioBtnState extends State<RadioBtn> {
   Widget build(BuildContext context) {
     return OutlinedButton(
         onPressed: widget.onPressed,
-        style: ButtonStyle(
-          backgroundColor: const MaterialStatePropertyAll(AppColors.white),
-          shape: MaterialStateProperty.all(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20.0),
-              side: const BorderSide(width: 3, color: Colors.black),
-            ),
+        style: OutlinedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          side: BorderSide(
+            color: const Color(0xff61C7F9),
+            width: widget.choice == widget.label ? 1 : 0,
           ),
         ),
         child: widget.choice == widget.label

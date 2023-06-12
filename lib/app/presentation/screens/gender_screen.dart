@@ -19,6 +19,7 @@ class _GenderScreenState extends State<GenderScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.white,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColors.white,
@@ -60,6 +61,7 @@ class _GenderScreenState extends State<GenderScreen> {
                     },
                     key: textFieldkey,
                     cursorColor: AppColors.inputBorder,
+                    style: const TextStyle(fontSize: 40),
                     textAlign: TextAlign.center,
                     decoration: const InputDecoration(
                       enabledBorder: UnderlineInputBorder(

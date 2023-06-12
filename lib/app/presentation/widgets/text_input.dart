@@ -6,6 +6,7 @@ class InputFieldWidget extends StatelessWidget {
   const InputFieldWidget(
       {super.key,
       required this.label,
+      this.initialValue,
       required this.hintText,
       this.hintSize = 14,
       required this.onChanged,
@@ -23,6 +24,7 @@ class InputFieldWidget extends StatelessWidget {
   final bool obscureText;
   final Widget? suffixIcon;
   final Widget? prefixicon;
+  final String? initialValue;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -40,6 +42,7 @@ class InputFieldWidget extends StatelessWidget {
           ),
           TextFormField(
             key: textFieldkey,
+            initialValue: initialValue,
             onChanged: onChanged,
             validator: validator,
             obscureText: obscureText,
