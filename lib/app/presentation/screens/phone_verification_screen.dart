@@ -68,7 +68,7 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                 padding: EdgeInsets.only(left: 20.0, top: 10),
                 child: TextWidget(
                   text:
-                      "We need to do this be make sure we can reach you through this number..",
+                      "We need to do this be make sure we can reach you through this number. Make sure it's correct.",
                   color: AppColors.darkTitleGrey,
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
@@ -136,29 +136,25 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
               ),
             ],
           ),
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 20.0),
-                child: BlueBtn(
-                    enabled: phoneNumberHasError!,
-                    paddingVertical: 12,
-                    label: TextWidget(
-                      text: "              Verify",
-                      color: phoneNumberHasError!
-                          ? AppColors.white
-                          : AppColors.inputBorder,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                    ),
-                    onPressed: () {
-                      final formIsValid = formKey.currentState?.validate();
-                      if (formIsValid!) {
-                        Navigator.pushNamed(context, Routes.otp);
-                      }
-                    }),
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.only(bottom: 20.0),
+            child: BlueBtn(
+                enabled: phoneNumberHasError!,
+                paddingVertical: 12,
+                label: TextWidget(
+                  text: "              Verify",
+                  color: phoneNumberHasError!
+                      ? AppColors.white
+                      : AppColors.inputBorder,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+                onPressed: () {
+                  final formIsValid = formKey.currentState?.validate();
+                  if (formIsValid!) {
+                    Navigator.pushNamed(context, Routes.otp);
+                  }
+                }),
           )
         ],
       ),

@@ -1,4 +1,5 @@
 import 'package:aquayar/app/error/error_screen.dart';
+import 'package:aquayar/app/presentation/screens/forgot_passport.dart';
 import 'package:aquayar/app/presentation/screens/gender_screen.dart';
 import 'package:aquayar/app/presentation/screens/home_screen.dart';
 import 'package:aquayar/app/presentation/screens/login_screen.dart';
@@ -40,6 +41,10 @@ class AppRouter {
       case Routes.otp:
         return MaterialPageRoute(
           builder: (_) => const OtpScreen(),
+        );
+      case Routes.forgotPassword:
+        return MaterialPageRoute(
+          builder: (_) => const ForgotPasswordScreen(),
         );
       // case Routes.cartScreen:
       //   return MaterialPageRoute(

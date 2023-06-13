@@ -6,4 +6,5 @@ class Routes {
   static const String profileDetails = '/profileDetails';
   static const String phoneVerification = '/phoneVerification';
   static const String otp = '/otp';
+  static const String forgotPassword = '/forgotPassword';
 }

@@ -7,6 +7,7 @@ import 'package:aquayar/router/routes.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:aquayar/utilities/validators.dart';
 import 'package:flutter/material.dart';
+import 'package:simple_gradient_text/simple_gradient_text.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -23,24 +24,21 @@ class _LoginFormState extends State<LoginForm> {
   bool? passwordState = false;
   bool enabled = false;
   bool obscureText = false;
+  bool? checkBoxValue = false;
   @override
   Widget build(BuildContext context) {
     return Form(
       key: formKey,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Center(
+          const Padding(
+            padding: EdgeInsets.only(left: 30.0, top: 20),
             child: TextWidget(
-              text: "Aquayar 👋🏿",
-              fontSize: 30,
+              text: "Happy to see you again 👋🏿",
+              fontSize: 25,
               fontWeight: FontWeight.w700,
-            ),
-          ),
-          const Center(
-            child: TextWidget(
-              text: "Water without limits",
-              color: AppColors.textGrey,
-              fontSize: 16,
             ),
           ),
           Padding(
@@ -94,6 +92,43 @@ class _LoginFormState extends State<LoginForm> {
               },
             ),
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, Routes.forgotPassword);
+                },
+                child: GradientText("Reset Password",
+                    style: const TextStyle(
+                        fontSize: 13, fontWeight: FontWeight.bold),
+                    colors: const [
+                      Color(0xff61C7F9),
+                      Color(0xff0579CE),
+                    ]),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Checkbox(
+                      side: const BorderSide(width: 1, color: Colors.grey),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6)),
+                      value: checkBoxValue,
+                      onChanged: (val) {
+                        setState(() {
+                          checkBoxValue = val;
+                        });
+                      }),
+                  const TextWidget(
+                    text: "Keep me logged in",
+                    fontSize: 15,
+                    color: Color(0xff868FAE),
+                  )
+                ],
+              )
+            ],
+          ),
           BlueBtn(
               enabled: emailState! && passwordState!,
               paddingVertical: 12,
@@ -128,20 +163,24 @@ class _LoginFormState extends State<LoginForm> {
               ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 35.0, bottom: 20),
-            child: OutlinedButtonWidget(
-              image: Image.asset("assets/images/google.png"),
-              label: "Log in with Google",
-              onPressed: () {
-                debugPrint("Google");
-              },
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 35.0, bottom: 20),
+              child: OutlinedButtonWidget(
+                image: Image.asset("assets/images/google.png"),
+                label: "Log in with Google",
+                onPressed: () {
+                  debugPrint("Google");
+                },
+              ),
             ),
           ),
-          SignUpWithApple(
-            onPressed: () {
-              debugPrint("Apple");
-            },
+          Center(
+            child: SignUpWithApple(
+              onPressed: () {
+                debugPrint("Apple");
+              },
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
