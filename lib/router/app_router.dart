@@ -1,6 +1,7 @@
 import 'package:aquayar/app/error/error_screen.dart';
+import 'package:aquayar/app/presentation/screens/create_new_password_screen.dart';
 import 'package:aquayar/app/presentation/screens/email_sent_screen.dart';
-import 'package:aquayar/app/presentation/screens/forgot_passport.dart';
+import 'package:aquayar/app/presentation/screens/reset_password.dart';
 import 'package:aquayar/app/presentation/screens/gender_screen.dart';
 import 'package:aquayar/app/presentation/screens/home_screen.dart';
 import 'package:aquayar/app/presentation/screens/login_screen.dart';
@@ -51,51 +52,17 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => const EmailSentScreen(),
         );
-      // case Routes.cartScreen:
-      //   return MaterialPageRoute(
-      //     builder: (_) => const CartScreen(),
-      //   );
-      // case Routes.productScreen:
-      //   var data = routeSettings.arguments as ProductModel;
-      //   return MaterialPageRoute(
-      //     builder: (_) => ProductScreen(product: data),
-      //   );
-      // case Routes.loginScreen:
-      //   return MaterialPageRoute(
-      //     builder: (_) => const LoginScreen(),
-      //   );
+      case Routes.createNewPassword:
+        return MaterialPageRoute(
+          builder: (_) => const CreateNewPasswordScreen(),
+        );
 
-      // case Routes.passwordRecoveryScreen:
-      //   return MaterialPageRoute(
-      //     builder: (_) => const PasswordRecoveryScreen(),
-      //   );
-      // case Routes.otpVerifcationScreen:
-      //   return MaterialPageRoute(
-      //     builder: (_) => const OTPVerificationScreen(),
-      //   );
-
-      // case Routes.homeScreen:
-      //   return MaterialPageRoute(
-      //     builder: (_) => const HomeScreen(),
-      //   );
       // case Routes.payNowScreen:
       //   var data = routeSettings.arguments as CardModel;
       //   return MaterialPageRoute(
       //     builder: (_) => PayNowScreen(card: data),
       //   );
-      // case Routes.paymentScreen:
-      //   return MaterialPageRoute(
-      //     builder: (_) => const PaymentChoiceScreen(),
-      //   );
-      // case Routes.orderDetails:
-      //   return MaterialPageRoute(
-      //     builder: (_) => const OrderDetails(),
-      //   );
 
-      // case Routes.loading:
-      //   return MaterialPageRoute(
-      //     builder: (_) => const LoadingScreen(),
-      //   );
       default:
         return MaterialPageRoute(
           builder: (_) => const ErrorScreen(),

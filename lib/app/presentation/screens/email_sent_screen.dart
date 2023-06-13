@@ -1,5 +1,6 @@
 import 'package:aquayar/app/presentation/widgets/outlined_btn.dart';
 import 'package:aquayar/app/presentation/widgets/title_text.dart';
+import 'package:aquayar/router/routes.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
@@ -64,7 +65,10 @@ class _EmailSentScreenState extends State<EmailSentScreen> {
                           onPressed: () {},
                         ),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, Routes.createNewPassword);
+                          },
                           child: Container(
                             width: 170,
                             padding: const EdgeInsets.symmetric(
