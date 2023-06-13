@@ -151,7 +151,8 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                 onPressed: () {
                   final formIsValid = formKey.currentState?.validate();
                   if (formIsValid!) {
-                    Navigator.pushNamed(context, Routes.emailSent);
+                    Navigator.pushNamed(
+                        context, Routes.createNewPasswordSuccessful);
                   }
                 }),
           )

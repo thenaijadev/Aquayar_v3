@@ -1,5 +1,6 @@
 import 'package:aquayar/app/presentation/widgets/blue_btn.dart';
 import 'package:aquayar/app/presentation/widgets/title_text.dart';
+import 'package:aquayar/router/routes.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:otp_text_field/otp_field.dart';
@@ -187,94 +188,23 @@ class _OtpScreenState extends State<OtpScreen> {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 20.0),
-            child: BlueBtn(
-                enabled: otp?.length == 4,
-                paddingVertical: 12,
-                label: TextWidget(
-                  text: "              Verify",
-                  color: otp?.length == 4
-                      ? AppColors.white
-                      : AppColors.inputBorder,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                ),
-                onPressed: () {
-                  // final formIsValid = formKey.currentState?.validate();
-                  // if (formIsValid!) {
-                  //   Navigator.pushNamed(context, Routes.otp);
-                }),
-          )
+              padding: const EdgeInsets.only(bottom: 20.0),
+              child: BlueBtn(
+                  enabled: otp?.length == 4,
+                  paddingVertical: 12,
+                  label: TextWidget(
+                    text: "              Verify",
+                    color: otp?.length == 4
+                        ? AppColors.white
+                        : AppColors.inputBorder,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, Routes.registrationDone);
+                  }))
         ],
       ),
     );
   }
 }
-
-// class CountDown extends StatefulWidget {
-//   const CountDown({super.key});
-
-//   @override
-//   State<CountDown> createState() => _CountDownState();
-// }
-
-// class _CountDownState extends State<CountDown> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Center(
-//         child: Column(
-//           children: [
-//             const SizedBox(
-//               height: 50,
-//             ),
-//             // Step 8
-//             Text(
-//               '$hours:$minutes:$seconds',
-//               style: const TextStyle(
-//                   fontWeight: FontWeight.bold,
-//                   color: Colors.black,
-//                   fontSize: 50),
-//             ),
-//             const SizedBox(height: 20),
-//             // Step 9
-//             ElevatedButton(
-//               onPressed: startTimer,
-//               child: const Text(
-//                 'Start',
-//                 style: TextStyle(
-//                   fontSize: 30,
-//                 ),
-//               ),
-//             ),
-//             // Step 10
-//             ElevatedButton(
-//               onPressed: () {
-//                 if (countdownTimer == null || countdownTimer!.isActive) {
-//                   stopTimer();
-//                 }
-//               },
-//               child: const Text(
-//                 'Stop',
-//                 style: TextStyle(
-//                   fontSize: 30,
-//                 ),
-//               ),
-//             ),
-//             // Step 11
-//             ElevatedButton(
-//                 onPressed: () {
-//                   resetTimer();
-//                 },
-//                 child: const Text(
-//                   'Reset',
-//                   style: TextStyle(
-//                     fontSize: 30,
-//                   ),
-//                 ))
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
