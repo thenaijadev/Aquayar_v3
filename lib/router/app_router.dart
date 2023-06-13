@@ -1,4 +1,5 @@
 import 'package:aquayar/app/error/error_screen.dart';
+import 'package:aquayar/app/presentation/screens/email_sent_screen.dart';
 import 'package:aquayar/app/presentation/screens/forgot_passport.dart';
 import 'package:aquayar/app/presentation/screens/gender_screen.dart';
 import 'package:aquayar/app/presentation/screens/home_screen.dart';
@@ -45,6 +46,10 @@ class AppRouter {
       case Routes.forgotPassword:
         return MaterialPageRoute(
           builder: (_) => const ForgotPasswordScreen(),
+        );
+      case Routes.emailSent:
+        return MaterialPageRoute(
+          builder: (_) => const EmailSentScreen(),
         );
       // case Routes.cartScreen:
       //   return MaterialPageRoute(

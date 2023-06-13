@@ -7,4 +7,5 @@ class Routes {
   static const String phoneVerification = '/phoneVerification';
   static const String otp = '/otp';
   static const String forgotPassword = '/forgotPassword';
+  static const String emailSent = '/emailSent';
 }

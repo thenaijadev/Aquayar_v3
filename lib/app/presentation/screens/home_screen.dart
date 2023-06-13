@@ -64,7 +64,9 @@ class HomeScreen extends StatelessWidget {
               text: "Login",
               fontWeight: FontWeight.w400,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, Routes.login);
+            },
           )
         ],
       ),

@@ -1,6 +1,7 @@
 import 'package:aquayar/app/presentation/widgets/blue_btn.dart';
 import 'package:aquayar/app/presentation/widgets/text_input.dart';
 import 'package:aquayar/app/presentation/widgets/title_text.dart';
+import 'package:aquayar/router/routes.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:aquayar/utilities/validators.dart';
 import 'package:flutter/material.dart';
@@ -97,7 +98,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 onPressed: () {
                   final formIsValid = formKey.currentState?.validate();
                   if (formIsValid!) {
-                    // Navigator.pushNamed(context, Routes.otp);
+                    Navigator.pushNamed(context, Routes.emailSent);
                   }
                 }),
           )
