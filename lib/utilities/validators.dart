@@ -15,6 +15,8 @@ class Validator {
       return '$label cannot be empty';
     } else if (value.length < 3) {
       return "Your name is too short";
+    } else if (value.contains(" ")) {
+      return "$label cannot contain spaces";
     }
     return null;
   }

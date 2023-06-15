@@ -45,20 +45,18 @@ class _PasswordChangeSuccessfulScreenState
             ),
             Padding(
               padding: const EdgeInsets.only(top: 50.0, left: 10, right: 10),
-              child: Flexible(
-                child: BlueBtn(
-                    enabled: true,
-                    paddingVertical: 12,
-                    label: const TextWidget(
-                      text: "           Login",
-                      color: AppColors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                    ),
-                    onPressed: () {
-                      Navigator.pushNamed(context, Routes.login);
-                    }),
-              ),
+              child: BlueBtn(
+                  enabled: true,
+                  paddingVertical: 12,
+                  label: const TextWidget(
+                    text: "           Login",
+                    color: AppColors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, Routes.login);
+                  }),
             )
           ],
         ),

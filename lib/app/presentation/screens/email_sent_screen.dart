@@ -51,59 +51,57 @@ class _EmailSentScreenState extends State<EmailSentScreen> {
                 Padding(
                   padding:
                       const EdgeInsets.only(top: 50.0, left: 10, right: 10),
-                  child: Flexible(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        OutlinedBtn(
-                          width: 20,
-                          label: const TextWidget(
-                            text: "Skip, I'll confirm later",
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.titleBlack,
-                          ),
-                          onPressed: () {},
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      OutlinedBtn(
+                        width: 20,
+                        label: const TextWidget(
+                          text: "Skip, I'll confirm later",
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.titleBlack,
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pushNamed(
-                                context, Routes.createNewPassword);
-                          },
-                          child: Container(
-                            width: 170,
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 10,
+                        onPressed: () {},
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, Routes.createNewPassword);
+                        },
+                        child: Container(
+                          width: 170,
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 10,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            gradient: const LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.centerRight,
+                              stops: [
+                                0.1,
+                                0.6,
+                              ],
+                              colors: [
+                                Color(0xff61C7F9),
+                                Color.fromARGB(255, 4, 136, 231),
+                              ],
                             ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30),
-                              gradient: const LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: Alignment.centerRight,
-                                stops: [
-                                  0.1,
-                                  0.6,
-                                ],
-                                colors: [
-                                  Color(0xff61C7F9),
-                                  Color.fromARGB(255, 4, 136, 231),
-                                ],
-                              ),
-                            ),
-                            child: const Center(
-                              child: Padding(
-                                padding: EdgeInsets.all(4.0),
-                                child: TextWidget(
-                                  text: "Open email app",
-                                  color: AppColors.white,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                          ),
+                          child: const Center(
+                            child: Padding(
+                              padding: EdgeInsets.all(4.0),
+                              child: TextWidget(
+                                text: "Open email app",
+                                color: AppColors.white,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
-                        )
-                      ],
-                    ),
+                        ),
+                      )
+                    ],
                   ),
                 )
               ],

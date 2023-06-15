@@ -1,53 +1,6 @@
 import 'package:aquayar/app/presentation/widgets/title_text.dart';
-import 'package:aquayar/utilities/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
-
-class RadioBtns extends StatefulWidget {
-  const RadioBtns({super.key});
-
-  @override
-  State<RadioBtns> createState() => _RadioBtnsState();
-}
-
-class _RadioBtnsState extends State<RadioBtns> {
-  String? choice;
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          RadioBtn(
-              choice: choice,
-              label: Gender.Male.name,
-              onPressed: () {
-                setState(() {
-                  choice = Gender.Male.name;
-                });
-              }),
-          RadioBtn(
-              choice: choice,
-              label: Gender.Female.name.toString(),
-              onPressed: () {
-                setState(() {
-                  choice = Gender.Female.name;
-                });
-              }),
-          RadioBtn(
-              choice: choice,
-              label: "Choose not to say",
-              onPressed: () {
-                setState(() {
-                  choice = "Choose not to say";
-                });
-              })
-        ],
-      ),
-    );
-  }
-}
 
 class RadioBtn extends StatefulWidget {
   const RadioBtn(

@@ -3,6 +3,7 @@ import 'package:aquayar/app/presentation/widgets/radio_btn.dart';
 import 'package:aquayar/app/presentation/widgets/title_text.dart';
 import 'package:aquayar/router/routes.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
+import 'package:aquayar/utilities/enums.dart';
 import 'package:aquayar/utilities/validators.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +17,11 @@ class GenderScreen extends StatefulWidget {
 class _GenderScreenState extends State<GenderScreen> {
   final GlobalKey<FormFieldState> textFieldkey = GlobalKey<FormFieldState>();
   bool? nameHasError = false;
+  final formKey = GlobalKey<FormState>();
+  bool? genderSelected = false;
+  String? choice;
+  bool? genderChosen = false;
+  bool showError = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,6 +51,7 @@ class _GenderScreenState extends State<GenderScreen> {
                 ),
               ),
               Form(
+                key: formKey,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 100.0, vertical: 30),
@@ -78,7 +85,65 @@ class _GenderScreenState extends State<GenderScreen> {
                   ),
                 ),
               ),
-              const RadioBtns(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    RadioBtn(
+                        choice: choice,
+                        label: Gender.Male.name,
+                        onPressed: () {
+                          setState(() {
+                            choice = Gender.Male.name;
+                            genderChosen = true;
+                            showError = false;
+                          });
+                        }),
+                    RadioBtn(
+                        choice: choice,
+                        label: Gender.Female.name.toString(),
+                        onPressed: () {
+                          setState(() {
+                            choice = Gender.Female.name;
+                            genderChosen = true;
+                            showError = false;
+                          });
+                        }),
+                    RadioBtn(
+                        choice: choice,
+                        label: "Choose not to say",
+                        onPressed: () {
+                          setState(() {
+                            choice = "Choose not to say";
+                            genderChosen = true;
+                            showError = false;
+                          });
+                        })
+                  ],
+                ),
+              ),
+              Visibility(
+                visible: showError,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 8.0, right: 20, top: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Image.asset("assets/images/hazard.png"),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 8.0),
+                        child: TextWidget(
+                          color: Color(0xffC0362C),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          text: "Let's know you better please? Select a gender",
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              )
             ],
           ),
           Column(
@@ -104,18 +169,25 @@ class _GenderScreenState extends State<GenderScreen> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 20.0),
                 child: BlueBtn(
-                    enabled: nameHasError!,
+                    enabled: nameHasError! && genderChosen!,
                     paddingVertical: 12,
                     label: TextWidget(
                       text: "      Continue",
-                      color: nameHasError!
+                      color: nameHasError! || genderChosen == false
                           ? AppColors.white
                           : AppColors.inputBorder,
                       fontWeight: FontWeight.bold,
                       fontSize: 14,
                     ),
                     onPressed: () {
-                      Navigator.pushNamed(context, Routes.profileDetails);
+                      final formState = formKey.currentState?.validate();
+                      if (formState! && genderChosen!) {
+                        Navigator.pushNamed(context, Routes.profileDetails);
+                      } else if (!genderChosen!) {
+                        setState(() {
+                          showError = true;
+                        });
+                      }
                     }),
               ),
             ],

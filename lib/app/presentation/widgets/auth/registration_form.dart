@@ -104,7 +104,10 @@ class _RegisterationFormState extends State<RegisterationForm> {
                 fontSize: 14,
               ),
               onPressed: () {
-                Navigator.pushNamed(context, Routes.gender);
+                final formState = formKey.currentState?.validate();
+                if (formState!) {
+                  Navigator.pushNamed(context, Routes.gender);
+                }
               }),
           const SizedBox(
             height: 10,
