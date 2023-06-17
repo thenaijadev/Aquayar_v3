@@ -1,6 +1,6 @@
 import 'package:aquayar/app/bloc/auth/auth_event.dart';
 import 'package:aquayar/app/bloc/auth/auth_state.dart';
-import 'package:aquayar/app/data/providers/auth_provider.dart';
+import 'package:aquayar/app/data/interfaces/auth_provider.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -74,7 +74,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
     // initialize
     on<AuthEventInitialize>((event, emit) async {
-      await provider.initialize();
+      // await provider.initialize();
       final user = provider.currentUser;
       if (user == null) {
         emit(
@@ -83,7 +83,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             isLoading: false,
           ),
         );
-      } else if (!user.isEmailVerified) {
+      } else if (!user.isVerified) {
         emit(const AuthStateNeedsVerification(isLoading: false));
       } else {
         emit(AuthStateLoggedIn(
@@ -110,7 +110,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           password: password,
         );
 
-        if (!user.isEmailVerified) {
+        if (!user.isVerified) {
           emit(
             const AuthStateLoggedOut(
               exception: null,
@@ -130,6 +130,38 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             isLoading: false,
           ));
         }
+      } on Exception catch (e) {
+        emit(
+          AuthStateLoggedOut(
+            exception: e,
+            isLoading: false,
+          ),
+        );
+      }
+    });
+    on<AuthEventSignInWithGoogle>((event, emit) async {
+      emit(
+        const AuthStateLoggedOut(
+          exception: null,
+          isLoading: true,
+          loadingText: 'Please wait while I log you in',
+        ),
+      );
+
+      try {
+        final user = await provider.signUpWithGoogle();
+
+        emit(
+          const AuthStateLoggedOut(
+            exception: null,
+            isLoading: false,
+          ),
+        );
+
+        emit(AuthStateGoogleLoggedIn(
+          user: user,
+          isLoading: false,
+        ));
       } on Exception catch (e) {
         emit(
           AuthStateLoggedOut(

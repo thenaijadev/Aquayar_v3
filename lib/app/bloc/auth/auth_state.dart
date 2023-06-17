@@ -1,4 +1,5 @@
 import 'package:aquayar/app/data/models/auth_user.dart';
+import 'package:aquayar/app/data/models/google_auth_user.dart';
 import 'package:flutter/foundation.dart' show immutable;
 
 import 'package:equatable/equatable.dart';
@@ -39,6 +40,14 @@ class AuthStateForgotPassword extends AuthState {
 class AuthStateLoggedIn extends AuthState {
   final AuthUser user;
   const AuthStateLoggedIn({
+    required this.user,
+    required bool isLoading,
+  }) : super(isLoading: isLoading);
+}
+
+class AuthStateGoogleLoggedIn extends AuthState {
+  final GoogleAuthUser user;
+  const AuthStateGoogleLoggedIn({
     required this.user,
     required bool isLoading,
   }) : super(isLoading: isLoading);

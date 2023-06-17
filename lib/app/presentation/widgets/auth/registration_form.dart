@@ -138,8 +138,13 @@ class _RegisterationFormState extends State<RegisterationForm> {
             child: OutlinedButtonWidget(
               image: Image.asset("assets/images/google.png"),
               label: "Sign up with Google",
-              onPressed: () {
-                debugPrint("Google");
+              onPressed: () async {
+                // // final details = await GoogleSignInApi.login();
+                // final AuthProvider provider = AuthRepo.firebase();
+                // // debugPrint(details.toString());
+                // GoogleAuthUser user = await provider.signUpWithGoogle();
+                // logger
+                //     .e({user.displayName, user.email, user.id, user.photoUrl});
               },
             ),
           ),

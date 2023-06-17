@@ -1,20 +1,25 @@
-import 'package:firebase_auth/firebase_auth.dart' show User;
 import 'package:flutter/foundation.dart';
 
 @immutable
 class AuthUser {
   final String id;
   final String email;
-  final bool isEmailVerified;
-  const AuthUser({
-    required this.id,
-    required this.email,
-    required this.isEmailVerified,
-  });
+  final bool isVerified;
+  final Enum userType;
+  final String phone;
+  const AuthUser(
+      {required this.id,
+      required this.phone,
+      required this.email,
+      required this.isVerified,
+      this.userType = UserType.custumer});
 
-  factory AuthUser.fromFirebase(User user) => AuthUser(
-        id: user.uid,
-        email: user.email!,
-        isEmailVerified: user.emailVerified,
-      );
+  factory AuthUser.fromApi(user) => AuthUser(
+      id: user.id,
+      email: user.email!,
+      isVerified: user.emailVerified,
+      phone: user.phone,
+      userType: user.userType);
 }
+
+enum UserType { custumer, driver }
