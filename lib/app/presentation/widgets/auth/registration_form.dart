@@ -19,8 +19,10 @@ class _RegisterationFormState extends State<RegisterationForm> {
   final formKey = GlobalKey<FormState>();
   final formfieldkey_1 = GlobalKey<FormFieldState>();
   final formfieldkey_2 = GlobalKey<FormFieldState>();
+
   bool? emailState = false;
   bool? passwordState = false;
+  bool? confirmPasswordState = false;
   bool enabled = false;
   bool obscureText = true;
   @override
@@ -103,10 +105,14 @@ class _RegisterationFormState extends State<RegisterationForm> {
                 fontWeight: FontWeight.bold,
                 fontSize: 14,
               ),
-              onPressed: () {
+              onPressed: () async {
                 final formState = formKey.currentState?.validate();
                 if (formState!) {
-                  Navigator.pushNamed(context, Routes.gender);
+                  // // Navigator.pushNamed(context, Routes.gender);
+                  // final response = await AuthRepo.firebase().signUp(
+                  //     email: formfieldkey_1.currentState?.value,
+                  //     password: formfieldkey_.currentState?.value);
+                  // logger.e(response);
                 }
               }),
           const SizedBox(

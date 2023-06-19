@@ -29,11 +29,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-// MultiBlocProvider(
-//       providers: const [
-//         // BlocProvider(
-//         //   create: (context) => AuthBloc(FirebaseAuthProvider())
-//         //     ..add(const AuthEventInitialize()),
-//         // ),
-//       ],

@@ -1,11 +1,12 @@
 import 'package:aquayar/app/bloc/auth/auth_event.dart';
 import 'package:aquayar/app/bloc/auth/auth_state.dart';
-import 'package:aquayar/app/data/interfaces/auth_provider.dart';
+
+import 'package:aquayar/app/data/repos/auth_repo.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthBloc(AuthProvider provider)
+  AuthBloc(AuthRepo authRepo)
       : super(const AuthStateUninitialized(isLoading: true)) {
     on<AuthEventShouldRegister>((event, emit) {
       emit(const AuthStateRegistering(
@@ -35,7 +36,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       bool didSendEmail;
       Exception? exception;
       try {
-        await provider.sendPasswordReset(toEmail: email);
+        await authRepo.sendPasswordReset(toEmail: email);
         didSendEmail = true;
         exception = null;
       } on Exception catch (e) {
@@ -51,20 +52,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
     // send email verification
     on<AuthEventSendEmailVerification>((event, emit) async {
-      await provider.sendEmailVerification();
+      await authRepo.sendEmailVerification();
       emit(state);
     });
 
     on<AuthEventRegister>((event, emit) async {
       final email = event.email;
       final password = event.password;
+      emit(const AuthStateRegistering(exception: null, isLoading: true));
       try {
-        await provider.createUser(
+        final user = await authRepo.signUp(
           email: email,
           password: password,
         );
-        await provider.sendEmailVerification();
-        emit(const AuthStateNeedsVerification(isLoading: false));
+        // await authRepo.sendEmailVerification();
+        // emit(const AuthStateNeedsVerification(isLoading: false));
+        emit(AuthStateLoggedIn(user: user, isLoading: false));
       } on Exception catch (e) {
         emit(AuthStateRegistering(
           exception: e,
@@ -73,25 +76,25 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     });
     // initialize
-    on<AuthEventInitialize>((event, emit) async {
-      // await provider.initialize();
-      final user = provider.currentUser;
-      if (user == null) {
-        emit(
-          const AuthStateLoggedOut(
-            exception: null,
-            isLoading: false,
-          ),
-        );
-      } else if (!user.isVerified) {
-        emit(const AuthStateNeedsVerification(isLoading: false));
-      } else {
-        emit(AuthStateLoggedIn(
-          user: user,
-          isLoading: false,
-        ));
-      }
-    });
+    // on<AuthEventInitialize>((event, emit) async {
+    //   // await provider.initialize();
+    //   final user = provider.currentUser;
+    //   if (user == null) {
+    //     emit(
+    //       const AuthStateLoggedOut(
+    //         exception: null,
+    //         isLoading: false,
+    //       ),
+    //     );
+    //   } else if (!user.isVerified) {
+    //     emit(const AuthStateNeedsVerification(isLoading: false));
+    //   } else {
+    //     emit(AuthStateLoggedIn(
+    //       user: user,
+    //       isLoading: false,
+    //     ));
+    //   }
+    // });
 
     // log in
     on<AuthEventLogIn>((event, emit) async {
@@ -105,7 +108,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final email = event.email;
       final password = event.password;
       try {
-        final user = await provider.logIn(
+        final user = await authRepo.logIn(
           email: email,
           password: password,
         );
@@ -149,7 +152,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       );
 
       try {
-        final user = await provider.signUpWithGoogle();
+        final user = await authRepo.signUpWithGoogle();
 
         emit(
           const AuthStateLoggedOut(
@@ -174,7 +177,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     // log out
     on<AuthEventLogOut>((event, emit) async {
       try {
-        await provider.logOut();
+        await authRepo.logOut();
         emit(
           const AuthStateLoggedOut(
             exception: null,

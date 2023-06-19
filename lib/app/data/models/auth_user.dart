@@ -7,19 +7,22 @@ class AuthUser {
   final bool isVerified;
   final Enum userType;
   final String phone;
+  final String authToken;
   const AuthUser(
-      {required this.id,
+      {required this.authToken,
+      required this.id,
       required this.phone,
       required this.email,
       required this.isVerified,
       this.userType = UserType.custumer});
 
-  factory AuthUser.fromApi(user) => AuthUser(
-      id: user.id,
-      email: user.email!,
-      isVerified: user.emailVerified,
-      phone: user.phone,
-      userType: user.userType);
+  factory AuthUser.fromJson(user, email) => AuthUser(
+      id: user["data"]["user"]["id"],
+      email: email,
+      isVerified: false,
+      phone: "",
+      userType: UserType.custumer,
+      authToken: user["data"]["token"]);
 }
 
 enum UserType { custumer, driver }
