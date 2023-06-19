@@ -134,7 +134,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   fieldStyle: FieldStyle.underline,
                   onChanged: (val) {
                     otp = val;
-                    print(val);
+                    debugPrint(val);
                   },
                 ),
               ),

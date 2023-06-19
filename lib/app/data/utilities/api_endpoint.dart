@@ -1,7 +1,7 @@
 class RoutesAndPaths {
   static const String baseUrl = "https://aquayar.up.railway.app";
   static const String user = "/api/users/me";
-  static const String googleAuthSignUpSignIn = "/api/auth/google/token/";
+  static const String googleAuthSignUpSignIn = "/api/auth/sign-up/google/";
   static const String authSignUp = "/api/auth/sign-up/";
   static const String authSignIn = "/api/auth/sign-in/";
   static const String authForgotPassword = "/api/auth/forgot-password/";

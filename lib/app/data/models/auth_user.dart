@@ -8,21 +8,32 @@ class AuthUser {
   final Enum userType;
   final String phone;
   final String authToken;
+  final String displayName;
+  final String photoUrl;
+
   const AuthUser(
       {required this.authToken,
+      required this.photoUrl,
       required this.id,
       required this.phone,
+      required this.displayName,
       required this.email,
       required this.isVerified,
       this.userType = UserType.custumer});
 
-  factory AuthUser.fromJson(user, email) => AuthUser(
-      id: user["data"]["user"]["id"],
-      email: email,
-      isVerified: false,
-      phone: "",
-      userType: UserType.custumer,
-      authToken: user["data"]["token"]);
+  factory AuthUser.fromJson(
+    user,
+  ) {
+    return AuthUser(
+        id: user["data"]["user"]["id"],
+        isVerified: false,
+        email: user["email"],
+        displayName: user["displayName"],
+        phone: "",
+        photoUrl: user["photoUrl"],
+        userType: UserType.custumer,
+        authToken: user["data"]["token"]);
+  }
 }
 
 enum UserType { custumer, driver }

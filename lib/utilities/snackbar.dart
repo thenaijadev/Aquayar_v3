@@ -1,3 +1,4 @@
+import 'package:aquayar/app/presentation/widgets/title_text.dart';
 import 'package:flutter/material.dart';
 
 class InfoSnackBar {
@@ -30,23 +31,26 @@ class InfoSnackBar {
 
   static SnackBar errorSnackBar(String message) {
     return SnackBar(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      backgroundColor: Colors.red,
+      duration: const Duration(seconds: 2),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      backgroundColor: const Color(0xffFCD9D7),
       behavior: SnackBarBehavior.floating,
       content: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            const Icon(
-              Icons.warning_amber_rounded,
-              color: Colors.white,
-              size: 30,
+            Flexible(
+              flex: 1,
+              child: Image.asset("assets/images/caution.png"),
+            ),
+            const SizedBox(
+              width: 20,
             ),
             Flexible(
-              child: Text(
-                message,
-                style: const TextStyle(fontWeight: FontWeight.bold),
+              flex: 5,
+              child: TextWidget(
+                text: message,
+                color: const Color(0xffbac2f0d0b),
               ),
             ),
           ],

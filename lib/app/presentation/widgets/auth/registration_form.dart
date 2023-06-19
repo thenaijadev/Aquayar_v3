@@ -1,3 +1,6 @@
+import 'package:aquayar/app/bloc/auth/auth_bloc.dart';
+import 'package:aquayar/app/bloc/auth/auth_event.dart';
+import 'package:aquayar/app/bloc/auth/auth_state.dart';
 import 'package:aquayar/app/presentation/widgets/auth/oauth_btn.dart';
 import 'package:aquayar/app/presentation/widgets/blue_btn.dart';
 import 'package:aquayar/app/presentation/widgets/text_input.dart';
@@ -5,17 +8,22 @@ import 'package:aquayar/app/presentation/widgets/title_text.dart';
 import 'package:aquayar/router/routes.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:aquayar/app/presentation/widgets/auth/apple_auth_btn.dart';
+import 'package:aquayar/utilities/logger.dart';
+import 'package:aquayar/utilities/snackbar.dart';
 import 'package:aquayar/utilities/validators.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-class RegisterationForm extends StatefulWidget {
+class RegisterationForm extends ConsumerStatefulWidget {
   const RegisterationForm({super.key});
 
   @override
-  State<RegisterationForm> createState() => _RegisterationFormState();
+  ConsumerState<RegisterationForm> createState() => _RegisterationFormState();
 }
 
-class _RegisterationFormState extends State<RegisterationForm> {
+class _RegisterationFormState extends ConsumerState<RegisterationForm> {
   final formKey = GlobalKey<FormState>();
   final formfieldkey_1 = GlobalKey<FormFieldState>();
   final formfieldkey_2 = GlobalKey<FormFieldState>();
@@ -27,6 +35,8 @@ class _RegisterationFormState extends State<RegisterationForm> {
   bool obscureText = true;
   @override
   Widget build(BuildContext context) {
+    final AuthBloc authBloc = BlocProvider.of<AuthBloc>(context);
+
     return Form(
       key: formKey,
       child: Column(
@@ -96,25 +106,45 @@ class _RegisterationFormState extends State<RegisterationForm> {
               },
             ),
           ),
-          BlueBtn(
-              enabled: emailState! && passwordState!,
-              paddingVertical: 12,
-              label: TextWidget(
-                text: "      Continue",
-                color: enabled ? AppColors.white : AppColors.inputBorder,
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-              ),
-              onPressed: () async {
-                final formState = formKey.currentState?.validate();
-                if (formState!) {
-                  // // Navigator.pushNamed(context, Routes.gender);
-                  // final response = await AuthRepo.firebase().signUp(
-                  //     email: formfieldkey_1.currentState?.value,
-                  //     password: formfieldkey_.currentState?.value);
-                  // logger.e(response);
-                }
-              }),
+          BlocConsumer<AuthBloc, AuthState>(
+            listener: (context, state) {
+              logger.e(state);
+              if (state is AuthStateRegistered) {
+                Navigator.pushNamed(context, Routes.gender);
+              } else if (state is AuthStateRegistrationError) {
+                InfoSnackBar.showErrorSnackBar(context, state.message);
+              }
+            },
+            builder: (context, state) {
+              return state is AuthStateIsLoading
+                  ? const Padding(
+                      padding: EdgeInsets.only(top: 20.0),
+                      child: SpinKitSpinningLines(
+                        color: Color.fromARGB(255, 4, 136, 231),
+                        size: 40.0,
+                      ),
+                    )
+                  : BlueBtn(
+                      enabled: emailState! && passwordState!,
+                      paddingVertical: 12,
+                      label: TextWidget(
+                        text: "      Continue",
+                        color:
+                            enabled ? AppColors.white : AppColors.inputBorder,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
+                      onPressed: () async {
+                        final formState = formKey.currentState?.validate();
+
+                        if (formState!) {
+                          authBloc.add(AuthEventRegister(
+                              email: formfieldkey_1.currentState?.value,
+                              password: formfieldkey_2.currentState?.value));
+                        }
+                      });
+            },
+          ),
           const SizedBox(
             height: 10,
           ),
@@ -145,12 +175,7 @@ class _RegisterationFormState extends State<RegisterationForm> {
               image: Image.asset("assets/images/google.png"),
               label: "Sign up with Google",
               onPressed: () async {
-                // // final details = await GoogleSignInApi.login();
-                // final AuthProvider provider = AuthRepo.firebase();
-                // // debugPrint(details.toString());
-                // GoogleAuthUser user = await provider.signUpWithGoogle();
-                // logger
-                //     .e({user.displayName, user.email, user.id, user.photoUrl});
+                authBloc.add(const AuthEventSignInWithGoogle());
               },
             ),
           ),

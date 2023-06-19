@@ -4,7 +4,6 @@ import 'package:aquayar/app/data/interfaces/auth_provider.dart';
 import 'package:aquayar/app/data/models/google_auth_user.dart';
 import 'package:aquayar/app/data/utilities/api_endpoint.dart';
 import 'package:aquayar/app/data/utilities/dio_client.dart';
-import 'package:aquayar/app/data/utilities/dio_exception.dart';
 import 'package:aquayar/utilities/logger.dart';
 import 'package:dio/dio.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -26,19 +25,14 @@ class DioAuthProvider implements AuthProvider {
       final response = await DioClient.instance.post(RoutesAndPaths.authSignUp,
           data: {"email": email, "password": password});
 
-      return response;
-    } on DioException catch (error) {
-      if (error.response?.statusCode == 400) {
-        throw EmailAlreadyInUseAuthException.fromJson(error.response?.data);
-      } else {
-        throw DioExceptionClass.fromDioError(error);
-      }
+      return {...response, "email": email, "displayName": "", "photoUrl": ""};
+    } on DioException {
+      rethrow;
     } catch (e) {
       throw GenericAuthException();
     }
   }
 
-  @override
   AuthUser? get currentUser {
     return null;
 
@@ -120,20 +114,25 @@ class DioAuthProvider implements AuthProvider {
   }
 
   @override
-  Future<GoogleAuthUser> signUpWithGoogle() async {
+  Future<Map<String, dynamic>> signUpWithGoogle() async {
     final googleSignIn = GoogleSignIn();
 
     try {
       final GoogleSignInAccount? user = await googleSignIn.signIn();
+      logger.e(user);
       if (user != null) {
         final userDetails = GoogleAuthUser.fromGoogle(user);
-        final response = DioClient.instance
+        final response = await DioClient.instance
             .post(RoutesAndPaths.googleAuthSignUpSignIn, data: {
           "profileId": userDetails.id,
-          "type": UserType.custumer.name
         });
-        //TODO: return the response
-        return GoogleAuthUser.fromGoogle(user);
+
+        return {
+          ...response,
+          "email": userDetails.email,
+          "displayName": userDetails.displayName,
+          "photoUrl": userDetails.photoUrl
+        };
       } else {
         throw UserNotLoggedInAuthException();
       }

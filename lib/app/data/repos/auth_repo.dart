@@ -1,11 +1,12 @@
+import 'dart:async';
+
 import 'package:aquayar/app/data/interfaces/auth_provider.dart';
 import 'package:aquayar/app/data/models/auth_user.dart';
-import 'package:aquayar/app/data/models/google_auth_user.dart';
 import 'package:aquayar/app/data/providers/auth_provider.dart';
 
 class AuthRepo {
   final AuthProvider provider;
-  const AuthRepo(this.provider);
+  AuthRepo(this.provider);
 
   factory AuthRepo.fromDio() => AuthRepo(DioAuthProvider());
 
@@ -17,14 +18,17 @@ class AuthRepo {
       email: email,
       password: password,
     );
-    return AuthUser.fromJson(response, email);
+    final AuthUser user = AuthUser.fromJson(
+      response,
+    );
+
+    return user;
     // AuthUser.fromApi(response);
   }
 
   // @override
   // AuthUser? get currentUser => provider.currentUser;
 
-  @override
   Future<AuthUser> logIn({
     required String email,
     required String password,
@@ -34,21 +38,21 @@ class AuthRepo {
         password: password,
       );
 
-  @override
   Future<void> logOut() => provider.logOut();
 
-  @override
   Future<void> sendEmailVerification() => provider.sendEmailVerification();
 
   // @override
   // Future<void> initialize() => provider.initialize();
 
-  @override
   Future<void> sendPasswordReset({required String toEmail}) =>
       provider.sendPasswordReset(toEmail: toEmail);
 
-  @override
-  Future<GoogleAuthUser> signUpWithGoogle() async {
-    return provider.signUpWithGoogle();
+  Future<AuthUser> signUpWithGoogle() async {
+    final response = await provider.signUpWithGoogle();
+
+    return AuthUser.fromJson(
+      response,
+    );
   }
 }
