@@ -1,6 +1,7 @@
 import 'package:aquayar/app/bloc/auth/auth_event.dart';
 import 'package:aquayar/app/bloc/auth/auth_state.dart';
 import 'package:aquayar/app/data/repos/auth_repo.dart';
+import 'package:aquayar/app/data/repos/user_repo.dart';
 import 'package:aquayar/app/data/utilities/dio_exception.dart';
 import 'package:aquayar/utilities/logger.dart';
 import 'package:dio/dio.dart';
@@ -8,7 +9,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthBloc(AuthRepo authRepo) : super(AuthStateInitial()) {
+  AuthBloc(AuthRepo authRepo, UserRepo userRepo) : super(AuthStateInitial()) {
     on<AuthEventRegister>((event, emit) async {
       emit(AuthStateIsLoading());
       final String email = event.email;
@@ -47,7 +48,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         String token = event.token;
 
         try {
-          final user = await authRepo.updateUser(
+          final user = await userRepo.updateUser(
               name: name, gender: gender, token: token);
           emit(AuthStateUserNameAndGenderUpdated(user: user));
           print(user.id);

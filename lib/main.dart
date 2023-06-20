@@ -1,5 +1,6 @@
 import 'package:aquayar/app/bloc/auth/auth_bloc.dart';
 import 'package:aquayar/app/data/repos/auth_repo.dart';
+import 'package:aquayar/app/data/repos/user_repo.dart';
 import 'package:aquayar/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final appRouter = AppRouter();
     return BlocProvider(
-      create: (context) => AuthBloc(AuthRepo.fromDio()),
+      create: (context) => AuthBloc(AuthRepo.fromDio(), UserRepo.fromDio()),
       child: GestureDetector(
         onTap: () {
           FocusManager.instance.primaryFocus?.unfocus();

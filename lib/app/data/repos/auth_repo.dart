@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:aquayar/app/data/interfaces/auth_provider.dart';
 import 'package:aquayar/app/data/models/auth_user.dart';
-import 'package:aquayar/app/data/models/updated_user.dart';
+
 import 'package:aquayar/app/data/providers/auth_provider.dart';
 
 class AuthRepo {
@@ -53,21 +53,6 @@ class AuthRepo {
     final response = await provider.signUpWithGoogle();
 
     return AuthUser.fromJson(
-      response,
-    );
-  }
-
-  Future<UpdatedUser> updateUser(
-      {required String name,
-      required String gender,
-      required String token}) async {
-    final response = await provider.updateUser(
-      gender: gender,
-      token: token,
-      name: name,
-    );
-
-    return UpdatedUser.fromJson(
       response,
     );
   }
