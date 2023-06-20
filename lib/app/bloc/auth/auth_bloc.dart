@@ -38,5 +38,26 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         }
       },
     );
+
+    on<AuthEventUpdateGenderAndName>(
+      (event, emit) async {
+        emit(AuthStateIsLoading());
+        String name = event.name;
+        String gender = event.gender;
+        String token = event.token;
+
+        try {
+          final user = await authRepo.updateUser(
+              name: name, gender: gender, token: token);
+          emit(AuthStateUserNameAndGenderUpdated(user: user));
+          print(user.id);
+        } on DioException catch (error) {
+          logger.e(error.response?.data);
+          final message = DioExceptionClass.fromDioError(error);
+
+          emit(AuthStateRegistrationError(message: message.errorMessage));
+        }
+      },
+    );
   }
 }

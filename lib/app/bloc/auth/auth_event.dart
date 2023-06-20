@@ -41,3 +41,11 @@ class AuthEventLogOut extends AuthEvent {
 class AuthEventSignInWithGoogle extends AuthEvent {
   const AuthEventSignInWithGoogle();
 }
+
+class AuthEventUpdateGenderAndName extends AuthEvent {
+  final String name;
+  final String gender;
+  final String token;
+  const AuthEventUpdateGenderAndName(
+      {required this.name, required this.gender, required this.token});
+}

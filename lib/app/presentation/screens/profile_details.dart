@@ -13,8 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:searchfield/searchfield.dart';
 
 class ProfileDetailsScreen extends StatefulWidget {
-  const ProfileDetailsScreen({super.key});
-
+  const ProfileDetailsScreen({super.key, required this.name});
+  final String name;
   @override
   State<ProfileDetailsScreen> createState() => _ProfileDetailsScreenState();
 }
@@ -74,10 +74,10 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(left: 20.0),
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0),
                 child: TextWidget(
-                  text: "Hey, Daniel👑",
+                  text: "Hey, ${widget.name}👑",
                   color: AppColors.titleBlack,
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
@@ -236,8 +236,8 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                           setState(() {
                             phoneNumberHasError =
                                 formfieldkey_3.currentState?.validate();
-                            final formIsValid =
-                                formKey.currentState?.validate();
+
+                            formKey.currentState?.validate();
                           });
                         },
                         validator: (val) {

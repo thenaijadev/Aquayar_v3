@@ -8,4 +8,5 @@ class RoutesAndPaths {
   static const String authResetPassword = "/api/auth/reset-password/";
   static const String verifyPhone = "/api/users/me/verify-phone/";
   static const String checkOtp = "/api/users/me/check-otp/";
+  static const String location = "/api/customers/me/locations/";
 }

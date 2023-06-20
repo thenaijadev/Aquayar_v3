@@ -1,3 +1,4 @@
+import 'package:aquayar/app/data/models/auth_user.dart';
 import 'package:aquayar/app/error/error_screen.dart';
 import 'package:aquayar/app/presentation/screens/create_new_password_screen.dart';
 import 'package:aquayar/app/presentation/screens/email_sent_screen.dart';
@@ -31,12 +32,14 @@ class AppRouter {
           builder: (_) => const LoginScreen(),
         );
       case Routes.gender:
+        var data = routeSettings.arguments as AuthUser;
         return MaterialPageRoute(
-          builder: (_) => const GenderScreen(),
+          builder: (_) => GenderScreen(data: data),
         );
       case Routes.profileDetails:
+        var data = routeSettings.arguments as String;
         return MaterialPageRoute(
-          builder: (_) => const ProfileDetailsScreen(),
+          builder: (_) => ProfileDetailsScreen(name: data),
         );
       case Routes.phoneVerification:
         return MaterialPageRoute(

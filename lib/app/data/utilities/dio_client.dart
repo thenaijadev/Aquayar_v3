@@ -63,7 +63,7 @@ class DioClient {
   }
 
   ///Put Method
-  Future<Map<String, dynamic>> put(String path,
+  Future<Map<String, dynamic>> patch(String path,
       {data,
       Map<String, dynamic>? queryParameters,
       Options? options,
@@ -71,7 +71,7 @@ class DioClient {
       ProgressCallback? onSendProgress,
       ProgressCallback? onReceiveProgress}) async {
     try {
-      final Response response = await _dio.put(
+      final Response response = await _dio.patch(
         path,
         data: data,
         queryParameters: queryParameters,

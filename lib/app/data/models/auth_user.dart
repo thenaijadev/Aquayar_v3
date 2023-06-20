@@ -2,14 +2,15 @@ import 'package:flutter/foundation.dart';
 
 @immutable
 class AuthUser {
-  final String id;
-  final String email;
-  final bool isVerified;
-  final Enum userType;
-  final String phone;
-  final String authToken;
-  final String displayName;
+  final String? id;
+  final String? email;
+  final bool? isVerified;
+  final Enum? userType;
+  final String? phone;
+  final String? authToken;
+  final String? displayName;
   final String? photoUrl;
+  final String? gender;
 
   const AuthUser(
       {required this.authToken,
@@ -19,6 +20,7 @@ class AuthUser {
       required this.displayName,
       required this.email,
       required this.isVerified,
+      this.gender,
       this.userType = UserType.custumer});
 
   factory AuthUser.fromJson(

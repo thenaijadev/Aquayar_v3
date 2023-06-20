@@ -110,7 +110,7 @@ class _RegisterationFormState extends ConsumerState<RegisterationForm> {
             listener: (context, state) {
               logger.e(state);
               if (state is AuthStateRegistered) {
-                Navigator.pushNamed(context, Routes.gender);
+                Navigator.pushNamed(context, Routes.gender,arguments: state.getUser);
               } else if (state is AuthStateRegistrationError) {
                 InfoSnackBar.showErrorSnackBar(context, state.message);
               }

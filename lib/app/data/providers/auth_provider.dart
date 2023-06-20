@@ -142,4 +142,30 @@ class DioAuthProvider implements AuthProvider {
       rethrow;
     }
   }
+
+  @override
+  Future<Map<String, dynamic>> updateUser(
+      {required String name,
+      required String gender,
+      required String token}) async {
+    logger.e(token);
+    try {
+      final response = await DioClient.instance.patch(
+        RoutesAndPaths.user,
+        data: {"email": name, "password": gender},
+        options: Options(
+          headers: {"Authorization": "Bearer $token"},
+        ),
+      );
+      // options: Options(headers: {"token": token}));
+
+      return {
+        ...response,
+      };
+    } on DioException {
+      rethrow;
+    } catch (e) {
+      throw GenericAuthException();
+    }
+  }
 }
