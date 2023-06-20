@@ -37,6 +37,8 @@ class Validator {
       return 'Please enter mobile number';
     } else if (!regExp.hasMatch(value)) {
       return 'Please enter valid mobile number';
+    } else if (value.length < 11) {
+      return 'Please enter valid mobile number';
     }
     return null;
   }

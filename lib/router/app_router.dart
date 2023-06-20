@@ -42,8 +42,9 @@ class AppRouter {
           builder: (_) => ProfileDetailsScreen(data: data),
         );
       case Routes.phoneVerification:
+        var data = routeSettings.arguments as List;
         return MaterialPageRoute(
-          builder: (_) => const PhoneVerificationScreen(),
+          builder: (_) => PhoneVerificationScreen(data: data),
         );
       case Routes.otp:
         return MaterialPageRoute(

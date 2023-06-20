@@ -1,14 +1,15 @@
 import 'package:aquayar/app/presentation/widgets/blue_btn.dart';
 import 'package:aquayar/app/presentation/widgets/text_input.dart';
 import 'package:aquayar/app/presentation/widgets/title_text.dart';
-import 'package:aquayar/router/routes.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:aquayar/utilities/helper_functions.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 
 class PhoneVerificationScreen extends StatefulWidget {
-  const PhoneVerificationScreen({super.key});
+  const PhoneVerificationScreen({super.key, required this.data});
+
+  final List data;
 
   @override
   State<PhoneVerificationScreen> createState() =>
@@ -27,6 +28,7 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
 
   @override
   void initState() {
+    print([widget.data[0], widget.data[1]]);
     super.initState();
   }
 
@@ -81,7 +83,8 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                     Padding(
                       padding: const EdgeInsets.only(top: 40.0),
                       child: InputFieldWidget(
-                        initialValue: "+234-812-309-4065",
+                        initialValue:
+                            formatPhoneNumber(widget.data[1], widget.data[2]),
                         suffixIcon:
                             Image.asset("assets/images/check_circle.png"),
                         prefixicon: Padding(
@@ -152,7 +155,11 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                 onPressed: () {
                   final formIsValid = formKey.currentState?.validate();
                   if (formIsValid!) {
-                    Navigator.pushNamed(context, Routes.otp);
+                    String number =
+                        formatPhoneNumber(widget.data[1], widget.data[2]);
+                    String newNumber = number.replaceAll("-", "");
+
+                    // Navigator.pushNamed(context, Routes.otp);
                   }
                 }),
           )
@@ -160,4 +167,8 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
       ),
     );
   }
+}
+
+String formatPhoneNumber(String number, String countryCode) {
+  return "+$countryCode-${number.substring(1, 4)}-${number.substring(4, 7)}-${number.substring(7, number.length)}";
 }

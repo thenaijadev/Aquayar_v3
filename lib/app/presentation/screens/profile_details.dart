@@ -38,7 +38,8 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
   bool obscureText = false;
   String? countryFlag = "🇳🇬";
   bool? phoneNumberHasError = false;
-
+  String? choice;
+  String countryCode = "234";
   @override
   void initState() {
     cityController = TextEditingController();
@@ -217,6 +218,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                                     changeCountry(context, (Country country) {
                                       setState(() {
                                         countryFlag = country.flagEmoji;
+                                        countryCode = country.phoneCode;
                                       });
                                     });
                                   },
@@ -265,7 +267,29 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                   color: AppColors.titleBlack,
                 ),
               ),
-              const TankSizeRadioBtns(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                child: SizedBox(
+                  height: 50,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, int) {
+                      return Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: TankSizeRadioBtn(
+                            label: tankSizes[int],
+                            onPressed: () {
+                              setState(() {
+                                choice = tankSizes[int];
+                              });
+                            },
+                            choice: choice),
+                      );
+                    },
+                    itemCount: tankSizes.length,
+                  ),
+                ),
+              ),
               const Padding(
                 padding: EdgeInsets.only(left: 30, top: 10),
                 child: Row(
@@ -299,7 +323,12 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                   listener: (context, state) {
                     logger.e(state);
                     if (state is UserStateLocationUpdated) {
-                      Navigator.pushNamed(context, Routes.phoneVerification);
+                      Navigator.pushNamed(context, Routes.phoneVerification,
+                          arguments: [
+                            widget.data,
+                            formfieldkey_3.currentState?.value,
+                            countryCode
+                          ]);
                     } else if (state is UserStateError) {
                       InfoSnackBar.showErrorSnackBar(context, state.message);
                     }
@@ -315,31 +344,32 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                       );
                     } else {
                       return BlueBtn(
-                        enabled: addressState! &&
-                            city.isNotEmpty &&
-                            phoneNumberHasError!,
-                        paddingVertical: 12,
-                        label: TextWidget(
-                          text: "      Continue",
-                          color: addressState! &&
-                                  city.isNotEmpty &&
-                                  phoneNumberHasError!
-                              ? AppColors.white
-                              : AppColors.inputBorder,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                        onPressed: () {
-                          final formIsValid = formKey.currentState?.validate();
-                          if (formIsValid!) {
-                            userBloc.add(UserEventUpdateCustomerLocation(
-                                name: widget.data["name"],
-                                city: city,
-                                address: formfieldkey_1.currentState?.value,
-                                token: widget.data["token"]));
-                          }
-                        },
-                      );
+                          enabled: addressState! &&
+                              city.isNotEmpty &&
+                              phoneNumberHasError!,
+                          paddingVertical: 12,
+                          label: TextWidget(
+                            text: "      Continue",
+                            color: addressState! &&
+                                    city.isNotEmpty &&
+                                    phoneNumberHasError!
+                                ? AppColors.white
+                                : AppColors.inputBorder,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                          onPressed: () {
+                            final formIsValid =
+                                formKey.currentState?.validate();
+                            if (formIsValid!) {
+                              userBloc.add(UserEventUpdateCustomerLocation(
+                                  name: widget.data["name"],
+                                  city: city,
+                                  address: formfieldkey_1.currentState?.value,
+                                  tankSize: double.parse(choice!).toDouble(),
+                                  token: widget.data["token"]));
+                            }
+                          });
                     }
                   },
                 ),

@@ -2,43 +2,6 @@ import 'package:aquayar/app/presentation/widgets/title_text.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
-class TankSizeRadioBtns extends StatefulWidget {
-  const TankSizeRadioBtns({super.key});
-
-  @override
-  State<TankSizeRadioBtns> createState() => _TankSizeRadioBtnsState();
-}
-
-class _TankSizeRadioBtnsState extends State<TankSizeRadioBtns> {
-  String? choice;
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30.0),
-      child: SizedBox(
-        height: 50,
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, int) {
-            return Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: TankSizeRadioBtn(
-                  label: tankSizes[int],
-                  onPressed: () {
-                    setState(() {
-                      choice = tankSizes[int];
-                    });
-                  },
-                  choice: choice),
-            );
-          },
-          itemCount: tankSizes.length,
-        ),
-      ),
-    );
-  }
-}
-
 class TankSizeRadioBtn extends StatefulWidget {
   const TankSizeRadioBtn(
       {super.key,

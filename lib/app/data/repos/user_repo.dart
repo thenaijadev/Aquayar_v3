@@ -31,7 +31,11 @@ class UserRepo {
     required String token,
   }) async {
     final response = await provider.addLocation(
-        address: address, city: city, name: name, token: token);
+        address: address,
+        city: city,
+        name: name,
+        token: token,
+        tankSize: tankSize);
     logger.e(response);
   }
 }

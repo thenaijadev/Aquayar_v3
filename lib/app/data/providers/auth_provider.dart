@@ -23,10 +23,12 @@ class DioAuthProvider implements AuthProvider {
   }) async {
     try {
       final response = await DioClient.instance.post(RoutesAndPaths.authSignUp,
-          data: {"email": email, "password": password});
+          data: {"email": email, "password": password, "type": "customer"});
 
       return {...response, "email": email, "displayName": "", "photoUrl": ""};
-    } on DioException {
+    } on DioException catch (e) {
+      print(e.response?.data);
+
       rethrow;
     } catch (e) {
       throw GenericAuthException();

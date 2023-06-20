@@ -17,13 +17,14 @@ class UserProvider implements UserProviderInterface {
   }) async {
     try {
       Position position = await getUserLocation();
+      print({"tank": tankSize});
       final response = await DioClient.instance.post(
         RoutesAndPaths.location,
         data: {
           "address": address,
           "city": city,
           "name": name,
-          "tankize": tankSize,
+          "tankSize": tankSize,
           "longitude": position.longitude,
           "latitude": position.latitude
         },
