@@ -1,3 +1,5 @@
+import 'package:aquayar/app/bloc/user/user_bloc.dart';
+import 'package:aquayar/app/bloc/user/user_state.dart';
 import 'package:aquayar/app/presentation/widgets/blue_btn.dart';
 import 'package:aquayar/app/presentation/widgets/tanksize_radio_btns.dart';
 import 'package:aquayar/app/presentation/widgets/text_input.dart';
@@ -6,10 +8,14 @@ import 'package:aquayar/router/routes.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:aquayar/utilities/constants.dart/nigerian_states.dart';
 import 'package:aquayar/utilities/helper_functions.dart';
+import 'package:aquayar/utilities/logger.dart';
+import 'package:aquayar/utilities/snackbar.dart';
 import 'package:aquayar/utilities/validators.dart';
 import 'package:country_picker/country_picker.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:searchfield/searchfield.dart';
 
 class ProfileDetailsScreen extends StatefulWidget {
@@ -41,6 +47,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    UserBloc userBloc = context.watch<UserBloc>();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.white,
@@ -288,27 +295,54 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(bottom: 20.0),
-                child: BlueBtn(
-                    enabled: addressState! &&
-                        city.isNotEmpty &&
-                        phoneNumberHasError!,
-                    paddingVertical: 12,
-                    label: TextWidget(
-                      text: "      Continue",
-                      color: addressState! &&
-                              city.isNotEmpty &&
-                              phoneNumberHasError!
-                          ? AppColors.white
-                          : AppColors.inputBorder,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                    ),
-                    onPressed: () {
-                      final formIsValid = formKey.currentState?.validate();
-                      if (formIsValid!) {
-                        Navigator.pushNamed(context, Routes.phoneVerification);
-                      }
-                    }),
+                child: BlocConsumer<UserBloc, UserState>(
+                  listener: (context, state) {
+                    logger.e(state);
+                    if (state is UserStateLocationUpdated) {
+                      Navigator.pushNamed(context, Routes.phoneVerification);
+                    } else if (state is UserStateError) {
+                      InfoSnackBar.showErrorSnackBar(context, state.message);
+                    }
+                  },
+                  builder: (context, state) {
+                    if (state is UserStateIsLoading) {
+                      return const Padding(
+                        padding: EdgeInsets.only(top: 20.0),
+                        child: SpinKitSpinningLines(
+                          color: Color.fromARGB(255, 4, 136, 231),
+                          size: 40.0,
+                        ),
+                      );
+                    } else {
+                      return BlueBtn(
+                        enabled: addressState! &&
+                            city.isNotEmpty &&
+                            phoneNumberHasError!,
+                        paddingVertical: 12,
+                        label: TextWidget(
+                          text: "      Continue",
+                          color: addressState! &&
+                                  city.isNotEmpty &&
+                                  phoneNumberHasError!
+                              ? AppColors.white
+                              : AppColors.inputBorder,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                        onPressed: () {
+                          final formIsValid = formKey.currentState?.validate();
+                          if (formIsValid!) {
+                            userBloc.add(UserEventUpdateCustomerLocation(
+                                name: widget.data["name"],
+                                city: city,
+                                address: formfieldkey_1.currentState?.value,
+                                token: widget.data["token"]));
+                          }
+                        },
+                      );
+                    }
+                  },
+                ),
               ),
             ],
           )

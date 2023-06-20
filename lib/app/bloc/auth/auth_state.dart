@@ -12,9 +12,9 @@ class AuthStateInitial extends AuthState {}
 
 class AuthStateIsLoading extends AuthState {}
 
-class AuthStateRegistrationError extends AuthState {
+class AuthStateError extends AuthState {
   final String message;
-  AuthStateRegistrationError({
+  AuthStateError({
     required this.message,
   });
 }

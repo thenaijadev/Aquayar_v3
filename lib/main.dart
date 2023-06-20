@@ -1,10 +1,10 @@
 import 'package:aquayar/app/bloc/auth/auth_bloc.dart';
+import 'package:aquayar/app/bloc/user/user_bloc.dart';
 import 'package:aquayar/app/data/repos/auth_repo.dart';
 import 'package:aquayar/app/data/repos/user_repo.dart';
 import 'package:aquayar/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -21,19 +21,24 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appRouter = AppRouter();
-    return BlocProvider(
-      create: (context) => AuthBloc(AuthRepo.fromDio(), UserRepo.fromDio()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => AuthBloc(AuthRepo.fromDio(), UserRepo.fromDio()),
+        ),
+        BlocProvider(
+          create: (context) => UserBloc(UserRepo.fromDio()),
+        ),
+      ],
       child: GestureDetector(
         onTap: () {
           FocusManager.instance.primaryFocus?.unfocus();
         },
-        child: ProviderScope(
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Flutter Demo',
-            initialRoute: "/",
-            onGenerateRoute: appRouter.onGenerateRoute,
-          ),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          initialRoute: "/",
+          onGenerateRoute: appRouter.onGenerateRoute,
         ),
       ),
     );

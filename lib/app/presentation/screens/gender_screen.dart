@@ -183,9 +183,9 @@ class _GenderScreenState extends State<GenderScreen> {
                       Navigator.pushNamed(context, Routes.profileDetails,
                           arguments: {
                             "name": textFieldkey.currentState?.value,
-                            "token": token
+                            "token": widget.data.authToken
                           });
-                    } else if (state is AuthStateRegistrationError) {
+                    } else if (state is AuthStateError) {
                       InfoSnackBar.showErrorSnackBar(context, state.message);
                     } else if (state is AuthStateRegistered) {
                       token = state.user.authToken;

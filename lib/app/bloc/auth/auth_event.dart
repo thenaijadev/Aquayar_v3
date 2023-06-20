@@ -54,7 +54,7 @@ class AuthEventUpdateCustomerLocation extends AuthEvent {
   final String name;
   final String city;
   final String address;
-  final String? tankSize;
+  final double? tankSize;
   final String token;
 
   const AuthEventUpdateCustomerLocation(

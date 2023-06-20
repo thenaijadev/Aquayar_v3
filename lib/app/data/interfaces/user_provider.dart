@@ -12,6 +12,6 @@ abstract class UserProviderInterface {
       {required String address,
       required String city,
       required String name,
-      String? tankSize,
+      double? tankSize,
       required String token});
 }
