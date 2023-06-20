@@ -125,6 +125,8 @@ class DioAuthProvider implements AuthProvider {
         final response = await DioClient.instance
             .post(RoutesAndPaths.googleAuthSignUpSignIn, data: {
           "profileId": userDetails.id,
+          "email": userDetails.email,
+          "displayName": userDetails.displayName
         });
 
         return {

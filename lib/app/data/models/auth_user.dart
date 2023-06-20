@@ -9,7 +9,7 @@ class AuthUser {
   final String phone;
   final String authToken;
   final String displayName;
-  final String photoUrl;
+  final String? photoUrl;
 
   const AuthUser(
       {required this.authToken,
