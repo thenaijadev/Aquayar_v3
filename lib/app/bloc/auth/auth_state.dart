@@ -37,6 +37,8 @@ class AuthStateRegistered extends AuthState {
   AuthUser get getUser => user;
 }
 
+class AuthStateLocationUpdated extends AuthState {}
+
 class AuthStateUserNameAndGenderUpdated extends AuthState {
   final UpdatedUser user;
   AuthStateUserNameAndGenderUpdated({

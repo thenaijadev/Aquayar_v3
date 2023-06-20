@@ -142,13 +142,4 @@ class DioAuthProvider implements AuthProvider {
       rethrow;
     }
   }
-
-  @override
-  Future<Map<String, dynamic>> addLoaction(
-      {required String address,
-      required String city,
-      required String name,
-      String? tankSize}) {
-    throw UnimplementedError();
-  }
 }

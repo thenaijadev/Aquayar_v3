@@ -37,9 +37,9 @@ class AppRouter {
           builder: (_) => GenderScreen(data: data),
         );
       case Routes.profileDetails:
-        var data = routeSettings.arguments as String;
+        var data = routeSettings.arguments as Map;
         return MaterialPageRoute(
-          builder: (_) => ProfileDetailsScreen(name: data),
+          builder: (_) => ProfileDetailsScreen(data: data),
         );
       case Routes.phoneVerification:
         return MaterialPageRoute(

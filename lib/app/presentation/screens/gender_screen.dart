@@ -181,7 +181,10 @@ class _GenderScreenState extends State<GenderScreen> {
                   listener: (context, state) {
                     if (state is AuthStateUserNameAndGenderUpdated) {
                       Navigator.pushNamed(context, Routes.profileDetails,
-                          arguments: textFieldkey.currentState?.value);
+                          arguments: {
+                            "name": textFieldkey.currentState?.value,
+                            "token": token
+                          });
                     } else if (state is AuthStateRegistrationError) {
                       InfoSnackBar.showErrorSnackBar(context, state.message);
                     } else if (state is AuthStateRegistered) {
@@ -208,7 +211,7 @@ class _GenderScreenState extends State<GenderScreen> {
                               fontWeight: FontWeight.bold,
                               fontSize: 14,
                             ),
-                            onPressed: () {
+                            onPressed: () async {
                               final formState =
                                   formKey.currentState?.validate();
                               if (formState! && genderChosen!) {

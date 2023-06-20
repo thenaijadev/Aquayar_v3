@@ -15,10 +15,4 @@ abstract class AuthProvider {
   Future<void> sendEmailVerification();
   Future<void> sendPasswordReset({required String toEmail});
   Future<Map<String, dynamic>> signUpWithGoogle();
-
-  Future<Map<String, dynamic>> addLoaction(
-      {required String address,
-      required String city,
-      required String name,
-      String? tankSize});
 }

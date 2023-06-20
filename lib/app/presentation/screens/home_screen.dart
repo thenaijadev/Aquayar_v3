@@ -64,8 +64,10 @@ class HomeScreen extends StatelessWidget {
               text: "Login",
               fontWeight: FontWeight.w400,
             ),
-            onPressed: () {
+            onPressed: () async {
               Navigator.pushNamed(context, Routes.login);
+              // final Position position = await UserProvider().getUserLocation();
+              // logger.e({position.latitude, position.longitude});
             },
           )
         ],

@@ -1,5 +1,6 @@
 import 'package:aquayar/app/data/models/updated_user.dart';
 import 'package:aquayar/app/data/providers/user_provider.dart';
+import 'package:aquayar/utilities/logger.dart';
 
 class UserRepo {
   final UserProvider provider;
@@ -20,5 +21,17 @@ class UserRepo {
     return UpdatedUser.fromJson(
       response,
     );
+  }
+
+  Future<void> addLocation({
+    required String address,
+    required String city,
+    required String name,
+    String? tankSize,
+    required String token,
+  }) async {
+    final response = await provider.addLocation(
+        address: address, city: city, name: name, token: token);
+    logger.e(response);
   }
 }

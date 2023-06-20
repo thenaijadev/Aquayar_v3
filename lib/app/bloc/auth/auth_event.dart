@@ -49,3 +49,18 @@ class AuthEventUpdateGenderAndName extends AuthEvent {
   const AuthEventUpdateGenderAndName(
       {required this.name, required this.gender, required this.token});
 }
+
+class AuthEventUpdateCustomerLocation extends AuthEvent {
+  final String name;
+  final String city;
+  final String address;
+  final String? tankSize;
+  final String token;
+
+  const AuthEventUpdateCustomerLocation(
+      {required this.name,
+      required this.city,
+      required this.address,
+      this.tankSize,
+      required this.token});
+}

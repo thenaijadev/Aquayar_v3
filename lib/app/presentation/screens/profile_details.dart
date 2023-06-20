@@ -13,8 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:searchfield/searchfield.dart';
 
 class ProfileDetailsScreen extends StatefulWidget {
-  const ProfileDetailsScreen({super.key, required this.name});
-  final String name;
+  const ProfileDetailsScreen({super.key, required this.data});
+  final Map<dynamic, dynamic> data;
   @override
   State<ProfileDetailsScreen> createState() => _ProfileDetailsScreenState();
 }
@@ -77,7 +77,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
               Padding(
                 padding: const EdgeInsets.only(left: 20.0),
                 child: TextWidget(
-                  text: "Hey, ${widget.name}👑",
+                  text: "Hey, ${widget.data["name"]}👑",
                   color: AppColors.titleBlack,
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
