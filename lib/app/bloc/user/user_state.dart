@@ -19,3 +19,9 @@ class UserStateError extends UserState {
     required this.message,
   });
 }
+
+class UserStateRequestOtp extends UserState {}
+
+class UserStateOtpRequestSent extends UserState {}
+
+class UserStateOtpChecked extends UserState {}

@@ -1,9 +1,7 @@
-import 'package:aquayar/app/data/models/auth_user.dart';
-
 abstract class AuthProvider {
   // Future<void> initialize();
   // AuthUser? get currentUser;
-  Future<AuthUser> logIn({
+  Future<Map<String, dynamic>> logIn({
     required String email,
     required String password,
   });
@@ -12,7 +10,8 @@ abstract class AuthProvider {
     required String password,
   });
   Future<void> logOut();
-  Future<void> sendEmailVerification();
-  Future<void> sendPasswordReset({required String toEmail});
+  // Future<Map<String, dynamic>> sendEmailVerification();
+  Future<Map<String, dynamic>> sendPasswordReset({required String toEmail});
   Future<Map<String, dynamic>> signUpWithGoogle();
+  Future<Map<String, dynamic>> signInWithGoogle();
 }

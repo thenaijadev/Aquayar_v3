@@ -17,20 +17,35 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try {
         final user = await authRepo.signUp(email: email, password: password);
         emit(AuthStateRegistered(user: user));
-      } on DioException catch (error) {
-        final message = DioExceptionClass.fromDioError(error);
-
-        emit(AuthStateError(message: message.errorMessage));
+      } on DioException catch (e) {
+        emit(AuthStateError(
+            message: e.response?.data["error"]["password"]["msg"]));
       }
     });
 
-    on<AuthEventSignInWithGoogle>(
+    on<AuthEventSignUpWithGoogle>(
       (event, emit) async {
         emit(AuthStateIsLoading());
 
         try {
           final user = await authRepo.signUpWithGoogle();
           emit(AuthStateRegistered(user: user));
+        } on DioException catch (error) {
+          logger.e(error.response?.data);
+          final message = DioExceptionClass.fromDioError(error);
+
+          emit(AuthStateError(message: message.errorMessage));
+        }
+      },
+    );
+
+    on<AuthEventSignInWithGoogle>(
+      (event, emit) async {
+        emit(AuthStateIsLoading());
+
+        try {
+          final user = await authRepo.signInWithGoogle();
+          emit(AuthStateLoggedIn(user: user));
         } on DioException catch (error) {
           logger.e(error.response?.data);
           final message = DioExceptionClass.fromDioError(error);
@@ -55,6 +70,42 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           logger.e(error.response?.data);
           final message = DioExceptionClass.fromDioError(error);
 
+          emit(AuthStateError(message: message.errorMessage));
+        }
+      },
+    );
+
+    on<AuthEventLogIn>(
+      (event, emit) async {
+        emit(AuthStateIsLoading());
+
+        final String email = event.email;
+        final String password = event.password;
+        try {
+          final user = await authRepo.logIn(email: email, password: password);
+          emit(AuthStateLoggedIn(user: user));
+        } on DioException catch (error) {
+          final message = DioExceptionClass.fromDioError(error);
+
+          emit(AuthStateError(message: message.errorMessage));
+        }
+      },
+    );
+
+    on<AuthEventRequestResetEmail>(
+      (event, emit) async {
+        emit(AuthStateIsLoading());
+
+        final String email = event.email;
+
+        try {
+          final user = await authRepo.sendPasswordReset(
+            toEmail: email,
+          );
+          emit(AuthStatePasswordResetRequestSent());
+        } on DioException catch (error) {
+          final message = DioExceptionClass.fromDioError(error);
+          logger.e(error.response?.data);
           emit(AuthStateError(message: message.errorMessage));
         }
       },

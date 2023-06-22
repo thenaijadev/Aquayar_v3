@@ -26,9 +26,7 @@ class DioAuthProvider implements AuthProvider {
           data: {"email": email, "password": password, "type": "customer"});
 
       return {...response, "email": email, "displayName": "", "photoUrl": ""};
-    } on DioException catch (e) {
-      print(e.response?.data);
-
+    } on DioException {
       rethrow;
     } catch (e) {
       throw GenericAuthException();
@@ -47,34 +45,22 @@ class DioAuthProvider implements AuthProvider {
   }
 
   @override
-  Future<AuthUser> logIn({
+  Future<Map<String, dynamic>> logIn({
     required String email,
     required String password,
   }) async {
-    throw UnimplementedError();
+    try {
+      final response = await DioClient.instance.post(RoutesAndPaths.authSignIn,
+          data: {"email": email, "password": password, "type": "customer"});
 
-    // try {
-    //   await FirebaseAuth.instance.signInWithEmailAndPassword(
-    //     email: email,
-    //     password: password,
-    //   );
-    //   final user = currentUser;
-    //   if (user != null) {
-    //     return user;
-    //   } else {
-    //     throw UserNotLoggedInAuthException();
-    //   }
-    // } on FirebaseAuthException catch (e) {
-    //   if (e.code == 'user-not-found') {
-    //     throw UserNotFoundAuthException();
-    //   } else if (e.code == 'wrong-password') {
-    //     throw WrongPasswordAuthException();
-    //   } else {
-    //     throw GenericAuthException();
-    //   }
-    // } catch (_) {
-    //   throw GenericAuthException();
-    // }
+      return {...response, "email": email, "displayName": "", "photoUrl": ""};
+    } on DioException catch (e) {
+      print(e.response?.data);
+
+      rethrow;
+    } catch (e) {
+      throw GenericAuthException();
+    }
   }
 
   @override
@@ -87,32 +73,33 @@ class DioAuthProvider implements AuthProvider {
     // }
   }
 
-  @override
-  Future<void> sendEmailVerification() async {
-    // final user = FirebaseAuth.instance.currentUser;
-    // if (user != null) {
-    //   await user.sendEmailVerification();
-    // } else {
-    //   throw UserNotLoggedInAuthException();
-    // }
-  }
+  // @override
+  // Future<void> sendEmailVerification() async {
+  //   // final user = FirebaseAuth.instance.currentUser;
+  //   // if (user != null) {
+  //   //   await user.sendEmailVerification();
+  //   // } else {
+  //   //   throw UserNotLoggedInAuthException();
+  //   // }
+  // }
 
   @override
-  Future<void> sendPasswordReset({required String toEmail}) async {
-    // try {
-    //   await FirebaseAuth.instance.sendPasswordResetEmail(email: toEmail);
-    // } on FirebaseAuthException catch (e) {
-    //   switch (e.code) {
-    //     case 'firebase_auth/invalid-email':
-    //       throw InvalidEmailAuthException();
-    //     case 'firebase_auth/user-not-found':
-    //       throw UserNotFoundAuthException();
-    //     default:
-    //       throw GenericAuthException();
-    //   }
-    // } catch (_) {
-    //   throw GenericAuthException();
-    // }
+  Future<Map<String, dynamic>> sendPasswordReset(
+      {required String toEmail}) async {
+    try {
+      final response = await DioClient.instance
+          .post(RoutesAndPaths.authForgotPassword, data: {
+        "email": toEmail,
+      });
+
+      return response;
+    } on DioException catch (e) {
+      print(e.response?.data);
+
+      rethrow;
+    } catch (e) {
+      throw GenericAuthException();
+    }
   }
 
   @override
@@ -121,11 +108,11 @@ class DioAuthProvider implements AuthProvider {
 
     try {
       final GoogleSignInAccount? user = await googleSignIn.signIn();
-      logger.e(user);
+
       if (user != null) {
         final userDetails = GoogleAuthUser.fromGoogle(user);
         final response = await DioClient.instance
-            .post(RoutesAndPaths.googleAuthSignUpSignIn, data: {
+            .post(RoutesAndPaths.googleAuthSignUp, data: {
           "profileId": userDetails.id,
           "email": userDetails.email,
           "displayName": userDetails.displayName
@@ -144,4 +131,38 @@ class DioAuthProvider implements AuthProvider {
       rethrow;
     }
   }
+
+  @override
+  Future<Map<String, dynamic>> signInWithGoogle() async {
+    final googleSignIn = GoogleSignIn();
+
+    try {
+      final GoogleSignInAccount? user = await googleSignIn.signIn();
+
+      if (user != null) {
+        final userDetails = GoogleAuthUser.fromGoogle(user);
+        final response = await DioClient.instance
+            .post(RoutesAndPaths.googleAuthSignIn, data: {
+          "profileId": userDetails.id,
+        });
+
+        return {
+          ...response,
+          "email": userDetails.email,
+          "displayName": userDetails.displayName,
+          "photoUrl": userDetails.photoUrl
+        };
+      } else {
+        throw UserNotLoggedInAuthException();
+      }
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  // @override
+  // Future<Map<String, dynamic>> sendEmailVerification() {
+
+  //   throw UnimplementedError();
+  // }
 }

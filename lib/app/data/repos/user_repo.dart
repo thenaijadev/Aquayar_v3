@@ -1,6 +1,5 @@
 import 'package:aquayar/app/data/models/updated_user.dart';
 import 'package:aquayar/app/data/providers/user_provider.dart';
-import 'package:aquayar/utilities/logger.dart';
 
 class UserRepo {
   final UserProvider provider;
@@ -36,6 +35,14 @@ class UserRepo {
         name: name,
         token: token,
         tankSize: tankSize);
-    logger.e(response);
+  }
+
+  Future<void> requestOtp(
+      {required String phone, required String token}) async {
+    final response = await provider.requestOtp(phone: phone, token: token);
+  }
+
+  Future<void> checkOTP({required int otp, required String token}) {
+    return provider.checkOTP(otp: otp, token: token);
   }
 }

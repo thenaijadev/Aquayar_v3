@@ -45,3 +45,5 @@ class AuthStateUserNameAndGenderUpdated extends AuthState {
     required this.user,
   });
 }
+
+class AuthStatePasswordResetRequestSent extends AuthState {}

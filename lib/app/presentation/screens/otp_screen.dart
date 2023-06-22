@@ -1,15 +1,20 @@
+import 'package:aquayar/app/bloc/user/user_bloc.dart';
+import 'package:aquayar/app/bloc/user/user_state.dart';
 import 'package:aquayar/app/presentation/widgets/blue_btn.dart';
 import 'package:aquayar/app/presentation/widgets/title_text.dart';
 import 'package:aquayar/router/routes.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
+import 'package:aquayar/utilities/snackbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'dart:async';
 
 class OtpScreen extends StatefulWidget {
-  const OtpScreen({super.key});
-
+  const OtpScreen({super.key, required this.data});
+  final List data;
   @override
   State<OtpScreen> createState() => _OtpScreenState();
 }
@@ -59,6 +64,9 @@ class _OtpScreenState extends State<OtpScreen> {
 
   @override
   void initState() {
+    print([widget.data[0]["token"]]);
+    super.initState();
+
     startTimer();
 
     super.initState();
@@ -73,6 +81,8 @@ class _OtpScreenState extends State<OtpScreen> {
   bool canResendCode = false;
   @override
   Widget build(BuildContext context) {
+    UserBloc userbloc = context.watch<UserBloc>();
+
     String strDigits(int n) => n.toString().padLeft(2, '0');
 
     final minutes = strDigits(myDuration.inMinutes);
@@ -171,6 +181,12 @@ class _OtpScreenState extends State<OtpScreen> {
                             if (canResendCode) {
                               resetTimer();
                               startTimer();
+                              String number = formatPhoneNumber(
+                                  widget.data[1], widget.data[2]);
+                              String newNumber = number.replaceAll("-", "");
+                              userbloc.add(UserEventGetOtp(
+                                  phone: newNumber,
+                                  token: widget.data[0]["token"]));
                             }
                           },
                           child: TextWidget(
@@ -188,23 +204,52 @@ class _OtpScreenState extends State<OtpScreen> {
             ],
           ),
           Padding(
-              padding: const EdgeInsets.only(bottom: 20.0),
-              child: BlueBtn(
-                  enabled: otp?.length == 4,
-                  paddingVertical: 12,
-                  label: TextWidget(
-                    text: "              Verify",
-                    color: otp?.length == 4
-                        ? AppColors.white
-                        : AppColors.inputBorder,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, Routes.registrationDone);
-                  }))
+            padding: const EdgeInsets.only(bottom: 20.0),
+            child: BlocConsumer<UserBloc, UserState>(
+              listener: (context, state) {
+                if (state is UserStateOtpChecked) {
+                  Navigator.popAndPushNamed(context, Routes.registrationDone,
+                      arguments: widget.data);
+                } else if (state is UserStateError) {
+                  InfoSnackBar.showErrorSnackBar(context, state.message);
+                }
+              },
+              builder: (context, state) {
+                return state is UserStateIsLoading
+                    ? const Padding(
+                        padding: EdgeInsets.only(top: 20.0),
+                        child: SpinKitSpinningLines(
+                          color: Color.fromARGB(255, 4, 136, 231),
+                          size: 40.0,
+                        ),
+                      )
+                    : BlueBtn(
+                        enabled: otp?.length == 4,
+                        paddingVertical: 12,
+                        label: TextWidget(
+                          text: "              Verify",
+                          color: otp?.length == 4
+                              ? AppColors.white
+                              : AppColors.inputBorder,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                        onPressed: () {
+                          if (otp?.length == 4) {
+                            userbloc.add(UserEventCheckOtp(
+                                otp: int.parse(otp!),
+                                token: widget.data[0]["token"]));
+                          }
+                        });
+              },
+            ),
+          )
         ],
       ),
     );
   }
+}
+
+String formatPhoneNumber(String number, String countryCode) {
+  return "+$countryCode-${number.substring(1, 4)}-${number.substring(4, 7)}-${number.substring(7, number.length)}";
 }

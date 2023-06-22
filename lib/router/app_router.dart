@@ -47,8 +47,9 @@ class AppRouter {
           builder: (_) => PhoneVerificationScreen(data: data),
         );
       case Routes.otp:
+        var data = routeSettings.arguments as List;
         return MaterialPageRoute(
-          builder: (_) => const OtpScreen(),
+          builder: (_) => OtpScreen(data: data),
         );
       case Routes.forgotPassword:
         return MaterialPageRoute(

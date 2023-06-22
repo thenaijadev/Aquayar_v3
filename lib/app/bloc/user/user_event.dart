@@ -21,3 +21,23 @@ class UserEventUpdateCustomerLocation extends UserEvent {
       this.tankSize,
       required this.token});
 }
+
+class UserEventGetOtp extends UserEvent {
+  final String phone;
+  final String token;
+
+  const UserEventGetOtp({
+    required this.phone,
+    required this.token,
+  });
+}
+
+class UserEventCheckOtp extends UserEvent {
+  final int otp;
+  final String token;
+
+  const UserEventCheckOtp({
+    required this.otp,
+    required this.token,
+  });
+}

@@ -1,10 +1,16 @@
+import 'package:aquayar/app/bloc/user/user_bloc.dart';
+import 'package:aquayar/app/bloc/user/user_state.dart';
 import 'package:aquayar/app/presentation/widgets/blue_btn.dart';
 import 'package:aquayar/app/presentation/widgets/text_input.dart';
 import 'package:aquayar/app/presentation/widgets/title_text.dart';
+import 'package:aquayar/router/routes.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:aquayar/utilities/helper_functions.dart';
+import 'package:aquayar/utilities/snackbar.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class PhoneVerificationScreen extends StatefulWidget {
   const PhoneVerificationScreen({super.key, required this.data});
@@ -18,7 +24,7 @@ class PhoneVerificationScreen extends StatefulWidget {
 
 class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
   final formKey = GlobalKey<FormState>();
-  final formfieldkey_3 = GlobalKey<FormFieldState>();
+  final formfieldkey = GlobalKey<FormFieldState>();
 
   bool? emailState = false;
   bool enabled = false;
@@ -28,12 +34,13 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
 
   @override
   void initState() {
-    print([widget.data[0], widget.data[1]]);
+    print([widget.data[0]["token"]]);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    UserBloc userbloc = context.watch<UserBloc>();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.white,
@@ -116,18 +123,18 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                           ),
                         ),
                         obscureText: obscureText,
-                        textFieldkey: formfieldkey_3,
+                        textFieldkey: formfieldkey,
                         label: "Phone number",
                         hintText: "",
                         hintSize: 20,
                         onChanged: (val) {
                           setState(() {
                             phoneNumberHasError =
-                                formfieldkey_3.currentState?.validate();
+                                formfieldkey.currentState?.validate();
                           });
                         },
                         validator: (val) {
-                          if (formfieldkey_3.currentState?.value.length != 17) {
+                          if (formfieldkey.currentState?.value.length != 17) {
                             return "Please enter a valid phone number";
                           }
                           return null;
@@ -141,27 +148,49 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 20.0),
-            child: BlueBtn(
-                enabled: phoneNumberHasError!,
-                paddingVertical: 12,
-                label: TextWidget(
-                  text: "              Verify",
-                  color: phoneNumberHasError!
-                      ? AppColors.white
-                      : AppColors.inputBorder,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                ),
-                onPressed: () {
-                  final formIsValid = formKey.currentState?.validate();
-                  if (formIsValid!) {
-                    String number =
-                        formatPhoneNumber(widget.data[1], widget.data[2]);
-                    String newNumber = number.replaceAll("-", "");
+            child: BlocConsumer<UserBloc, UserState>(
+              listener: (context, state) {
+                if (state is UserStateOtpRequestSent) {
+                  Navigator.popAndPushNamed(context, Routes.otp,
+                      arguments: widget.data);
+                } else if (state is UserStateError) {
+                  InfoSnackBar.showErrorSnackBar(context, state.message);
+                }
+              },
+              builder: (context, state) {
+                return state is UserStateIsLoading
+                    ? const Padding(
+                        padding: EdgeInsets.only(top: 20.0),
+                        child: SpinKitSpinningLines(
+                          color: Color.fromARGB(255, 4, 136, 231),
+                          size: 40.0,
+                        ),
+                      )
+                    : BlueBtn(
+                        enabled: phoneNumberHasError!,
+                        paddingVertical: 12,
+                        label: TextWidget(
+                          text: "              Verify",
+                          color: phoneNumberHasError!
+                              ? AppColors.white
+                              : AppColors.inputBorder,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                        onPressed: () {
+                          final formIsValid = formKey.currentState?.validate();
+                          if (formIsValid!) {
+                            String number = formatPhoneNumber(
+                                widget.data[1], widget.data[2]);
+                            String newNumber = number.replaceAll("-", "");
 
-                    // Navigator.pushNamed(context, Routes.otp);
-                  }
-                }),
+                            userbloc.add(UserEventGetOtp(
+                                phone: newNumber,
+                                token: widget.data[0]["token"]));
+                          }
+                        });
+              },
+            ),
           )
         ],
       ),

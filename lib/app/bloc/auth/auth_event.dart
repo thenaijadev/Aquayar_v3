@@ -38,6 +38,10 @@ class AuthEventLogOut extends AuthEvent {
   const AuthEventLogOut();
 }
 
+class AuthEventSignUpWithGoogle extends AuthEvent {
+  const AuthEventSignUpWithGoogle();
+}
+
 class AuthEventSignInWithGoogle extends AuthEvent {
   const AuthEventSignInWithGoogle();
 }
@@ -63,4 +67,9 @@ class AuthEventUpdateCustomerLocation extends AuthEvent {
       required this.address,
       this.tankSize,
       required this.token});
+}
+
+class AuthEventRequestResetEmail extends AuthEvent {
+  final String email;
+  const AuthEventRequestResetEmail({required this.email});
 }

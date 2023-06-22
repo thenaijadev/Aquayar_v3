@@ -20,7 +20,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         double? tankSize = event.tankSize;
 
         try {
-          print({"token": token});
           final response = await userRepo.addLocation(
               name: name,
               token: token,
@@ -31,6 +30,50 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         } on DioException catch (error) {
           logger.e(error.response?.data);
           final message = DioExceptionClass.fromDioError(error);
+
+          emit(UserStateError(message: message.errorMessage));
+        }
+      },
+    );
+
+    on<UserEventGetOtp>(
+      (event, emit) async {
+        emit(UserStateIsLoading());
+        String phone = event.phone;
+
+        String token = event.token;
+
+        try {
+          final response = await userRepo.requestOtp(
+            phone: phone,
+            token: token,
+          );
+          emit(UserStateOtpRequestSent());
+        } on DioException catch (error) {
+          logger.e(error.response?.data);
+          final message = DioExceptionClass.fromDioError(error);
+
+          emit(UserStateError(message: message.errorMessage));
+        }
+      },
+    );
+
+    on<UserEventCheckOtp>(
+      (event, emit) async {
+        emit(UserStateIsLoading());
+        int otp = event.otp;
+
+        String token = event.token;
+
+        try {
+          final response = await userRepo.checkOTP(
+            otp: otp,
+            token: token,
+          );
+          emit(UserStateOtpChecked());
+        } on DioException catch (error) {
+          final message = DioExceptionClass.fromDioError(error);
+          print(error.response?.data);
 
           emit(UserStateError(message: message.errorMessage));
         }

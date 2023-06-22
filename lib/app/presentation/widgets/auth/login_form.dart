@@ -1,3 +1,6 @@
+import 'package:aquayar/app/bloc/auth/auth_bloc.dart';
+import 'package:aquayar/app/bloc/auth/auth_event.dart';
+import 'package:aquayar/app/bloc/auth/auth_state.dart';
 import 'package:aquayar/app/presentation/widgets/auth/apple_auth_btn.dart';
 import 'package:aquayar/app/presentation/widgets/auth/oauth_btn.dart';
 import 'package:aquayar/app/presentation/widgets/blue_btn.dart';
@@ -5,8 +8,12 @@ import 'package:aquayar/app/presentation/widgets/text_input.dart';
 import 'package:aquayar/app/presentation/widgets/title_text.dart';
 import 'package:aquayar/router/routes.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
+import 'package:aquayar/utilities/logger.dart';
+import 'package:aquayar/utilities/snackbar.dart';
 import 'package:aquayar/utilities/validators.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
 class LoginForm extends StatefulWidget {
@@ -23,10 +30,11 @@ class _LoginFormState extends State<LoginForm> {
   bool? emailState = false;
   bool? passwordState = false;
   bool enabled = false;
-  bool obscureText = false;
+  bool obscureText = true;
   bool? checkBoxValue = false;
   @override
   Widget build(BuildContext context) {
+    AuthBloc authBloc = context.watch<AuthBloc>();
     return Form(
       key: formKey,
       child: Column(
@@ -129,16 +137,47 @@ class _LoginFormState extends State<LoginForm> {
               )
             ],
           ),
-          BlueBtn(
-              enabled: emailState! && passwordState!,
-              paddingVertical: 12,
-              label: TextWidget(
-                text: "      Continue",
-                color: enabled ? AppColors.white : AppColors.inputBorder,
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-              ),
-              onPressed: () {}),
+          BlocConsumer<AuthBloc, AuthState>(
+            listener: (context, state) {
+              logger.e(state);
+              if (state is AuthStateLoggedIn) {
+                logger.e({"reg": state.user.authToken});
+                Navigator.pushNamed(context, Routes.registrationDone,
+                    arguments: state.user);
+              } else if (state is AuthStateError) {
+                InfoSnackBar.showErrorSnackBar(context, state.message);
+              }
+            },
+            builder: (context, state) {
+              return state is AuthStateIsLoading
+                  ? const Padding(
+                      padding: EdgeInsets.only(top: 20.0),
+                      child: SpinKitSpinningLines(
+                        color: Color.fromARGB(255, 4, 136, 231),
+                        size: 40.0,
+                      ),
+                    )
+                  : BlueBtn(
+                      enabled: emailState! && passwordState!,
+                      paddingVertical: 12,
+                      label: TextWidget(
+                        text: "      Continue",
+                        color:
+                            enabled ? AppColors.white : AppColors.inputBorder,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
+                      onPressed: () async {
+                        final formState = formKey.currentState?.validate();
+
+                        if (formState!) {
+                          authBloc.add(AuthEventLogIn(
+                              email: formfieldkey_1.currentState?.value,
+                              password: formfieldkey_2.currentState?.value));
+                        }
+                      });
+            },
+          ),
           const SizedBox(
             height: 10,
           ),
@@ -168,9 +207,9 @@ class _LoginFormState extends State<LoginForm> {
               padding: const EdgeInsets.only(top: 35.0, bottom: 20),
               child: OutlinedButtonWidget(
                 image: Image.asset("assets/images/google.png"),
-                label: "Log in with Google",
-                onPressed: () {
-                  debugPrint("Google");
+                label: "Sign in with Google",
+                onPressed: () async {
+                  authBloc.add(const AuthEventSignInWithGoogle());
                 },
               ),
             ),

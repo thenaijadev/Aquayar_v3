@@ -177,7 +177,7 @@ class _RegisterationFormState extends ConsumerState<RegisterationForm> {
               image: Image.asset("assets/images/google.png"),
               label: "Sign up with Google",
               onPressed: () async {
-                authBloc.add(const AuthEventSignInWithGoogle());
+                authBloc.add(const AuthEventSignUpWithGoogle());
               },
             ),
           ),

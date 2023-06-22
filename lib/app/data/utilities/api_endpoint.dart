@@ -1,7 +1,9 @@
 class RoutesAndPaths {
   static const String baseUrl = "https://aquayar.up.railway.app";
   static const String user = "/api/users/me";
-  static const String googleAuthSignUpSignIn = "/api/auth/sign-up/google/";
+  static const String googleAuthSignUp = "/api/auth/sign-up/google/";
+  static const String googleAuthSignIn = "/api/auth/sign-in/google/";
+
   static const String authSignUp = "/api/auth/sign-up/";
   static const String authSignIn = "/api/auth/sign-in/";
   static const String authForgotPassword = "/api/auth/forgot-password/";
@@ -9,4 +11,5 @@ class RoutesAndPaths {
   static const String verifyPhone = "/api/users/me/verify-phone/";
   static const String checkOtp = "/api/users/me/check-otp/";
   static const String location = "/api/customers/me/locations";
+  static const String getOtp = "/api/users/me/verify-phone";
 }

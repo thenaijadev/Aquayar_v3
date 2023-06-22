@@ -2,7 +2,6 @@ import 'package:aquayar/app/data/exceptions/auth_exceptions.dart';
 import 'package:aquayar/app/data/interfaces/user_provider.dart';
 import 'package:aquayar/app/data/utilities/api_endpoint.dart';
 import 'package:aquayar/app/data/utilities/dio_client.dart';
-import 'package:aquayar/utilities/logger.dart';
 import 'package:dio/dio.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -50,7 +49,6 @@ class UserProvider implements UserProviderInterface {
       {required String name,
       required String gender,
       required String token}) async {
-    logger.e(token);
     try {
       final response = await DioClient.instance.patch(
         RoutesAndPaths.user,
@@ -96,5 +94,51 @@ class UserProvider implements UserProviderInterface {
 
     return await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.best);
+  }
+
+  @override
+  Future<Map<String, dynamic>> requestOtp(
+      {required String phone, required String token}) async {
+    try {
+      final response = await DioClient.instance.post(
+        RoutesAndPaths.getOtp,
+        data: {
+          "phoneNo": phone,
+        },
+        options: Options(
+          headers: {"Authorization": "Bearer $token"},
+        ),
+      );
+
+      return {
+        ...response,
+      };
+    } on DioException {
+      rethrow;
+    } catch (e) {
+      throw GenericAuthException();
+    }
+  }
+
+  @override
+  Future<Map<String, dynamic>> checkOTP(
+      {required int otp, required String token}) async {
+    print({"data": "otp: $otp token: $token"});
+    try {
+      final response = await DioClient.instance.post(
+        RoutesAndPaths.checkOtp,
+        data: {
+          "otp": otp.toString(),
+        },
+        options: Options(
+          headers: {"Authorization": "Bearer $token"},
+        ),
+      );
+      return response;
+    } on DioException {
+      rethrow;
+    } catch (e) {
+      throw GenericAuthException();
+    }
   }
 }

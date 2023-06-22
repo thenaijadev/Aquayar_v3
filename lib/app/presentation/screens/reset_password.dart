@@ -1,10 +1,17 @@
+import 'package:aquayar/app/bloc/auth/auth_bloc.dart';
+import 'package:aquayar/app/bloc/auth/auth_event.dart';
+import 'package:aquayar/app/bloc/auth/auth_state.dart';
 import 'package:aquayar/app/presentation/widgets/blue_btn.dart';
 import 'package:aquayar/app/presentation/widgets/text_input.dart';
 import 'package:aquayar/app/presentation/widgets/title_text.dart';
 import 'package:aquayar/router/routes.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
+import 'package:aquayar/utilities/logger.dart';
+import 'package:aquayar/utilities/snackbar.dart';
 import 'package:aquayar/utilities/validators.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -20,6 +27,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AuthBloc bloc = context.watch<AuthBloc>();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.white,
@@ -86,21 +94,47 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 20.0),
-            child: BlueBtn(
-                enabled: emailState!,
-                paddingVertical: 12,
-                label: TextWidget(
-                  text: "  Send Instruction",
-                  color: emailState! ? AppColors.white : AppColors.inputBorder,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                ),
-                onPressed: () {
-                  final formIsValid = formKey.currentState?.validate();
-                  if (formIsValid!) {
-                    Navigator.pushNamed(context, Routes.emailSent);
-                  }
-                }),
+            child: BlocConsumer<AuthBloc, AuthState>(
+              listener: (context, state) {
+                logger.e(state);
+                if (state is AuthStatePasswordResetRequestSent) {
+                  Navigator.pushNamed(
+                    context,
+                    Routes.emailSent,
+                  );
+                } else if (state is AuthStateError) {
+                  InfoSnackBar.showErrorSnackBar(context, state.message);
+                }
+              },
+              builder: (context, state) {
+                return state is AuthStateIsLoading
+                    ? const Padding(
+                        padding: EdgeInsets.only(top: 20.0),
+                        child: SpinKitSpinningLines(
+                          color: Color.fromARGB(255, 4, 136, 231),
+                          size: 40.0,
+                        ),
+                      )
+                    : BlueBtn(
+                        enabled: emailState!,
+                        paddingVertical: 12,
+                        label: TextWidget(
+                          text: "  Send Instruction",
+                          color: emailState!
+                              ? AppColors.white
+                              : AppColors.inputBorder,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                        onPressed: () {
+                          final formIsValid = formKey.currentState?.validate();
+                          if (formIsValid!) {
+                            bloc.add(AuthEventRequestResetEmail(
+                                email: formfieldkey_1.currentState?.value));
+                          }
+                        });
+              },
+            ),
           )
         ],
       ),

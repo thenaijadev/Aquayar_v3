@@ -33,15 +33,22 @@ class AuthRepo {
   Future<AuthUser> logIn({
     required String email,
     required String password,
-  }) =>
-      provider.logIn(
-        email: email,
-        password: password,
-      );
+  }) async {
+    final response = await provider.logIn(
+      email: email,
+      password: password,
+    );
+    final AuthUser user = AuthUser.fromJson(
+      response,
+    );
+
+    return user;
+    // AuthUser.fromApi(response);
+  }
 
   Future<void> logOut() => provider.logOut();
 
-  Future<void> sendEmailVerification() => provider.sendEmailVerification();
+  // Future<void> sendEmailVerification() => provider.sendEmailVerification();
 
   // @override
   // Future<void> initialize() => provider.initialize();
@@ -51,6 +58,14 @@ class AuthRepo {
 
   Future<AuthUser> signUpWithGoogle() async {
     final response = await provider.signUpWithGoogle();
+
+    return AuthUser.fromJson(
+      response,
+    );
+  }
+
+  Future<AuthUser> signInWithGoogle() async {
+    final response = await provider.signInWithGoogle();
 
     return AuthUser.fromJson(
       response,
