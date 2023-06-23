@@ -1,13 +1,13 @@
-import 'package:aquayar/app/presentation/widgets/blue_btn.dart';
-import 'package:aquayar/app/presentation/widgets/home_logo_circle.dart';
-import 'package:aquayar/app/presentation/widgets/outlined_btn.dart';
-import 'package:aquayar/app/presentation/widgets/title_text.dart';
+import 'package:aquayar/app/presentation/widgets/onboarding_flow/blue_btn.dart';
+import 'package:aquayar/app/presentation/widgets/onboarding_flow/home_logo_circle.dart';
+import 'package:aquayar/app/presentation/widgets/onboarding_flow/outlined_btn.dart';
+import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:aquayar/router/routes.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class LandingScreen extends StatelessWidget {
+  const LandingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

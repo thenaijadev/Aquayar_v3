@@ -1,9 +1,9 @@
 import 'package:aquayar/app/bloc/user/user_bloc.dart';
 import 'package:aquayar/app/bloc/user/user_state.dart';
-import 'package:aquayar/app/presentation/widgets/blue_btn.dart';
-import 'package:aquayar/app/presentation/widgets/tanksize_radio_btns.dart';
-import 'package:aquayar/app/presentation/widgets/text_input.dart';
-import 'package:aquayar/app/presentation/widgets/title_text.dart';
+import 'package:aquayar/app/presentation/widgets/onboarding_flow/blue_btn.dart';
+import 'package:aquayar/app/presentation/widgets/onboarding_flow/tanksize_radio_btns.dart';
+import 'package:aquayar/app/presentation/widgets/onboarding_flow/text_input.dart';
+import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:aquayar/router/routes.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:aquayar/utilities/constants.dart/nigerian_states.dart';

@@ -16,9 +16,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try {
         final user = await authRepo.signUp(email: email, password: password);
         emit(AuthStateRegistered(user: user));
-      } on DioException catch (e) {
-        emit(AuthStateError(
-            message: e.response?.data["error"]["password"]["msg"]));
+      } on DioException {
+        emit(AuthStateError(message: "Authentication failed."));
       }
     });
 

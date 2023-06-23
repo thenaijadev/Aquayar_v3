@@ -1,4 +1,4 @@
-import 'package:aquayar/app/presentation/widgets/title_text.dart';
+import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:flutter/material.dart';
 
 class InfoSnackBar {

@@ -1,4 +1,4 @@
-import 'package:aquayar/app/presentation/widgets/auth/oauth_btn.dart';
+import 'package:aquayar/app/presentation/widgets/onboarding_flow/oauth_btn.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 

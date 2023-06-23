@@ -1,9 +1,9 @@
 import 'package:aquayar/app/bloc/auth/auth_bloc.dart';
 import 'package:aquayar/app/bloc/auth/auth_event.dart';
 import 'package:aquayar/app/bloc/auth/auth_state.dart';
-import 'package:aquayar/app/presentation/widgets/blue_btn.dart';
-import 'package:aquayar/app/presentation/widgets/text_input.dart';
-import 'package:aquayar/app/presentation/widgets/title_text.dart';
+import 'package:aquayar/app/presentation/widgets/onboarding_flow/blue_btn.dart';
+import 'package:aquayar/app/presentation/widgets/onboarding_flow/text_input.dart';
+import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:aquayar/router/routes.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:aquayar/utilities/snackbar.dart';

@@ -1,9 +1,9 @@
-import 'package:aquayar/app/presentation/widgets/title_text.dart';
+import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
-class RadioBtn extends StatefulWidget {
-  const RadioBtn(
+class TankSizeRadioBtn extends StatefulWidget {
+  const TankSizeRadioBtn(
       {super.key,
       required this.label,
       required this.onPressed,
@@ -12,10 +12,10 @@ class RadioBtn extends StatefulWidget {
   final void Function() onPressed;
   final String? choice;
   @override
-  State<RadioBtn> createState() => _RadioBtnState();
+  State<TankSizeRadioBtn> createState() => _TankSizeRadioBtnState();
 }
 
-class _RadioBtnState extends State<RadioBtn> {
+class _TankSizeRadioBtnState extends State<TankSizeRadioBtn> {
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
@@ -55,9 +55,20 @@ class _RadioBtnState extends State<RadioBtn> {
               )
             : TextWidget(
                 text: widget.label,
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                fontWeight: FontWeight.normal,
                 color: const Color.fromARGB(255, 149, 159, 193),
               ));
   }
 }
+
+final List<String> tankSizes = [
+  "200",
+  "500",
+  "750",
+  "1000",
+  "1200",
+  "1500",
+  "2000",
+  "2500",
+];

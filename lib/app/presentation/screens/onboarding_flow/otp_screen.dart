@@ -1,9 +1,7 @@
-import 'package:aquayar/app/bloc/auth/auth_bloc.dart';
-import 'package:aquayar/app/bloc/auth/auth_event.dart';
-import 'package:aquayar/app/bloc/auth/auth_state.dart';
+import 'package:aquayar/app/bloc/user/user_bloc.dart';
 import 'package:aquayar/app/bloc/user/user_state.dart';
-import 'package:aquayar/app/presentation/widgets/blue_btn.dart';
-import 'package:aquayar/app/presentation/widgets/title_text.dart';
+import 'package:aquayar/app/presentation/widgets/onboarding_flow/blue_btn.dart';
+import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:aquayar/router/routes.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:aquayar/utilities/snackbar.dart';
@@ -14,14 +12,14 @@ import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'dart:async';
 
-class OtpSent extends StatefulWidget {
-  const OtpSent({super.key, required this.data});
-  final String data;
+class OtpScreen extends StatefulWidget {
+  const OtpScreen({super.key, required this.data});
+  final List data;
   @override
-  State<OtpSent> createState() => _OtpSentState();
+  State<OtpScreen> createState() => _OtpScreenState();
 }
 
-class _OtpSentState extends State<OtpSent> {
+class _OtpScreenState extends State<OtpScreen> {
   String? otp;
   // Step 2
   Timer? countdownTimer;
@@ -66,6 +64,7 @@ class _OtpSentState extends State<OtpSent> {
 
   @override
   void initState() {
+    print([widget.data[0]["token"]]);
     super.initState();
 
     startTimer();
@@ -82,7 +81,7 @@ class _OtpSentState extends State<OtpSent> {
   bool canResendCode = false;
   @override
   Widget build(BuildContext context) {
-    AuthBloc authBloc = context.watch<AuthBloc>();
+    UserBloc userbloc = context.watch<UserBloc>();
 
     String strDigits(int n) => n.toString().padLeft(2, '0');
 
@@ -182,10 +181,12 @@ class _OtpSentState extends State<OtpSent> {
                             if (canResendCode) {
                               resetTimer();
                               startTimer();
-
-                              authBloc.add(AuthEventForgotPassword(
-                                email: widget.data,
-                              ));
+                              String number = formatPhoneNumber(
+                                  widget.data[1], widget.data[2]);
+                              String newNumber = number.replaceAll("-", "");
+                              userbloc.add(UserEventGetOtp(
+                                  phone: newNumber,
+                                  token: widget.data[0]["token"]));
                             }
                           },
                           child: TextWidget(
@@ -203,18 +204,17 @@ class _OtpSentState extends State<OtpSent> {
             ],
           ),
           Padding(
-              padding: const EdgeInsets.only(bottom: 20.0),
-              child:
-                  BlocConsumer<AuthBloc, AuthState>(listener: (context, state) {
-                if (state is AuthStateError) {
+            padding: const EdgeInsets.only(bottom: 20.0),
+            child: BlocConsumer<UserBloc, UserState>(
+              listener: (context, state) {
+                if (state is UserStateOtpChecked) {
+                  Navigator.popAndPushNamed(context, Routes.registrationDone,
+                      arguments: widget.data);
+                } else if (state is UserStateError) {
                   InfoSnackBar.showErrorSnackBar(context, state.message);
-                } else {
-                  if (state is AuthStatePasswordChangeOtpSent) {
-                    Navigator.pushNamed(context, Routes.createNewPassword,
-                        arguments: state.resetToken);
-                  }
                 }
-              }, builder: (context, state) {
+              },
+              builder: (context, state) {
                 return state is UserStateIsLoading
                     ? const Padding(
                         padding: EdgeInsets.only(top: 20.0),
@@ -236,15 +236,20 @@ class _OtpSentState extends State<OtpSent> {
                         ),
                         onPressed: () {
                           if (otp?.length == 4) {
-                            authBloc.add(AuthEventCheckOtpForPasswordChange(
-                              otp: otp!,
-                            ));
+                            userbloc.add(UserEventCheckOtp(
+                                otp: int.parse(otp!),
+                                token: widget.data[0]["token"]));
                           }
-                        },
-                      );
-              }))
+                        });
+              },
+            ),
+          )
         ],
       ),
     );
   }
+}
+
+String formatPhoneNumber(String number, String countryCode) {
+  return "+$countryCode-${number.substring(1, 4)}-${number.substring(4, 7)}-${number.substring(7, number.length)}";
 }

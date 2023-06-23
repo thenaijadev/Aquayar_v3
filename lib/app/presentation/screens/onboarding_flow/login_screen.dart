@@ -1,4 +1,4 @@
-import 'package:aquayar/app/presentation/widgets/auth/login_form.dart';
+import 'package:aquayar/app/presentation/widgets/onboarding_flow/login_form.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:flutter/material.dart';
 

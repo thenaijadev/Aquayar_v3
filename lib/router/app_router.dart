@@ -1,17 +1,17 @@
 import 'package:aquayar/app/data/models/auth_user.dart';
 import 'package:aquayar/app/error/error_screen.dart';
-import 'package:aquayar/app/presentation/screens/create_new_password_screen.dart';
-import 'package:aquayar/app/presentation/screens/otp_sent.dart';
-import 'package:aquayar/app/presentation/screens/password_set_successfully_screen.dart';
-import 'package:aquayar/app/presentation/screens/registration_done_screen.dart';
-import 'package:aquayar/app/presentation/screens/reset_password.dart';
-import 'package:aquayar/app/presentation/screens/gender_screen.dart';
-import 'package:aquayar/app/presentation/screens/home_screen.dart';
-import 'package:aquayar/app/presentation/screens/login_screen.dart';
-import 'package:aquayar/app/presentation/screens/otp_screen.dart';
-import 'package:aquayar/app/presentation/screens/phone_verification_screen.dart';
-import 'package:aquayar/app/presentation/screens/profile_details.dart';
-import 'package:aquayar/app/presentation/screens/registration_screen.dart';
+import 'package:aquayar/app/presentation/screens/onboarding_flow/create_new_password_screen.dart';
+import 'package:aquayar/app/presentation/screens/onboarding_flow/otp_sent.dart';
+import 'package:aquayar/app/presentation/screens/onboarding_flow/password_set_successfully_screen.dart';
+import 'package:aquayar/app/presentation/screens/onboarding_flow/registration_done_screen.dart';
+import 'package:aquayar/app/presentation/screens/onboarding_flow/reset_password.dart';
+import 'package:aquayar/app/presentation/screens/onboarding_flow/gender_screen.dart';
+import 'package:aquayar/app/presentation/screens/onboarding_flow/home_screen.dart';
+import 'package:aquayar/app/presentation/screens/onboarding_flow/login_screen.dart';
+import 'package:aquayar/app/presentation/screens/onboarding_flow/otp_screen.dart';
+import 'package:aquayar/app/presentation/screens/onboarding_flow/phone_verification_screen.dart';
+import 'package:aquayar/app/presentation/screens/onboarding_flow/profile_details.dart';
+import 'package:aquayar/app/presentation/screens/onboarding_flow/registration_screen.dart';
 import 'package:aquayar/router/routes.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +21,7 @@ class AppRouter {
     switch (routeSettings.name) {
       case Routes.homeScreen:
         return MaterialPageRoute(
-          builder: (_) => const HomeScreen(),
+          builder: (_) => const LandingScreen(),
         );
       case Routes.registration:
         return MaterialPageRoute(
