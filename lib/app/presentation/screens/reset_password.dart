@@ -61,7 +61,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             padding: EdgeInsets.only(left: 20.0, top: 10, right: 30),
             child: TextWidget(
               text:
-                  "Enter the email associated with your account and we’ll send an email with instructions to reset your password.",
+                  "Enter the email associated with your account and we’ll send an OTP code to the phone number associated with this email.",
               color: AppColors.darkTitleGrey,
               fontSize: 16,
               fontWeight: FontWeight.w400,
@@ -98,10 +98,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               listener: (context, state) {
                 logger.e(state);
                 if (state is AuthStatePasswordResetRequestSent) {
-                  Navigator.pushNamed(
-                    context,
-                    Routes.emailSent,
-                  );
+                  Navigator.pushReplacementNamed(context, Routes.emailSent,
+                      arguments: formfieldkey_1.currentState?.value);
                 } else if (state is AuthStateError) {
                   InfoSnackBar.showErrorSnackBar(context, state.message);
                 }
@@ -129,7 +127,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         onPressed: () {
                           final formIsValid = formKey.currentState?.validate();
                           if (formIsValid!) {
-                            bloc.add(AuthEventRequestResetEmail(
+                            bloc.add(AuthEventForgotPassword(
                                 email: formfieldkey_1.currentState?.value));
                           }
                         });

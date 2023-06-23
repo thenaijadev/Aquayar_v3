@@ -7,7 +7,8 @@ import 'package:aquayar/utilities/validators.dart';
 import 'package:flutter/material.dart';
 
 class CreateNewPasswordScreen extends StatefulWidget {
-  const CreateNewPasswordScreen({super.key});
+  const CreateNewPasswordScreen({super.key, required this.token});
+  final String token;
 
   @override
   State<CreateNewPasswordScreen> createState() =>
@@ -23,6 +24,12 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
 
   final formKey = GlobalKey<FormState>();
   bool obscureText = true;
+
+  @override
+  void initState() {
+    print(widget.token);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -47,3 +47,8 @@ class AuthStateUserNameAndGenderUpdated extends AuthState {
 }
 
 class AuthStatePasswordResetRequestSent extends AuthState {}
+
+class AuthStatePasswordChangeOtpSent extends AuthState {
+  final String resetToken;
+  AuthStatePasswordChangeOtpSent({required this.resetToken});
+}

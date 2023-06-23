@@ -1,15 +1,23 @@
 class RoutesAndPaths {
+  //Base URL
   static const String baseUrl = "https://aquayar.up.railway.app";
-  static const String user = "/api/users/me";
+
+//google
   static const String googleAuthSignUp = "/api/auth/sign-up/google/";
   static const String googleAuthSignIn = "/api/auth/sign-in/google/";
 
-  static const String authSignUp = "/api/auth/sign-up/";
-  static const String authSignIn = "/api/auth/sign-in/";
-  static const String authForgotPassword = "/api/auth/forgot-password/";
-  static const String authResetPassword = "/api/auth/reset-password/";
-  static const String verifyPhone = "/api/users/me/verify-phone/";
+//User
+  static const String user = "/api/users/me";
   static const String checkOtp = "/api/users/me/check-otp/";
+  static const String verifyPhone = "/api/users/me/verify-phone/";
   static const String location = "/api/customers/me/locations";
   static const String getOtp = "/api/users/me/verify-phone";
+
+//auth
+  static const String authSignUp = "/api/auth/sign-up/";
+  static const String authSignIn = "/api/auth/sign-in/";
+
+  static const String forgotPassword = "/api/auth/forgot-password/";
+  static const String verifyOtpToChangePassword = "/api/auth/verify-otp";
+  static const String resetPassword = "/api/auth/reset-password/";
 }

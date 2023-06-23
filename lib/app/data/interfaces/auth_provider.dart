@@ -11,7 +11,10 @@ abstract class AuthProvider {
   });
   Future<void> logOut();
   // Future<Map<String, dynamic>> sendEmailVerification();
-  Future<Map<String, dynamic>> sendPasswordReset({required String toEmail});
+  Future<Map<String, dynamic>> forgotPassord({required String email});
   Future<Map<String, dynamic>> signUpWithGoogle();
   Future<Map<String, dynamic>> signInWithGoogle();
+  Future<Map<String, dynamic>> checkOTP({
+    required String otp,
+  });
 }

@@ -52,7 +52,7 @@ class UserProvider implements UserProviderInterface {
     try {
       final response = await DioClient.instance.patch(
         RoutesAndPaths.user,
-        data: {"email": name, "password": gender},
+        data: {"name": name, "gender": gender},
         options: Options(
           headers: {"Authorization": "Bearer $token"},
         ),

@@ -1,7 +1,7 @@
 import 'package:aquayar/app/data/models/auth_user.dart';
 import 'package:aquayar/app/error/error_screen.dart';
 import 'package:aquayar/app/presentation/screens/create_new_password_screen.dart';
-import 'package:aquayar/app/presentation/screens/email_sent_screen.dart';
+import 'package:aquayar/app/presentation/screens/otp_sent.dart';
 import 'package:aquayar/app/presentation/screens/password_set_successfully_screen.dart';
 import 'package:aquayar/app/presentation/screens/registration_done_screen.dart';
 import 'package:aquayar/app/presentation/screens/reset_password.dart';
@@ -56,12 +56,17 @@ class AppRouter {
           builder: (_) => const ForgotPasswordScreen(),
         );
       case Routes.emailSent:
+        var data = routeSettings.arguments as String;
         return MaterialPageRoute(
-          builder: (_) => const EmailSentScreen(),
+          builder: (_) => OtpSent(
+            data: data,
+          ),
         );
       case Routes.createNewPassword:
+        var data = routeSettings.arguments as String;
+
         return MaterialPageRoute(
-          builder: (_) => const CreateNewPasswordScreen(),
+          builder: (_) => CreateNewPasswordScreen(token: data),
         );
       case Routes.createNewPasswordSuccessful:
         return MaterialPageRoute(

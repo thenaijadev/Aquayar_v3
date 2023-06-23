@@ -84,25 +84,6 @@ class DioAuthProvider implements AuthProvider {
   // }
 
   @override
-  Future<Map<String, dynamic>> sendPasswordReset(
-      {required String toEmail}) async {
-    try {
-      final response = await DioClient.instance
-          .post(RoutesAndPaths.authForgotPassword, data: {
-        "email": toEmail,
-      });
-
-      return response;
-    } on DioException catch (e) {
-      print(e.response?.data);
-
-      rethrow;
-    } catch (e) {
-      throw GenericAuthException();
-    }
-  }
-
-  @override
   Future<Map<String, dynamic>> signUpWithGoogle() async {
     final googleSignIn = GoogleSignIn();
 
@@ -160,9 +141,42 @@ class DioAuthProvider implements AuthProvider {
     }
   }
 
-  // @override
-  // Future<Map<String, dynamic>> sendEmailVerification() {
+  @override
+  Future<Map<String, dynamic>> forgotPassord({required String email}) async {
+    try {
+      final response =
+          await DioClient.instance.post(RoutesAndPaths.forgotPassword, data: {
+        "email": email,
+      });
+      logger.e(response);
 
-  //   throw UnimplementedError();
-  // }
+      return response;
+    } on DioException catch (error) {
+      logger.e(error.response?.data);
+
+      rethrow;
+    } catch (e) {
+      throw GenericAuthException();
+    }
+  }
+
+  @override
+  Future<Map<String, dynamic>> checkOTP({
+    required String otp,
+  }) async {
+    try {
+      final response = await DioClient.instance.post(
+        RoutesAndPaths.verifyOtpToChangePassword,
+        data: {
+          "otp": otp,
+        },
+      );
+
+      return response;
+    } on DioException {
+      rethrow;
+    } catch (e) {
+      throw GenericAuthException();
+    }
+  }
 }

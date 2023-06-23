@@ -273,14 +273,14 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                   height: 50,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, int) {
+                    itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: TankSizeRadioBtn(
-                            label: tankSizes[int],
+                            label: tankSizes[index],
                             onPressed: () {
                               setState(() {
-                                choice = tankSizes[int];
+                                choice = tankSizes[index];
                               });
                             },
                             choice: choice),

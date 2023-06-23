@@ -217,7 +217,7 @@ class _GenderScreenState extends State<GenderScreen> {
                               if (formState! && genderChosen!) {
                                 authBloc.add(AuthEventUpdateGenderAndName(
                                     name: textFieldkey.currentState?.value,
-                                    gender: choice!,
+                                    gender: choice!.toLowerCase(),
                                     token: widget.data.authToken!));
                               } else if (!genderChosen!) {
                                 setState(() {

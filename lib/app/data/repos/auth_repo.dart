@@ -53,8 +53,8 @@ class AuthRepo {
   // @override
   // Future<void> initialize() => provider.initialize();
 
-  Future<void> sendPasswordReset({required String toEmail}) =>
-      provider.sendPasswordReset(toEmail: toEmail);
+  Future<void> forgotPassword({required String email}) =>
+      provider.forgotPassord(email: email);
 
   Future<AuthUser> signUpWithGoogle() async {
     final response = await provider.signUpWithGoogle();
@@ -69,6 +69,14 @@ class AuthRepo {
 
     return AuthUser.fromJson(
       response,
+    );
+  }
+
+  Future<Map<String, dynamic>> checkOTP({
+    required String otp,
+  }) {
+    return provider.checkOTP(
+      otp: otp,
     );
   }
 }

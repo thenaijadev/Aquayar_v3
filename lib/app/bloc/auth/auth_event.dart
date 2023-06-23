@@ -30,8 +30,8 @@ class AuthEventShouldRegister extends AuthEvent {
 }
 
 class AuthEventForgotPassword extends AuthEvent {
-  final String? email;
-  const AuthEventForgotPassword({this.email});
+  final String email;
+  const AuthEventForgotPassword({required this.email});
 }
 
 class AuthEventLogOut extends AuthEvent {
@@ -69,7 +69,7 @@ class AuthEventUpdateCustomerLocation extends AuthEvent {
       required this.token});
 }
 
-class AuthEventRequestResetEmail extends AuthEvent {
-  final String email;
-  const AuthEventRequestResetEmail({required this.email});
+class AuthEventCheckOtpForPasswordChange extends AuthEvent {
+  final String otp;
+  const AuthEventCheckOtpForPasswordChange({required this.otp});
 }
