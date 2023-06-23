@@ -16,7 +16,7 @@ class UserProvider implements UserProviderInterface {
   }) async {
     try {
       Position position = await getUserLocation();
-      print({"tank": tankSize});
+
       final response = await DioClient.instance.post(
         RoutesAndPaths.location,
         data: {

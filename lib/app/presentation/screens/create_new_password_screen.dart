@@ -1,10 +1,16 @@
+import 'package:aquayar/app/bloc/auth/auth_bloc.dart';
+import 'package:aquayar/app/bloc/auth/auth_event.dart';
+import 'package:aquayar/app/bloc/auth/auth_state.dart';
 import 'package:aquayar/app/presentation/widgets/blue_btn.dart';
 import 'package:aquayar/app/presentation/widgets/text_input.dart';
 import 'package:aquayar/app/presentation/widgets/title_text.dart';
 import 'package:aquayar/router/routes.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
+import 'package:aquayar/utilities/snackbar.dart';
 import 'package:aquayar/utilities/validators.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class CreateNewPasswordScreen extends StatefulWidget {
   const CreateNewPasswordScreen({super.key, required this.token});
@@ -26,12 +32,8 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
   bool obscureText = true;
 
   @override
-  void initState() {
-    print(widget.token);
-  }
-
-  @override
   Widget build(BuildContext context) {
+    AuthBloc authBloc = context.watch<AuthBloc>();
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: AppBar(
@@ -144,24 +146,51 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 20.0),
-            child: BlueBtn(
-                enabled: passwordState! && confirmPasswordState!,
-                paddingVertical: 12,
-                label: TextWidget(
-                  text: "  Send Instruction",
-                  color: passwordState! && confirmPasswordState!
-                      ? AppColors.white
-                      : AppColors.inputBorder,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                ),
-                onPressed: () {
-                  final formIsValid = formKey.currentState?.validate();
-                  if (formIsValid!) {
-                    Navigator.pushNamed(
-                        context, Routes.createNewPasswordSuccessful);
-                  }
-                }),
+            child: BlocConsumer<AuthBloc, AuthState>(
+              listener: (context, state) {
+                if (state is AuthStateError) {
+                  InfoSnackBar.showErrorSnackBar(context, state.message);
+                }
+                if (state is AuthStatePasswordChanged) {
+                  Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      Routes.createNewPasswordSuccessful,
+                      (route) => route.settings.name == Routes.login);
+                }
+              },
+              builder: (context, state) {
+                if (state is AuthStateIsLoading) {
+                  return const Padding(
+                    padding: EdgeInsets.only(top: 20.0),
+                    child: SpinKitSpinningLines(
+                      color: Color.fromARGB(255, 4, 136, 231),
+                      size: 40.0,
+                    ),
+                  );
+                }
+                return BlueBtn(
+                    enabled: passwordState! && confirmPasswordState!,
+                    paddingVertical: 12,
+                    label: TextWidget(
+                      text: "  Send Instruction",
+                      color: passwordState! && confirmPasswordState!
+                          ? AppColors.white
+                          : AppColors.inputBorder,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
+                    onPressed: () {
+                      final formIsValid = formKey.currentState?.validate();
+                      if (formIsValid!) {
+                        authBloc.add(AuthEventChangePassword(
+                            token: widget.token,
+                            password: formfieldkey_1.currentState?.value,
+                            confirmPassword:
+                                formfieldkey_1.currentState?.value));
+                      }
+                    });
+              },
+            ),
           )
         ],
       ),

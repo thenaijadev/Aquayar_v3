@@ -124,5 +124,26 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         }
       },
     );
+
+    on<AuthEventChangePassword>(
+      (event, emit) async {
+        emit(AuthStateIsLoading());
+        try {
+          String password = event.password;
+          String confirmPassword = event.confirmPassword;
+          String token = event.token;
+          final response = await authRepo.changePassword(
+              password: password,
+              confirmPassword: confirmPassword,
+              token: token);
+
+          emit(AuthStatePasswordChanged());
+        } on DioException catch (error) {
+          final message = DioExceptionClass.fromDioError(error);
+
+          emit(AuthStateError(message: message.errorMessage));
+        }
+      },
+    );
   }
 }

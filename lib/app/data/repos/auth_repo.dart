@@ -79,4 +79,12 @@ class AuthRepo {
       otp: otp,
     );
   }
+
+  Future<Map<String, dynamic>> changePassword(
+      {required String password,
+      required String confirmPassword,
+      required String token}) async {
+    return provider.changePassword(
+        password: password, confirmPassword: confirmPassword, token: token);
+  }
 }

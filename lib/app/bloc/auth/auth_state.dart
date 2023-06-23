@@ -52,3 +52,5 @@ class AuthStatePasswordChangeOtpSent extends AuthState {
   final String resetToken;
   AuthStatePasswordChangeOtpSent({required this.resetToken});
 }
+
+class AuthStatePasswordChanged extends AuthState {}
