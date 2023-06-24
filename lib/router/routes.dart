@@ -1,5 +1,5 @@
 class Routes {
-  static const String homeScreen = '/';
+  static const String landing = '/';
   static const String registration = '/registeration';
   static const String login = '/login';
   static const String gender = '/gender';
@@ -12,4 +12,5 @@ class Routes {
   static const String createNewPasswordSuccessful =
       '/createNewPasswordSuccessful';
   static const String registrationDone = '/registrationDone';
+  static const String home = '/home';
 }

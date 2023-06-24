@@ -142,8 +142,11 @@ class _LoginFormState extends State<LoginForm> {
               logger.e(state);
               if (state is AuthStateLoggedIn) {
                 logger.e({"reg": state.user.authToken});
-                Navigator.pushNamed(context, Routes.registrationDone,
-                    arguments: state.user);
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  Routes.home,
+                  ((route) => route.settings.name == Routes.login),
+                );
               } else if (state is AuthStateError) {
                 InfoSnackBar.showErrorSnackBar(context, state.message);
               }
