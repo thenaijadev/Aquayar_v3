@@ -5,6 +5,9 @@ import 'package:aquayar/app/presentation/widgets/customer_flow/water_tank.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/text_input.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
+import 'package:aquayar/utilities/helper_functions.dart';
+import 'package:aquayar/utilities/validators.dart';
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 
 class OrderWater extends StatefulWidget {
@@ -18,8 +21,9 @@ class _OrderWaterState extends State<OrderWater>
     with SingleTickerProviderStateMixin {
   // final ForWho _person = ForWho.myself;
   final formfieldkey_1 = GlobalKey<FormFieldState>();
-  late AnimationController _animationController;
+  final formfieldkey_2 = GlobalKey<FormFieldState>();
 
+  late AnimationController _animationController;
   @override
   void initState() {
     _animationController =
@@ -32,6 +36,13 @@ class _OrderWaterState extends State<OrderWater>
     );
     super.initState();
   }
+
+  bool isChosen = true;
+  String? countryFlag = "🇳🇬";
+  bool? phoneNumberHasError = false;
+
+  String countryCode = "234";
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -129,23 +140,102 @@ class _OrderWaterState extends State<OrderWater>
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   RadioBtn(
+                    onTap: () {
+                      setState(() {
+                        isChosen = !isChosen;
+                      });
+                    },
+                    value: "me",
+                    isChosen: isChosen,
                     label: "For me",
                   ),
                   RadioBtn(
+                    onTap: () {
+                      isChosen = !isChosen;
+                      setState(() {});
+                    },
+                    value: "friend",
+                    isChosen: !isChosen,
                     label: "For a friend",
                   )
                 ],
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 25.0, top: 30),
-              child: TextWidget(
+            !isChosen
+                ? const Padding(
+                    padding: EdgeInsets.only(left: 25.0, top: 20),
+                    child: TextWidget(
+                      text: "Enter friends phone number",
+                      fontSize: 20,
+                      color: AppColors.titleBlack,
+                    ),
+                  )
+                : const Text(""),
+            !isChosen
+                ? Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: InputFieldWidget(
+                      prefixicon: Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                                onTap: () {
+                                  changeCountry(context, (Country country) {
+                                    setState(() {
+                                      countryFlag = country.flagEmoji;
+                                      countryCode = country.phoneCode;
+                                    });
+                                  });
+                                },
+                                child: TextWidget(
+                                  text: countryFlag!,
+                                  fontSize: 20,
+                                )),
+                            const SizedBox(
+                              width: 15,
+                            ),
+                            Image.asset("assets/images/line_vert.png"),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                          ],
+                        ),
+                      ),
+                      obscureText: false,
+                      textFieldkey: formfieldkey_2,
+                      label: "",
+                      padding: const EdgeInsets.all(0),
+                      hintText: "",
+                      hintSize: 20,
+                      onChanged: (val) {
+                        setState(() {
+                          phoneNumberHasError =
+                              formfieldkey_2.currentState?.validate();
+
+                          formKey.currentState?.validate();
+                        });
+                      },
+                      validator: (val) {
+                        final passwordStatus = Validator.validatePhoneNumber(
+                          formfieldkey_2.currentState?.value,
+                        );
+                        return passwordStatus;
+                      },
+                    ),
+                  )
+                : const Text(""),
+            Padding(
+              padding: EdgeInsets.only(left: 25.0, top: isChosen ? 0 : 20),
+              child: const TextWidget(
                 text: "Deliver to",
                 fontSize: 20,
               ),
@@ -157,7 +247,7 @@ class _OrderWaterState extends State<OrderWater>
                 onChanged: (val) {},
                 textFieldkey: formfieldkey_1),
             const SizedBox(
-              height: 20,
+              height: 12,
             ),
             Padding(
               padding: const EdgeInsets.only(left: 25.0),
@@ -235,7 +325,7 @@ class _OrderWaterState extends State<OrderWater>
                 OutlinedContainer(
                   padding: const EdgeInsets.all(15),
                   onTap: () {
-                    if (_animationController.value > 0.14285714285) {
+                    if (_animationController.value > 0.14) {
                       _animationController.animateTo(
                           _animationController.value - 0.14285714285);
                     }
@@ -307,6 +397,9 @@ class _OrderWaterState extends State<OrderWater>
                 ),
               ],
             ),
+            const SizedBox(
+              height: 50,
+            )
           ],
         ),
       ),

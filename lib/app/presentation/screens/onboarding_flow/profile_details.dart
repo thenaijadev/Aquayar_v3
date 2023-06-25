@@ -30,6 +30,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
   final formfieldkey_1 = GlobalKey<FormFieldState>();
   final formfieldkey_2 = GlobalKey<FormFieldState>();
   final formfieldkey_3 = GlobalKey<FormFieldState>();
+
   String city = "";
   late TextEditingController cityController;
   bool? emailState = false;
