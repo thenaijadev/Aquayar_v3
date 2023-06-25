@@ -1,0 +1,37 @@
+import 'package:aquayar/app/presentation/widgets/customer_flow/wave_view.dart';
+import 'package:aquayar/utilities/constants.dart/app_colors.dart';
+import 'package:flutter/material.dart';
+
+class WaterTank extends StatelessWidget {
+  const WaterTank({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 120,
+      width: 120,
+      child: Container(
+        width: 100,
+        height: 100,
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(255, 255, 255, 255),
+          border: Border.all(color: AppColors.inputBorder),
+          borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(80.0),
+              bottomLeft: Radius.circular(80.0),
+              bottomRight: Radius.circular(80.0),
+              topRight: Radius.circular(80.0)),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+                color: Colors.grey.withOpacity(0.4),
+                offset: const Offset(2, 4),
+                blurRadius: 10),
+          ],
+        ),
+        child: const WaveView(
+          percentageValue: 70.0,
+        ),
+      ),
+    );
+  }
+}

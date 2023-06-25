@@ -1,5 +1,7 @@
+import 'package:aquayar/app/presentation/widgets/customer_flow/for_who_radio_btn.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/outlined_container.dart';
-import 'package:aquayar/app/presentation/widgets/customer_flow/wave_view.dart';
+import 'package:aquayar/app/presentation/widgets/customer_flow/rounded_progress_painter.dart';
+import 'package:aquayar/app/presentation/widgets/customer_flow/water_tank.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/text_input.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
@@ -233,8 +235,10 @@ class _OrderWaterState extends State<OrderWater>
                 OutlinedContainer(
                   padding: const EdgeInsets.all(15),
                   onTap: () {
-                    _animationController
-                        .animateTo(_animationController.value - 0.14285714285);
+                    if (_animationController.value > 0.14285714285) {
+                      _animationController.animateTo(
+                          _animationController.value - 0.14285714285);
+                    }
                   },
                   borderRadius: 40,
                   child: const Icon(
@@ -245,17 +249,23 @@ class _OrderWaterState extends State<OrderWater>
                 Stack(
                   alignment: AlignmentDirectional.center,
                   children: [
+                    Container(
+                      height: 205,
+                      width: 205,
+                      decoration: BoxDecoration(
+                          border: Border.all(color: AppColors.inputBorder),
+                          borderRadius: BorderRadius.circular(200)),
+                    ),
                     SizedBox(
                       height: 160,
-                      width: 160,
+                      width: 180,
                       child: Container(
                         width: 100,
                         height: 100,
                         decoration: BoxDecoration(
                           color: const Color.fromARGB(255, 255, 255, 255),
                           border: Border.all(color: AppColors.inputBorder),
-                          borderRadius: BorderRadius.circular(
-                              80), // Adjust the border radius as desired
+                          borderRadius: BorderRadius.circular(80),
                           boxShadow: <BoxShadow>[
                             BoxShadow(
                               color: Colors.grey.withOpacity(0.4),
@@ -264,21 +274,22 @@ class _OrderWaterState extends State<OrderWater>
                             ),
                           ],
                         ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(
-                              100), // Adjust the border radius to match the container
-                          child: CircularProgressIndicator(
+                        child: CustomPaint(
+                          painter: RoundedProgressPainter(
                             backgroundColor: const Color(0xffF2F2F2),
-                            valueColor: const AlwaysStoppedAnimation<Color>(
-                                Color.fromARGB(255, 17, 150, 245)),
+                            valueColor: const Color.fromARGB(255, 17, 150, 245),
                             strokeWidth: 20,
                             value: _animationController
                                 .value, // Replace with your desired value
                           ),
+                          child: const SizedBox(
+                            width: 100,
+                            height: 100,
+                          ),
                         ),
                       ),
                     ),
-                    const WaterTankLevel(),
+                    const WaterTank(),
                   ],
                 ),
                 OutlinedContainer(
@@ -303,105 +314,4 @@ class _OrderWaterState extends State<OrderWater>
   }
 }
 
-class WaterTankLevel extends StatelessWidget {
-  const WaterTankLevel({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 120,
-      width: 120,
-      child: Container(
-        width: 100,
-        height: 100,
-        decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 255, 255, 255),
-          border: Border.all(color: AppColors.inputBorder),
-          borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(80.0),
-              bottomLeft: Radius.circular(80.0),
-              bottomRight: Radius.circular(80.0),
-              topRight: Radius.circular(80.0)),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-                color: Colors.grey.withOpacity(0.4),
-                offset: const Offset(2, 4),
-                blurRadius: 10),
-          ],
-        ),
-        child: const WaveView(
-          percentageValue: 70.0,
-        ),
-      ),
-    );
-  }
-}
-
 enum ForWho { myself, friend, nobody }
-
-class RadioBtn extends StatelessWidget {
-  const RadioBtn({super.key, required this.label});
-
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 70,
-      width: 170,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
-          border: Border.all(
-            width: 2,
-            color: AppColors.inputBorder,
-          )),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          const SizedBox(
-            width: 10,
-          ),
-          Container(
-            height: 30,
-            width: 30,
-            decoration: BoxDecoration(
-              border: Border.all(
-                  color: const Color.fromARGB(255, 219, 230, 240), width: 1),
-              color: const Color.fromARGB(133, 255, 255, 255),
-              borderRadius: BorderRadius.circular(30),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                height: 20,
-                width: 20,
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.centerRight,
-                    stops: [
-                      0.1,
-                      0.6,
-                    ],
-                    colors: [
-                      Color(0xff61C7F9),
-                      Color(0xff0579CE),
-                    ],
-                  ),
-                  borderRadius: BorderRadius.circular(30),
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          TextWidget(
-            text: label,
-            color: const Color(0xff868FAE),
-          ),
-        ],
-      ),
-    );
-  }
-}
