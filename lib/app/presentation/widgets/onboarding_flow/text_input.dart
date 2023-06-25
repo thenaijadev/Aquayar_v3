@@ -14,7 +14,8 @@ class InputFieldWidget extends StatelessWidget {
       required this.textFieldkey,
       this.obscureText = false,
       this.suffixIcon,
-      this.prefixicon});
+      this.prefixicon,
+      this.padding = const EdgeInsets.only(bottom: 10)});
   final String label;
   final String hintText;
   final double hintSize;
@@ -25,6 +26,7 @@ class InputFieldWidget extends StatelessWidget {
   final Widget? suffixIcon;
   final Widget? prefixicon;
   final String? initialValue;
+  final EdgeInsetsGeometry padding;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -33,7 +35,7 @@ class InputFieldWidget extends StatelessWidget {
         width: double.infinity,
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Padding(
-            padding: const EdgeInsets.only(bottom: 10),
+            padding: padding,
             child: TextWidget(
               text: label,
               fontWeight: FontWeight.w600,

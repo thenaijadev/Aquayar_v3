@@ -13,4 +13,5 @@ class Routes {
       '/createNewPasswordSuccessful';
   static const String registrationDone = '/registrationDone';
   static const String home = '/home';
+  static const String orderWater = '/orderWater';
 }
