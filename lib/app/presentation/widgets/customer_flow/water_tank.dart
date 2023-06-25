@@ -3,8 +3,8 @@ import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class WaterTank extends StatelessWidget {
-  const WaterTank({super.key});
-
+  const WaterTank({super.key, required this.number});
+  final double number;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -28,8 +28,8 @@ class WaterTank extends StatelessWidget {
                 blurRadius: 10),
           ],
         ),
-        child: const WaveView(
-          percentageValue: 70.0,
+        child: WaveView(
+          percentageValue: number,
         ),
       ),
     );

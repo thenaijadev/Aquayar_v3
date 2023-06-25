@@ -127,36 +127,36 @@ class _WaveViewState extends State<WaveView> with TickerProviderStateMixin {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 40, left: 5),
+            const Padding(
+              padding: EdgeInsets.only(bottom: 40, left: 5),
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Text(
-                      widget.percentageValue.round().toString(),
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontFamily: FitnessAppTheme.fontName,
-                        fontSize: 24,
-                        letterSpacing: 0.0,
-                        color: Color.fromARGB(255, 0, 0, 0),
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 3.0),
-                      child: Text(
-                        'Litres',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: FitnessAppTheme.fontName,
-                          fontSize: 14,
-                          letterSpacing: 0.0,
-                          color: Color.fromARGB(255, 0, 0, 0),
-                        ),
-                      ),
-                    ),
+                    // Text(
+                    //   "${widget.percentageValue.round()}",
+                    //   textAlign: TextAlign.center,
+                    //   style: const TextStyle(
+                    //     fontFamily: FitnessAppTheme.fontName,
+                    //     fontSize: 24,
+                    //     letterSpacing: 0.0,
+                    //     color: Color.fromARGB(255, 0, 0, 0),
+                    //   ),
+                    // ),
+                    // Padding(
+                    //   padding: EdgeInsets.only(top: 3.0),
+                    //   child: Text(
+                    //     'Litres',
+                    //     textAlign: TextAlign.center,
+                    //     style: TextStyle(
+                    //       fontFamily: FitnessAppTheme.fontName,
+                    //       fontSize: 14,
+                    //       letterSpacing: 0.0,
+                    //       color: Color.fromARGB(255, 0, 0, 0),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

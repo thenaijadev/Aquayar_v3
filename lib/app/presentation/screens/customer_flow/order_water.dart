@@ -18,13 +18,14 @@ class OrderWater extends StatefulWidget {
   State<OrderWater> createState() => _OrderWaterState();
 }
 
-class _OrderWaterState extends State<OrderWater>
-    with SingleTickerProviderStateMixin {
+class _OrderWaterState extends State<OrderWater> with TickerProviderStateMixin {
   // final ForWho _person = ForWho.myself;
   final formfieldkey_1 = GlobalKey<FormFieldState>();
   final formfieldkey_2 = GlobalKey<FormFieldState>();
 
   late AnimationController _animationController;
+  late AnimationController _animationController_2;
+  int count = 0;
   @override
   void initState() {
     _animationController =
@@ -32,8 +33,17 @@ class _OrderWaterState extends State<OrderWater>
           ..addListener(() {
             setState(() {});
           });
-    _animationController.animateTo(
-      0.14285714285,
+    // _animationController.animateTo(
+    //   0.14285714285,
+    // );
+
+    _animationController_2 =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1))
+          ..addListener(() {
+            setState(() {});
+          });
+    _animationController_2.animateTo(
+      0.12,
     );
     super.initState();
   }
@@ -44,6 +54,8 @@ class _OrderWaterState extends State<OrderWater>
 
   String countryCode = "234";
   final formKey = GlobalKey<FormState>();
+
+  int liters = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -66,10 +78,10 @@ class _OrderWaterState extends State<OrderWater>
           ),
         ),
       ),
-      body: Column(
+      body: ListView(
         children: [
           SizedBox(
-            height: 620,
+            height: 600,
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -335,9 +347,32 @@ class _OrderWaterState extends State<OrderWater>
                       OutlinedContainer(
                         padding: const EdgeInsets.all(15),
                         onTap: () {
-                          if (_animationController.value > 0.14) {
+                          setState(() {
+                            if (liters == 500) {
+                              liters = 0;
+                            } else if (liters == 750) {
+                              liters = 500;
+                            } else if (liters == 1000) {
+                              liters = 750;
+                            } else if (liters == 1200) {
+                              liters = 1000;
+                            } else if (liters == 1500) {
+                              liters = 1200;
+                            } else if (liters == 2000) {
+                              liters = 1500;
+                            } else if (liters == 2500) {
+                              liters = 2000;
+                            } else if (liters == 2500) {
+                              liters = liters - 500;
+                            }
+                          });
+                          if (count > 0) {
                             _animationController.animateTo(
                                 _animationController.value - 0.14285714285);
+
+                            _animationController_2.animateTo(
+                                _animationController_2.value - 0.035);
+                            count--;
                           }
                         },
                         borderRadius: 40,
@@ -392,15 +427,53 @@ class _OrderWaterState extends State<OrderWater>
                               ),
                             ),
                           ),
-                          const WaterTank(),
+                          WaterTank(
+                            number: _animationController_2.value * 300,
+                          ),
+                          Column(
+                            children: [
+                              TextWidget(
+                                text: "$liters",
+                                fontWeight: FontWeight.bold,
+                                fontSize: 30,
+                              ),
+                              const TextWidget(
+                                text: "Litres",
+                                fontSize: 15,
+                              ),
+                            ],
+                          )
                         ],
                       ),
                       OutlinedContainer(
                         padding: const EdgeInsets.all(15),
                         onTap: () {
-                          _animationController.animateTo(
-                            _animationController.value + 0.14285714285,
-                          );
+                          setState(() {
+                            if (count == 0) {
+                              liters = 500;
+                            } else if (count == 1) {
+                              liters = 750;
+                            } else if (count == 2) {
+                              liters = 1000;
+                            } else if (count == 3) {
+                              liters = 1200;
+                            } else if (count == 4) {
+                              liters = 1500;
+                            } else if (count == 5) {
+                              liters = 2000;
+                            } else if (count == 6) {
+                              liters = 2500;
+                            }
+                          });
+                          if (count < 7) {
+                            _animationController.animateTo(
+                                _animationController.value + 0.14285714285,
+                                duration: const Duration(milliseconds: 200));
+                            _animationController_2.animateTo(
+                                _animationController_2.value + 0.035,
+                                duration: const Duration(milliseconds: 200));
+                            count++;
+                          }
                         },
                         borderRadius: 40,
                         child: const Icon(
@@ -411,7 +484,7 @@ class _OrderWaterState extends State<OrderWater>
                     ],
                   ),
                   const SizedBox(
-                    height: 50,
+                    height: 20,
                   )
                 ],
               ),
@@ -420,6 +493,7 @@ class _OrderWaterState extends State<OrderWater>
           BlueBtn(
               label: const TextWidget(
                 text: "              Start",
+                fontWeight: FontWeight.bold,
                 color: AppColors.white,
               ),
               onPressed: () {})
