@@ -14,6 +14,7 @@ import 'package:aquayar/app/presentation/screens/onboarding_flow/otp_screen.dart
 import 'package:aquayar/app/presentation/screens/onboarding_flow/phone_verification_screen.dart';
 import 'package:aquayar/app/presentation/screens/onboarding_flow/profile_details.dart';
 import 'package:aquayar/app/presentation/screens/onboarding_flow/registration_screen.dart';
+import 'package:aquayar/app/presentation/widgets/customer_flow/water_aquired_screen.dart';
 import 'package:aquayar/router/routes.dart';
 import 'package:flutter/material.dart';
 
@@ -87,6 +88,10 @@ class AppRouter {
       case Routes.orderWater:
         return MaterialPageRoute(
           builder: (_) => const OrderWater(),
+        );
+      case Routes.waterAquired:
+        return MaterialPageRoute(
+          builder: (_) => const WaterAquiredScreen(),
         );
       // case Routes.payNowScreen:
       //   var data = routeSettings.arguments as CardModel;

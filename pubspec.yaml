@@ -38,6 +38,7 @@ dependencies:
   hydrated_bloc: ^9.1.2
   json_serializable: ^6.7.0
   clay_containers: ^0.3.2
+  flutter_polyline_points: ^1.0.0
 
 dev_dependencies:
   flutter_test:
