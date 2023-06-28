@@ -1,3 +1,4 @@
+import 'package:aquayar/app/presentation/widgets/customer_flow/bottom_sheets.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/outlined_container.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/rounded_progress_painter.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/water_tank.dart';
@@ -213,7 +214,7 @@ class _OrderWaterState extends State<OrderWater> with TickerProviderStateMixin {
                   ),
                   AddressForm(
                     onTap: () {
-                      showBottomSheet(context);
+                      showBottomSheetWidget(context);
                     },
                   ),
                   const Padding(
@@ -463,66 +464,4 @@ class _AddressFormState extends State<AddressForm> {
       ],
     );
   }
-}
-
-void showBottomSheet(BuildContext context) {
-  showModalBottomSheet(
-    backgroundColor: Colors.transparent,
-    context: context,
-    isScrollControlled: true,
-    builder: (BuildContext context) {
-      return Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.0),
-              topRight: Radius.circular(20.0),
-            ),
-          ),
-          height: MediaQuery.of(context).size.height * 0.8,
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Transform.rotate(
-                    angle: 45 * 0.0174533, // 90 degrees in radians
-                    child: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Icon(
-                          Icons.add,
-                          weight: 1,
-                          size: 35,
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              const AddressForm(),
-              Row(
-                children: [
-                  Image.asset("assets/images/location_pin.png"),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  const Column(
-                    children: [
-                      TextWidget(
-                        text: "WTC Estate",
-                        textAlign: TextAlign.left,
-                      ),
-                      TextWidget(text: "Odoeze St, Enugu,Nigeria")
-                    ],
-                  )
-                ],
-              )
-            ],
-          ));
-    },
-  );
 }
