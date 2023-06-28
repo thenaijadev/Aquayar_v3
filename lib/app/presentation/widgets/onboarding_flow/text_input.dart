@@ -15,11 +15,14 @@ class InputFieldWidget extends StatelessWidget {
       this.obscureText = false,
       this.suffixIcon,
       this.prefixicon,
-      this.padding = const EdgeInsets.only(bottom: 10)});
+      this.padding = const EdgeInsets.only(bottom: 10),
+      this.onTap});
   final String label;
   final String hintText;
   final double hintSize;
   final void Function(String?) onChanged;
+  final void Function()? onTap;
+
   final String? Function(String?)? validator;
   final GlobalKey<FormFieldState> textFieldkey;
   final bool obscureText;
@@ -43,6 +46,7 @@ class InputFieldWidget extends StatelessWidget {
             ),
           ),
           TextFormField(
+            onTap: onTap,
             key: textFieldkey,
             initialValue: initialValue,
             onChanged: onChanged,

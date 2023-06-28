@@ -1,4 +1,3 @@
-import 'package:aquayar/app/presentation/widgets/customer_flow/for_who_radio_btn.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/outlined_container.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/rounded_progress_painter.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/water_tank.dart';
@@ -6,9 +5,6 @@ import 'package:aquayar/app/presentation/widgets/onboarding_flow/blue_btn.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/text_input.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
-import 'package:aquayar/utilities/helper_functions.dart';
-import 'package:aquayar/utilities/validators.dart';
-import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 
 class OrderWater extends StatefulWidget {
@@ -46,6 +42,62 @@ class _OrderWaterState extends State<OrderWater> with TickerProviderStateMixin {
       0.12,
     );
     super.initState();
+  }
+
+  increment() {
+    setState(() {
+      if (count == 0) {
+        liters = 500;
+      } else if (count == 1) {
+        liters = 750;
+      } else if (count == 2) {
+        liters = 1000;
+      } else if (count == 3) {
+        liters = 1200;
+      } else if (count == 4) {
+        liters = 1500;
+      } else if (count == 5) {
+        liters = 2000;
+      } else if (count == 6) {
+        liters = 2500;
+      }
+    });
+    if (count < 7) {
+      _animationController.animateTo(_animationController.value + 0.14285714285,
+          duration: const Duration(milliseconds: 200));
+      _animationController_2.animateTo(_animationController_2.value + 0.035,
+          duration: const Duration(milliseconds: 200));
+      count++;
+    }
+  }
+
+  decrement() {
+    setState(() {
+      if (liters == 500) {
+        liters = 0;
+      } else if (liters == 750) {
+        liters = 500;
+      } else if (liters == 1000) {
+        liters = 750;
+      } else if (liters == 1200) {
+        liters = 1000;
+      } else if (liters == 1500) {
+        liters = 1200;
+      } else if (liters == 2000) {
+        liters = 1500;
+      } else if (liters == 2500) {
+        liters = 2000;
+      } else if (liters == 2500) {
+        liters = liters - 500;
+      }
+    });
+    if (count > 0) {
+      _animationController
+          .animateTo(_animationController.value - 0.14285714285);
+
+      _animationController_2.animateTo(_animationController_2.value - 0.035);
+      count--;
+    }
   }
 
   bool isChosen = true;
@@ -159,178 +211,10 @@ class _OrderWaterState extends State<OrderWater> with TickerProviderStateMixin {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        RadioBtn(
-                          onTap: () {
-                            setState(() {
-                              isChosen = !isChosen;
-                            });
-                          },
-                          value: "me",
-                          isChosen: isChosen,
-                          label: "For me",
-                        ),
-                        RadioBtn(
-                          onTap: () {
-                            isChosen = !isChosen;
-                            setState(() {});
-                          },
-                          value: "friend",
-                          isChosen: !isChosen,
-                          label: "For a friend",
-                        )
-                      ],
-                    ),
-                  ),
-                  !isChosen
-                      ? const Padding(
-                          padding: EdgeInsets.only(left: 25.0, top: 20),
-                          child: TextWidget(
-                            text: "Enter friends phone number",
-                            fontSize: 20,
-                            color: AppColors.titleBlack,
-                          ),
-                        )
-                      : const Text(""),
-                  !isChosen
-                      ? Padding(
-                          padding: const EdgeInsets.only(top: 10.0),
-                          child: InputFieldWidget(
-                            prefixicon: Padding(
-                              padding: const EdgeInsets.only(left: 20),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  GestureDetector(
-                                      onTap: () {
-                                        changeCountry(context,
-                                            (Country country) {
-                                          setState(() {
-                                            countryFlag = country.flagEmoji;
-                                            countryCode = country.phoneCode;
-                                          });
-                                        });
-                                      },
-                                      child: TextWidget(
-                                        text: countryFlag!,
-                                        fontSize: 20,
-                                      )),
-                                  const SizedBox(
-                                    width: 15,
-                                  ),
-                                  Image.asset("assets/images/line_vert.png"),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            obscureText: false,
-                            textFieldkey: formfieldkey_2,
-                            label: "",
-                            padding: const EdgeInsets.all(0),
-                            hintText: "",
-                            hintSize: 20,
-                            onChanged: (val) {
-                              setState(() {
-                                phoneNumberHasError =
-                                    formfieldkey_2.currentState?.validate();
-
-                                formKey.currentState?.validate();
-                              });
-                            },
-                            validator: (val) {
-                              final passwordStatus =
-                                  Validator.validatePhoneNumber(
-                                formfieldkey_2.currentState?.value,
-                              );
-                              return passwordStatus;
-                            },
-                          ),
-                        )
-                      : const Text(""),
-                  Padding(
-                    padding:
-                        EdgeInsets.only(left: 25.0, top: isChosen ? 0 : 20),
-                    child: const TextWidget(
-                      text: "Deliver to",
-                      fontSize: 20,
-                    ),
-                  ),
-                  InputFieldWidget(
-                      padding: const EdgeInsets.all(0),
-                      label: "",
-                      hintText: "Enter Address",
-                      onChanged: (val) {},
-                      textFieldkey: formfieldkey_1),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 25.0),
-                    child: Row(
-                      children: [
-                        OutlinedContainer(
-                          borderRadius: 30,
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 8, horizontal: 20),
-                          onTap: () {},
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Image.asset("assets/images/home.png"),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              const TextWidget(
-                                text: "Home",
-                                color: Color(0xff623903),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              const Icon(Icons.check),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        OutlinedContainer(
-                          borderRadius: 30,
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 8, horizontal: 20),
-                          onTap: () {},
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Image.asset("assets/images/lamp.png"),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              const TextWidget(
-                                text: "Location 2",
-                                color: Color(0xff868FAE),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        OutlinedContainer(
-                          padding: const EdgeInsets.all(10),
-                          borderRadius: 20,
-                          onTap: () {},
-                          child: Image.asset("assets/images/pen_icon.png"),
-                        )
-                      ],
-                    ),
+                  AddressForm(
+                    onTap: () {
+                      showBottomSheet(context);
+                    },
                   ),
                   const Padding(
                     padding: EdgeInsets.only(left: 30.0, top: 20),
@@ -338,42 +222,13 @@ class _OrderWaterState extends State<OrderWater> with TickerProviderStateMixin {
                       text: "What amount of water do you need?",
                     ),
                   ),
-                  const SizedBox(
-                    height: 30,
-                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       OutlinedContainer(
                         padding: const EdgeInsets.all(15),
                         onTap: () {
-                          setState(() {
-                            if (liters == 500) {
-                              liters = 0;
-                            } else if (liters == 750) {
-                              liters = 500;
-                            } else if (liters == 1000) {
-                              liters = 750;
-                            } else if (liters == 1200) {
-                              liters = 1000;
-                            } else if (liters == 1500) {
-                              liters = 1200;
-                            } else if (liters == 2000) {
-                              liters = 1500;
-                            } else if (liters == 2500) {
-                              liters = 2000;
-                            } else if (liters == 2500) {
-                              liters = liters - 500;
-                            }
-                          });
-                          if (count > 0) {
-                            _animationController.animateTo(
-                                _animationController.value - 0.14285714285);
-
-                            _animationController_2.animateTo(
-                                _animationController_2.value - 0.035);
-                            count--;
-                          }
+                          decrement();
                         },
                         borderRadius: 40,
                         child: const Icon(
@@ -448,32 +303,7 @@ class _OrderWaterState extends State<OrderWater> with TickerProviderStateMixin {
                       OutlinedContainer(
                         padding: const EdgeInsets.all(15),
                         onTap: () {
-                          setState(() {
-                            if (count == 0) {
-                              liters = 500;
-                            } else if (count == 1) {
-                              liters = 750;
-                            } else if (count == 2) {
-                              liters = 1000;
-                            } else if (count == 3) {
-                              liters = 1200;
-                            } else if (count == 4) {
-                              liters = 1500;
-                            } else if (count == 5) {
-                              liters = 2000;
-                            } else if (count == 6) {
-                              liters = 2500;
-                            }
-                          });
-                          if (count < 7) {
-                            _animationController.animateTo(
-                                _animationController.value + 0.14285714285,
-                                duration: const Duration(milliseconds: 200));
-                            _animationController_2.animateTo(
-                                _animationController_2.value + 0.035,
-                                duration: const Duration(milliseconds: 200));
-                            count++;
-                          }
+                          increment();
                         },
                         borderRadius: 40,
                         child: const Icon(
@@ -504,3 +334,195 @@ class _OrderWaterState extends State<OrderWater> with TickerProviderStateMixin {
 }
 
 enum ForWho { myself, friend, nobody }
+
+class AddressForm extends StatefulWidget {
+  const AddressForm({super.key, this.onTap});
+  final void Function()? onTap;
+  @override
+  State<AddressForm> createState() => _AddressFormState();
+}
+
+class _AddressFormState extends State<AddressForm> {
+  final formfieldkey_1 = GlobalKey<FormFieldState>();
+  bool isHome = true;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Padding(
+          padding: EdgeInsets.only(left: 25.0, top: 15),
+          child: TextWidget(
+            text: "Deliver to",
+            fontSize: 20,
+          ),
+        ),
+        InputFieldWidget(
+            onTap: widget.onTap,
+            padding: const EdgeInsets.all(0),
+            label: "",
+            hintText: "Enter Address",
+            onChanged: (val) {},
+            textFieldkey: formfieldkey_1),
+        const SizedBox(
+          height: 12,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 25.0),
+          child: Row(
+            children: [
+              OutlinedContainer(
+                color: isHome ? const Color(0xffFEF1E2) : Colors.transparent,
+                borderColor:
+                    isHome ? const Color(0xff623903) : const Color(0xff868FAE),
+                borderRadius: 30,
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+                onTap: () {
+                  setState(() {
+                    isHome = true;
+                  });
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Icon(
+                      Icons.home,
+                      color: isHome
+                          ? const Color(0xff623903)
+                          : const Color(0xff868FAE),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    TextWidget(
+                      text: "Home",
+                      color: isHome
+                          ? const Color(0xff623903)
+                          : const Color(0xff868FAE),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    isHome ? const Icon(Icons.check) : const Text(""),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              OutlinedContainer(
+                color: !isHome ? const Color(0xffFEF1E2) : Colors.transparent,
+                borderColor:
+                    !isHome ? const Color(0xff623903) : const Color(0xff868FAE),
+                borderRadius: 30,
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                onTap: () {
+                  setState(() {
+                    isHome = false;
+                  });
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Icon(
+                      Icons.lightbulb_outline_rounded,
+                      color: !isHome
+                          ? const Color(0xff623903)
+                          : const Color(0xff868FAE),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    TextWidget(
+                      text: "Location 2",
+                      color: !isHome
+                          ? const Color(0xff623903)
+                          : const Color(0xff868FAE),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    !isHome ? const Icon(Icons.check) : const Text(""),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              OutlinedContainer(
+                padding: const EdgeInsets.all(10),
+                borderRadius: 20,
+                onTap: () {},
+                child: Image.asset("assets/images/pen_icon.png"),
+              )
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+void showBottomSheet(BuildContext context) {
+  showModalBottomSheet(
+    backgroundColor: Colors.transparent,
+    context: context,
+    isScrollControlled: true,
+    builder: (BuildContext context) {
+      return Container(
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20.0),
+              topRight: Radius.circular(20.0),
+            ),
+          ),
+          height: MediaQuery.of(context).size.height * 0.8,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Transform.rotate(
+                    angle: 45 * 0.0174533, // 90 degrees in radians
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Icon(
+                          Icons.add,
+                          weight: 1,
+                          size: 35,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              const AddressForm(),
+              Row(
+                children: [
+                  Image.asset("assets/images/location_pin.png"),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  const Column(
+                    children: [
+                      TextWidget(
+                        text: "WTC Estate",
+                        textAlign: TextAlign.left,
+                      ),
+                      TextWidget(text: "Odoeze St, Enugu,Nigeria")
+                    ],
+                  )
+                ],
+              )
+            ],
+          ));
+    },
+  );
+}
