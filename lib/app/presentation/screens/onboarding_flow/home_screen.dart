@@ -1,4 +1,3 @@
-import 'package:aquayar/app/presentation/widgets/onboarding_flow/blue_btn.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/home_logo_circle.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/outlined_btn.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
@@ -20,7 +19,7 @@ class LandingScreen extends StatelessWidget {
             alignment: AlignmentDirectional.bottomCenter,
             children: [
               Container(
-                height: 450,
+                height: 500,
                 width: double.infinity,
                 decoration: const BoxDecoration(
                   color: AppColors.backgroundGrey,
@@ -34,34 +33,30 @@ class LandingScreen extends StatelessWidget {
             ],
           ),
           const Padding(
-            padding: EdgeInsets.only(top: 80.0),
+            padding: EdgeInsets.only(top: 50.0),
             child: TextWidget(
                 text: "Welcome to Aquayar 👋🏿",
                 fontSize: 27,
                 fontWeight: FontWeight.w700),
           ),
           const Padding(
-            padding: EdgeInsets.only(top: 12.0),
+            padding: EdgeInsets.only(top: 5.0, bottom: 40),
             child: TextWidget(
               fontSize: 15,
               text: "Aquayar brings you closer to better water services",
               color: Color(0xff868FAE),
             ),
           ),
-          BlueBtn(
-            onPressed: () {
-              Navigator.pushNamed(context, Routes.registration);
-            },
-            label: const TextWidget(
-              text: "Get started for free",
-              color: AppColors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-            ),
-          ),
+          GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, Routes.registration);
+              },
+              child: Image.asset("assets/images/button.png")),
           OutlinedBtn(
+            width: 158,
             label: const TextWidget(
               text: "Login",
+              fontSize: 16,
               fontWeight: FontWeight.w400,
             ),
             onPressed: () async {
@@ -69,7 +64,7 @@ class LandingScreen extends StatelessWidget {
               // final Position position = await UserProvider().getUserLocation();
               // logger.e({position.latitude, position.longitude});
             },
-          )
+          ),
         ],
       ),
     );

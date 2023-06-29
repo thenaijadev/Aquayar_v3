@@ -41,23 +41,29 @@ class _RegisterationFormState extends ConsumerState<RegisterationForm> {
       key: formKey,
       child: Column(
         children: [
-          const Center(
-            child: TextWidget(
-              text: "Aquayar 👋🏿",
-              fontSize: 30,
-              fontWeight: FontWeight.w700,
-            ),
+          CircleAvatar(
+            backgroundColor: Colors.transparent,
+            radius: 30,
+            child: Image.asset("assets/images/logo.png"),
           ),
-          const Center(
-            child: TextWidget(
-              text: "Water without limits",
-              color: AppColors.textGrey,
-              fontSize: 16,
-            ),
-          ),
+          // const Center(
+          //   child: TextWidget(
+          //     text: "Aquayar 👋🏿",
+          //     fontSize: 30,
+          //     fontWeight: FontWeight.w700,
+          //   ),
+          // ),
+          // const Center(
+          //   child: TextWidget(
+          //     text: "Water without limits",
+          //     color: AppColors.textGrey,
+          //     fontSize: 16,
+          //   ),
+          // ),
           Padding(
             padding: const EdgeInsets.only(top: 45.0),
             child: InputFieldWidget(
+              verticalContentPadding: 20,
               textFieldkey: formfieldkey_1,
               label: "Your email address",
               hintText: "e.g:mark@gmail.com",

@@ -2,27 +2,28 @@ import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class BlueBtn extends StatelessWidget {
-  const BlueBtn({
-    super.key,
-    required this.label,
-    required this.onPressed,
-    this.paddingHorizontal = 15,
-    this.paddingVertical = 15,
-    this.width,
-    this.enabled = true,
-  });
+  const BlueBtn(
+      {super.key,
+      required this.label,
+      required this.onPressed,
+      this.paddingHorizontal = 15,
+      this.paddingVertical = 15,
+      this.width,
+      this.enabled = true,
+      this.inversedLength = 25});
   final Widget label;
   final void Function() onPressed;
   final double paddingHorizontal;
   final double paddingVertical;
   final double? width;
   final bool enabled;
+  final double inversedLength;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPressed,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20),
+        padding: EdgeInsets.symmetric(horizontal: inversedLength, vertical: 20),
         child: Material(
           borderRadius: BorderRadius.circular(30),
           elevation: enabled ? 5 : 0,
@@ -35,16 +36,9 @@ class BlueBtn extends StatelessWidget {
                 ? BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
                     gradient: const LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.centerRight,
-                      stops: [
-                        0.1,
-                        0.6,
-                      ],
-                      colors: [
-                        Color(0xff61C7F9),
-                        Color.fromARGB(255, 4, 136, 231),
-                      ],
+                      begin: Alignment(0.75, -0.67),
+                      end: Alignment(-0.75, 0.67),
+                      colors: [Color(0xFF60C6F9), Color(0xFF0479CD)],
                     ),
                   )
                 : BoxDecoration(

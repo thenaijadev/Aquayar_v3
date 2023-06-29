@@ -5,6 +5,7 @@ import 'package:aquayar/app/presentation/widgets/customer_flow/rounded_progress_
 import 'package:aquayar/app/presentation/widgets/customer_flow/water_tank.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/blue_btn.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
+import 'package:aquayar/router/routes.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -327,7 +328,9 @@ class _OrderWaterState extends State<OrderWater> with TickerProviderStateMixin {
                 fontWeight: FontWeight.bold,
                 color: AppColors.white,
               ),
-              onPressed: () {})
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.waterAquired);
+              })
         ],
       ),
     );

@@ -16,7 +16,10 @@ class InputFieldWidget extends StatelessWidget {
       this.suffixIcon,
       this.prefixicon,
       this.padding = const EdgeInsets.only(bottom: 10),
-      this.onTap});
+      this.onTap,
+      this.maxLines = 1,
+      this.enabledBorderRadius = 30,
+      this.verticalContentPadding = 0});
   final String label;
   final String hintText;
   final double hintSize;
@@ -30,10 +33,14 @@ class InputFieldWidget extends StatelessWidget {
   final Widget? prefixicon;
   final String? initialValue;
   final EdgeInsetsGeometry padding;
+  final int? maxLines;
+  final double enabledBorderRadius;
+  final double verticalContentPadding;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 25, right: 25),
+      padding: const EdgeInsets.only(left: 16, right: 16),
       child: SizedBox(
         width: double.infinity,
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -42,7 +49,7 @@ class InputFieldWidget extends StatelessWidget {
             child: TextWidget(
               text: label,
               fontWeight: FontWeight.w600,
-              fontSize: 12,
+              fontSize: 16,
             ),
           ),
           TextFormField(
@@ -50,6 +57,7 @@ class InputFieldWidget extends StatelessWidget {
             key: textFieldkey,
             initialValue: initialValue,
             onChanged: onChanged,
+            maxLines: maxLines,
             validator: validator,
             obscureText: obscureText,
             decoration: InputDecoration(
@@ -57,8 +65,8 @@ class InputFieldWidget extends StatelessWidget {
               suffixIcon: suffixIcon,
               hintStyle:
                   TextStyle(color: AppColors.hintColor, fontSize: hintSize),
-              contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+              contentPadding: EdgeInsets.symmetric(
+                  horizontal: 24, vertical: verticalContentPadding),
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(30),
                 borderSide: const BorderSide(
@@ -83,7 +91,7 @@ class InputFieldWidget extends StatelessWidget {
               enabledBorder: OutlineInputBorder(
                 borderSide:
                     const BorderSide(color: AppColors.inputBorder, width: 1),
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(enabledBorderRadius),
               ),
               hintText: hintText,
             ),

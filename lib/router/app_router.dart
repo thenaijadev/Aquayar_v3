@@ -2,6 +2,7 @@ import 'package:aquayar/app/data/models/auth_user.dart';
 import 'package:aquayar/app/error/error_screen.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/home.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/order_water.dart';
+import 'package:aquayar/app/presentation/screens/customer_flow/water_animation.dart';
 import 'package:aquayar/app/presentation/screens/onboarding_flow/create_new_password_screen.dart';
 import 'package:aquayar/app/presentation/screens/onboarding_flow/otp_sent.dart';
 import 'package:aquayar/app/presentation/screens/onboarding_flow/password_set_successfully_screen.dart';
@@ -14,7 +15,6 @@ import 'package:aquayar/app/presentation/screens/onboarding_flow/otp_screen.dart
 import 'package:aquayar/app/presentation/screens/onboarding_flow/phone_verification_screen.dart';
 import 'package:aquayar/app/presentation/screens/onboarding_flow/profile_details.dart';
 import 'package:aquayar/app/presentation/screens/onboarding_flow/registration_screen.dart';
-import 'package:aquayar/app/presentation/widgets/customer_flow/water_aquired_screen.dart';
 import 'package:aquayar/router/routes.dart';
 import 'package:flutter/material.dart';
 
@@ -91,7 +91,7 @@ class AppRouter {
         );
       case Routes.waterAquired:
         return MaterialPageRoute(
-          builder: (_) => const WaterAquiredScreen(),
+          builder: (_) => const WaveAnimationWidget(),
         );
       // case Routes.payNowScreen:
       //   var data = routeSettings.arguments as CardModel;
