@@ -1,6 +1,7 @@
 import 'package:aquayar/app/presentation/widgets/customer_flow/outlined_container.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/text_input.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
+import 'package:aquayar/router/routes.dart';
 import 'package:flutter/material.dart';
 
 class AddressForm extends StatefulWidget {
@@ -118,7 +119,9 @@ class _AddressFormState extends State<AddressForm> {
               OutlinedContainer(
                 padding: const EdgeInsets.all(10),
                 borderRadius: 20,
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, Routes.locations);
+                },
                 child: Image.asset("assets/images/pen_icon.png"),
               )
             ],

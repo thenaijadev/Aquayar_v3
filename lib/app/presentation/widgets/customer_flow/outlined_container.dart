@@ -9,12 +9,12 @@ class OutlinedContainer extends StatelessWidget {
       this.borderRadius = 10,
       this.padding = const EdgeInsets.all(20),
       this.child = const TextWidget(text: "hi"),
-      required this.onTap,
+      this.onTap,
       this.borderColor = AppColors.inputBorder});
   final double? borderRadius;
   final EdgeInsetsGeometry padding;
   final Widget child;
-  final void Function() onTap;
+  final void Function()? onTap;
   final Color? color;
   final Color borderColor;
   @override
