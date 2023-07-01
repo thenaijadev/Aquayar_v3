@@ -237,6 +237,9 @@ class _OrderWaterState extends State<OrderWater> with TickerProviderStateMixin {
                       text: "What amount of water do you need?",
                     ),
                   ),
+                  const SizedBox(
+                    height: 14,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [

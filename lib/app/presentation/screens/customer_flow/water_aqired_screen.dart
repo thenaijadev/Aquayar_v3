@@ -53,7 +53,7 @@ class _WaterAcquiredScreenState extends State<WaterAcquiredScreen>
                   painter: WavePainter(
                     animationValue: _animation.value,
                     waveColor: const Color(0xff0579CE),
-                    waveHeight: 0.35,
+                    waveHeight: 0.40,
                     waveAmplitude: 10.0,
                     waveFrequency: 2,
                   ),
@@ -65,7 +65,7 @@ class _WaterAcquiredScreenState extends State<WaterAcquiredScreen>
             child: Column(
               children: [
                 const SizedBox(
-                  height: 100,
+                  height: 75,
                 ),
                 const TextWidget(
                   text: "Water Acquired!",
@@ -91,7 +91,7 @@ class _WaterAcquiredScreenState extends State<WaterAcquiredScreen>
                       color: const Color.fromARGB(255, 255, 255, 255)
                           .withOpacity(0.35)),
                   child: Padding(
-                    padding: const EdgeInsets.all(25.0),
+                    padding: const EdgeInsets.all(20.0),
                     child: Column(
                       children: [
                         const TextWidget(
