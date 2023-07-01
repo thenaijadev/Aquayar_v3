@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
           FocusManager.instance.primaryFocus?.unfocus();
         },
         child: MaterialApp(
+          theme: ThemeData(textTheme: TextTheme()),
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
           initialRoute: "/",

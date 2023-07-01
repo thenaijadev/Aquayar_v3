@@ -2,7 +2,6 @@ import 'package:aquayar/app/bloc/auth/auth_bloc.dart';
 import 'package:aquayar/app/bloc/auth/auth_event.dart';
 import 'package:aquayar/app/bloc/auth/auth_state.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/oauth_btn.dart';
-import 'package:aquayar/app/presentation/widgets/onboarding_flow/blue_btn.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/text_input.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:aquayar/router/routes.dart';
@@ -63,7 +62,6 @@ class _RegisterationFormState extends ConsumerState<RegisterationForm> {
           Padding(
             padding: const EdgeInsets.only(top: 45.0),
             child: InputFieldWidget(
-              verticalContentPadding: 20,
               textFieldkey: formfieldkey_1,
               label: "Your email address",
               hintText: "e.g:mark@gmail.com",
@@ -80,9 +78,10 @@ class _RegisterationFormState extends ConsumerState<RegisterationForm> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 20.0),
+            padding: const EdgeInsets.only(top: 10.0),
             child: InputFieldWidget(
               obscureText: obscureText,
+              padding: const EdgeInsets.symmetric(vertical: 8),
               suffixIcon: GestureDetector(
                 onTap: () {
                   setState(() {
@@ -132,54 +131,68 @@ class _RegisterationFormState extends ConsumerState<RegisterationForm> {
                         size: 40.0,
                       ),
                     )
-                  : BlueBtn(
-                      enabled: emailState! && passwordState!,
-                      paddingVertical: 12,
-                      label: TextWidget(
-                        text: "      Continue",
-                        color:
-                            enabled ? AppColors.white : AppColors.inputBorder,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                      ),
-                      onPressed: () async {
-                        final formState = formKey.currentState?.validate();
+                  : emailState! && passwordState!
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 16.0),
+                          child: GestureDetector(
+                            onTap: () async {
+                              final formState =
+                                  formKey.currentState?.validate();
 
-                        if (formState!) {
-                          authBloc.add(AuthEventRegister(
-                              email: formfieldkey_1.currentState?.value,
-                              password: formfieldkey_2.currentState?.value));
-                        }
-                      });
+                              if (formState!) {
+                                authBloc.add(AuthEventRegister(
+                                    email: formfieldkey_1.currentState?.value,
+                                    password:
+                                        formfieldkey_2.currentState?.value));
+                              }
+                            },
+                            child:
+                                Image.asset("assets/images/continue_blue.png"),
+                          ),
+                        )
+                      : Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Image.asset("assets/images/continue_grey.png"),
+                        );
             },
           ),
           const SizedBox(
             height: 10,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Flexible(
-                child: Image.asset(
-                  "assets/images/line.png",
-                  width: 150,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Flexible(
+                  child: SizedBox(
+                    width: 500,
+                    child: Image.asset(
+                      "assets/images/line.png",
+                      width: 150,
+                    ),
+                  ),
                 ),
-              ),
-              const TextWidget(
-                text: "   or   ",
-                color: AppColors.titleBlack,
-              ),
-              Flexible(
-                child: Image.asset(
-                  "assets/images/line.png",
-                  width: 150,
+                const TextWidget(
+                  text: "   or   ",
+                  color: AppColors.titleBlack,
                 ),
-              ),
-            ],
+                Flexible(
+                  child: SizedBox(
+                    width: 500,
+                    child: Image.asset(
+                      "assets/images/line.png",
+                      width: 150,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 35.0, bottom: 20),
             child: OutlinedButtonWidget(
+              width: 360,
               image: Image.asset("assets/images/google.png"),
               label: "Sign up with Google",
               onPressed: () async {

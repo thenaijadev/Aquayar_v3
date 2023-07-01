@@ -63,8 +63,10 @@ class InputFieldWidget extends StatelessWidget {
             decoration: InputDecoration(
               prefixIcon: prefixicon,
               suffixIcon: suffixIcon,
-              hintStyle:
-                  TextStyle(color: AppColors.hintColor, fontSize: hintSize),
+              hintStyle: TextStyle(
+                  color: AppColors.hintColor,
+                  fontSize: hintSize,
+                  fontFamily: 'Neue Plak'),
               contentPadding: EdgeInsets.symmetric(
                   horizontal: 24, vertical: verticalContentPadding),
               errorBorder: OutlineInputBorder(
