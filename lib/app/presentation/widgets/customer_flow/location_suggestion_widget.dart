@@ -35,7 +35,7 @@ class LocationSuggestionWidget extends StatelessWidget {
               const TextWidget(
                   text: "Odoeze St, Enugu,Nigeria", color: Color(0xff868FAE)),
               const SizedBox(
-                height: 20,
+                height: 18,
               ),
               HorizontalDivider(width: MediaQuery.of(context).size.width * 0.81)
             ],

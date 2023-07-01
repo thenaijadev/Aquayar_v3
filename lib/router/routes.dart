@@ -16,4 +16,5 @@ class Routes {
   static const String orderWater = '/orderWater';
   static const String waterAquired = '/waterAquired';
   static const String locations = '/locations';
+  static const String editLocation = '/editLocation';
 }

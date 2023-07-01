@@ -1,5 +1,6 @@
 import 'package:aquayar/app/presentation/widgets/customer_flow/outlined_container.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
+import 'package:aquayar/router/routes.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -168,16 +169,24 @@ class _LocationsScreenState extends State<LocationsScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          Image.asset("assets/images/pen_icon.png"),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          const TextWidget(
-                              text: "Edit Work Address",
-                              color: Color(0xFF868FAD))
-                        ],
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, Routes.editLocation);
+                          setState(() {
+                            isVisible = false;
+                          });
+                        },
+                        child: Row(
+                          children: [
+                            Image.asset("assets/images/pen_icon.png"),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            const TextWidget(
+                                text: "Edit Work Address",
+                                color: Color(0xFF868FAD))
+                          ],
+                        ),
                       ),
                       const SizedBox(
                         height: 12,

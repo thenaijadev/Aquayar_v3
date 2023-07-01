@@ -1,5 +1,6 @@
 import 'package:aquayar/app/data/models/auth_user.dart';
 import 'package:aquayar/app/error/error_screen.dart';
+import 'package:aquayar/app/presentation/screens/customer_flow/edit_location.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/home.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/order_water.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/water_aqired_screen.dart';
@@ -98,6 +99,11 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => const LocationsScreen(),
         );
+      case Routes.editLocation:
+        return MaterialPageRoute(
+          builder: (_) => const EditLocation(),
+        );
+
       // case Routes.payNowScreen:
       //   var data = routeSettings.arguments as CardModel;
       //   return MaterialPageRoute(
