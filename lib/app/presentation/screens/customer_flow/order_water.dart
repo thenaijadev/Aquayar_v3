@@ -3,7 +3,6 @@ import 'package:aquayar/app/presentation/widgets/customer_flow/bottom_sheets.dar
 import 'package:aquayar/app/presentation/widgets/customer_flow/outlined_container.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/rounded_progress_painter.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/water_tank.dart';
-import 'package:aquayar/app/presentation/widgets/onboarding_flow/blue_btn.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:aquayar/router/routes.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
@@ -145,64 +144,78 @@ class _OrderWaterState extends State<OrderWater> with TickerProviderStateMixin {
                         vertical: 20, horizontal: 10),
                     child: OutlinedContainer(
                       borderRadius: 25,
-                      padding: const EdgeInsets.only(top: 0, bottom: 20),
+                      padding: const EdgeInsets.only(
+                        top: 0,
+                        bottom: 20,
+                      ),
                       onTap: () {},
                       child: Row(
                         children: [
                           Padding(
                             padding:
-                                const EdgeInsets.only(left: 10.0, bottom: 12),
+                                const EdgeInsets.only(left: 10.0, bottom: 21.5),
                             child: Image.asset(
                               "assets/images/truck.png",
-                              width: 98,
+                              width: 100,
                             ),
                           ),
-                          const Padding(
-                            padding: EdgeInsets.only(left: 15.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: 9,
-                                ),
-                                TextWidget(
-                                  text: "Your order will be made using",
-                                  fontSize: 13,
-                                  color: Color(0xff868FAE),
-                                ),
-                                TextWidget(
-                                  text: "An LLC Water Truck",
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                TextWidget(
-                                  text: "Net: 1500L - 3500L max.",
-                                  fontSize: 13,
-                                  color: Color(0xff97890C),
-                                ),
-                              ],
-                            ),
+                          const SizedBox(
+                            width: 16,
                           ),
-                          Column(
+                          Stack(
+                            alignment: AlignmentDirectional.centerEnd,
                             children: [
                               const SizedBox(
-                                height: 20,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: const Color(0xff3FAD57),
-                                    borderRadius: BorderRadius.circular(20)),
-                                child: const Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 5.0, horizontal: 15),
-                                  child: Center(
-                                    child: TextWidget(
-                                      text: "VERIFIED",
+                                width: 240,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height: 9,
+                                    ),
+                                    TextWidget(
+                                      text: "Your order will be made using",
+                                      fontSize: 14,
+                                      color: Color(0xff868FAE),
+                                    ),
+                                    TextWidget(
+                                      text: "An LLC Water Truck",
                                       fontWeight: FontWeight.bold,
-                                      color: AppColors.white,
+                                      fontSize: 18,
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    TextWidget(
+                                      text: "Net: 1500L - 3500L max.",
                                       fontSize: 13,
+                                      color: Color(0xff97890C),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Positioned(
+                                left: 160,
+                                top: 30,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: const Color(0xff3FAD57),
+                                      borderRadius: BorderRadius.circular(20)),
+                                  child: const Padding(
+                                    padding: EdgeInsets.only(
+                                        top: 5.0,
+                                        left: 10,
+                                        bottom: 3,
+                                        right: 10),
+                                    child: Center(
+                                      child: Center(
+                                        child: TextWidget(
+                                          text: "VERIFIED",
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColors.white,
+                                          fontSize: 13,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -316,21 +329,21 @@ class _OrderWaterState extends State<OrderWater> with TickerProviderStateMixin {
                     ],
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 50,
                   )
                 ],
               ),
             ),
           ),
-          BlueBtn(
-              label: const TextWidget(
-                text: "              Start",
-                fontWeight: FontWeight.bold,
-                color: AppColors.white,
-              ),
-              onPressed: () {
-                Navigator.pushNamed(context, Routes.waterAquired);
-              })
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, Routes.waterAquired);
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10.0, bottom: 20),
+              child: Image.asset("assets/images/start_blue.png"),
+            ),
+          )
         ],
       ),
     );

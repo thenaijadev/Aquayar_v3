@@ -3,7 +3,6 @@ import 'package:aquayar/app/bloc/auth/auth_event.dart';
 import 'package:aquayar/app/bloc/auth/auth_state.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/apple_auth_btn.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/oauth_btn.dart';
-import 'package:aquayar/app/presentation/widgets/onboarding_flow/blue_btn.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/text_input.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:aquayar/router/routes.dart';
@@ -160,26 +159,29 @@ class _LoginFormState extends State<LoginForm> {
                         size: 40.0,
                       ),
                     )
-                  : BlueBtn(
-                      enabled: emailState! && passwordState!,
-                      paddingVertical: 12,
-                      label: TextWidget(
-                        text: "      Continue",
-                        color:
-                            enabled ? AppColors.white : AppColors.inputBorder,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                      ),
-                      onPressed: () async {
-                        final formState = formKey.currentState?.validate();
+                  : emailState! && passwordState!
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 16.0),
+                          child: GestureDetector(
+                            onTap: () async {
+                              final formState =
+                                  formKey.currentState?.validate();
 
-                        if (formState!) {
-                          print(formfieldkey_2.currentState?.value);
-                          authBloc.add(AuthEventLogIn(
-                              email: formfieldkey_1.currentState?.value,
-                              password: formfieldkey_2.currentState?.value));
-                        }
-                      });
+                              if (formState!) {
+                                authBloc.add(AuthEventLogIn(
+                                    email: formfieldkey_1.currentState?.value,
+                                    password:
+                                        formfieldkey_2.currentState?.value));
+                              }
+                            },
+                            child:
+                                Image.asset("assets/images/continue_blue.png"),
+                          ),
+                        )
+                      : Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Image.asset("assets/images/continue_grey.png"),
+                        );
             },
           ),
           const SizedBox(

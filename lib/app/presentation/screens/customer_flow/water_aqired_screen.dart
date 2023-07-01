@@ -6,14 +6,14 @@ import 'dart:math' as math;
 
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
-class WaveAnimationWidget extends StatefulWidget {
-  const WaveAnimationWidget({super.key});
+class WaterAcquiredScreen extends StatefulWidget {
+  const WaterAcquiredScreen({super.key});
 
   @override
-  _WaveAnimationWidgetState createState() => _WaveAnimationWidgetState();
+  _WaterAcquiredScreenState createState() => _WaterAcquiredScreenState();
 }
 
-class _WaveAnimationWidgetState extends State<WaveAnimationWidget>
+class _WaterAcquiredScreenState extends State<WaterAcquiredScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;

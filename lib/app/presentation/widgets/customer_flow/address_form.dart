@@ -18,25 +18,21 @@ class _AddressFormState extends State<AddressForm> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
-          padding: EdgeInsets.only(left: 25.0, top: 15),
-          child: TextWidget(
-            text: "Deliver to",
-            fontSize: 20,
-          ),
+        Padding(
+          padding: const EdgeInsets.only(top: 20),
+          child: InputFieldWidget(
+              onTap: widget.onTap,
+              fontWeight: FontWeight.normal,
+              label: "Deliver to",
+              hintText: "Enter Address",
+              onChanged: (val) {},
+              textFieldkey: formfieldkey_1),
         ),
-        InputFieldWidget(
-            onTap: widget.onTap,
-            padding: const EdgeInsets.all(0),
-            label: "",
-            hintText: "Enter Address",
-            onChanged: (val) {},
-            textFieldkey: formfieldkey_1),
         const SizedBox(
           height: 12,
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 25.0),
+          padding: const EdgeInsets.only(left: 20.0),
           child: Row(
             children: [
               OutlinedContainer(
@@ -45,7 +41,7 @@ class _AddressFormState extends State<AddressForm> {
                     isHome ? const Color(0xff623903) : const Color(0xff868FAE),
                 borderRadius: 30,
                 padding:
-                    const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+                    const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
                 onTap: () {
                   setState(() {
                     isHome = true;
@@ -55,7 +51,7 @@ class _AddressFormState extends State<AddressForm> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Icon(
-                      Icons.home,
+                      Icons.home_outlined,
                       color: isHome
                           ? const Color(0xff623903)
                           : const Color(0xff868FAE),
@@ -85,7 +81,7 @@ class _AddressFormState extends State<AddressForm> {
                     !isHome ? const Color(0xff623903) : const Color(0xff868FAE),
                 borderRadius: 30,
                 padding:
-                    const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
                 onTap: () {
                   setState(() {
                     isHome = false;

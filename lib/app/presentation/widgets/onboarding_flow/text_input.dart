@@ -18,6 +18,7 @@ class InputFieldWidget extends StatelessWidget {
       this.padding = const EdgeInsets.only(bottom: 10),
       this.onTap,
       this.maxLines = 1,
+      this.fontWeight = FontWeight.w600,
       this.enabledBorderRadius = 30,
       this.verticalContentPadding = 0});
   final String label;
@@ -36,6 +37,7 @@ class InputFieldWidget extends StatelessWidget {
   final int? maxLines;
   final double enabledBorderRadius;
   final double verticalContentPadding;
+  final FontWeight fontWeight;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +50,7 @@ class InputFieldWidget extends StatelessWidget {
             padding: padding,
             child: TextWidget(
               text: label,
-              fontWeight: FontWeight.w600,
+              fontWeight: fontWeight,
               fontSize: 16,
             ),
           ),
