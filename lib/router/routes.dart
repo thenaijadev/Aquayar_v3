@@ -18,4 +18,5 @@ class Routes {
   static const String locations = '/locations';
   static const String editLocation = '/editLocation';
   static const String renameLocation = '/renameLocation';
+  static const String menu = '/menu';
 }

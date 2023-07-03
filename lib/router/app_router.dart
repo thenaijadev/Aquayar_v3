@@ -2,6 +2,7 @@ import 'package:aquayar/app/data/models/auth_user.dart';
 import 'package:aquayar/app/error/error_screen.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/edit_location.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/home.dart';
+import 'package:aquayar/app/presentation/screens/customer_flow/menu.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/order_water.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/rename_location.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/water_aqired_screen.dart';
@@ -103,6 +104,10 @@ class AppRouter {
       case Routes.editLocation:
         return MaterialPageRoute(
           builder: (_) => const EditLocation(),
+        );
+      case Routes.menu:
+        return MaterialPageRoute(
+          builder: (_) => const Menu(),
         );
       case Routes.renameLocation:
         return MaterialPageRoute(

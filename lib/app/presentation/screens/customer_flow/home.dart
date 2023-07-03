@@ -45,13 +45,16 @@ class _HomeScreenNoOrderState extends State<HomeScreenNoOrder> {
             child: Column(
               children: noOrder
                   ? [
-                      const Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CircleAvatarWidget(
-                            image: "assets/images/head.png",
+                          GestureDetector(
+                            onTap: () {},
+                            child: const CircleAvatarWidget(
+                              image: "assets/images/head.png",
+                            ),
                           ),
-                          CircleAvatarWidget(
+                          const CircleAvatarWidget(
                             image: "assets/images/bell.png",
                           )
                         ],
@@ -60,7 +63,7 @@ class _HomeScreenNoOrderState extends State<HomeScreenNoOrder> {
                         height: 20,
                       ),
                       const TextWidget(
-                        text: "Good Morning",
+                        text: "Good Morning,",
                         fontSize: 30,
                       ),
                       const TextWidget(
@@ -112,24 +115,27 @@ class _HomeScreenNoOrderState extends State<HomeScreenNoOrder> {
                       )
                     ]
                   : [
-                      const Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CircleAvatarWidget(
-                            image: "assets/images/head.png",
+                          GestureDetector(
+                            onTap: () {},
+                            child: const CircleAvatarWidget(
+                              image: "assets/images/head.png",
+                            ),
                           ),
-                          CircleAvatarWidget(
+                          const CircleAvatarWidget(
                             image: "assets/images/bell.png",
                           )
                         ],
                       ),
                       const TextWidget(
-                        text: "Good Morning",
-                        fontSize: 30,
+                        text: "Good Morning,",
+                        fontSize: 32,
                       ),
                       const TextWidget(
                         text: "Daniel",
-                        fontSize: 25,
+                        fontSize: 32,
                         fontWeight: FontWeight.bold,
                       ),
                       const SizedBox(
@@ -316,19 +322,19 @@ class CircleAvatarWidget extends StatelessWidget {
       alignment: AlignmentDirectional.center,
       children: [
         Container(
-          height: 70,
-          width: 70,
+          height: 62,
+          width: 62,
           decoration: BoxDecoration(
               color: AppColors.backgroundGrey,
               borderRadius: BorderRadius.circular(80)),
         ),
         Container(
-          height: 68,
-          width: 68,
+          height: 60,
+          width: 60,
           decoration: BoxDecoration(
               color: AppColors.white, borderRadius: BorderRadius.circular(100)),
           child: Center(
-            child: Image.asset(image),
+            child: Transform.scale(scale: 0.9, child: Image.asset(image)),
           ),
         ),
       ],
