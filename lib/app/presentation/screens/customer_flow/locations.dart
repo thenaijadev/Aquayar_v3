@@ -183,23 +183,36 @@ class _LocationsScreenState extends State<LocationsScreen> {
                               width: 5,
                             ),
                             const TextWidget(
-                                text: "Edit Work Address",
-                                color: Color(0xFF868FAD))
+                              text: "Edit Work Address",
+                              color: Color(0xFF868FAD),
+                              fontWeight: FontWeight.w400,
+                            )
                           ],
                         ),
                       ),
                       const SizedBox(
                         height: 12,
                       ),
-                      Row(
-                        children: [
-                          Image.asset("assets/images/note.png"),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          const TextWidget(
-                              text: "Rename", color: Color(0xFF868FAD))
-                        ],
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            isVisible = false;
+                          });
+                          Navigator.pushNamed(context, Routes.renameLocation);
+                        },
+                        child: Row(
+                          children: [
+                            Image.asset("assets/images/note.png"),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            const TextWidget(
+                              text: "Rename",
+                              color: Color(0xFF868FAD),
+                              fontWeight: FontWeight.w400,
+                            )
+                          ],
+                        ),
                       ),
                       const SizedBox(
                         height: 12,
@@ -211,7 +224,10 @@ class _LocationsScreenState extends State<LocationsScreen> {
                             width: 5,
                           ),
                           const TextWidget(
-                              text: "Delete", color: Color(0xFF868FAD))
+                            text: "Delete",
+                            color: Color(0xFF868FAD),
+                            fontWeight: FontWeight.w400,
+                          )
                         ],
                       )
                     ],
