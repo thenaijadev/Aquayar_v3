@@ -66,7 +66,7 @@ class _HelpSupportTicketsState extends State<HelpSupportTickets> {
                 child: const Padding(
                   padding: EdgeInsets.only(left: 8.0),
                   child: OutlinedContainer(
-                    padding: EdgeInsets.symmetric(vertical: 13, horizontal: 40),
+                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 40),
                     borderRadius: 100,
                     child: TextWidget(text: "No ,thank you"),
                   ),
