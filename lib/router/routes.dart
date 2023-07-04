@@ -20,4 +20,5 @@ class Routes {
   static const String renameLocation = '/renameLocation';
   static const String menu = '/menu';
   static const String changePassword = '/changePassword';
+  static const String editProfile = '/editProfile';
 }

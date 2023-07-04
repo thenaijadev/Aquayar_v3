@@ -2,6 +2,7 @@ import 'package:aquayar/app/data/models/auth_user.dart';
 import 'package:aquayar/app/error/error_screen.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/change_password.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/edit_location.dart';
+import 'package:aquayar/app/presentation/screens/customer_flow/edit_profile.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/home.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/menu.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/order_water.dart';
@@ -118,6 +119,10 @@ class AppRouter {
       case Routes.changePassword:
         return MaterialPageRoute(
           builder: (_) => const ChangePasswordScreen(),
+        );
+      case Routes.editProfile:
+        return MaterialPageRoute(
+          builder: (_) => const EditProfile(),
         );
 
       // case Routes.payNowScreen:

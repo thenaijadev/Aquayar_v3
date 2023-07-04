@@ -4,6 +4,7 @@ import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart
 import 'package:aquayar/router/routes.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 
 class Menu extends StatefulWidget {
   const Menu({super.key});
@@ -13,6 +14,7 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
+  bool light = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -177,18 +179,24 @@ class _MenuState extends State<Menu> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
-                              children: [
-                                Image.asset("assets/images/user_icon.png"),
-                                const SizedBox(
-                                  width: 12,
-                                ),
-                                const TextWidget(
-                                  text: "Edit Profile",
-                                  color: Color(0xFF868FAD),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ],
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, Routes.editProfile);
+                              },
+                              child: Row(
+                                children: [
+                                  Image.asset("assets/images/user_icon.png"),
+                                  const SizedBox(
+                                    width: 12,
+                                  ),
+                                  const TextWidget(
+                                    text: "Edit Profile",
+                                    color: Color(0xFF868FAD),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ],
+                              ),
                             ),
                             Image.asset("assets/images/chevron_right.png"),
                           ],
@@ -250,24 +258,29 @@ class _MenuState extends State<Menu> {
                       const HorizontalRuleWidget(),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 14.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                Image.asset("assets/images/routing.png"),
-                                const SizedBox(
-                                  width: 12,
-                                ),
-                                const TextWidget(
-                                  text: "Your Locations",
-                                  color: Color(0xFF868FAD),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ],
-                            ),
-                            Image.asset("assets/images/chevron_right.png"),
-                          ],
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(context, Routes.locations);
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  Image.asset("assets/images/routing.png"),
+                                  const SizedBox(
+                                    width: 12,
+                                  ),
+                                  const TextWidget(
+                                    text: "Your Locations",
+                                    color: Color(0xFF868FAD),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ],
+                              ),
+                              Image.asset("assets/images/chevron_right.png"),
+                            ],
+                          ),
                         ),
                       ),
                       const HorizontalRuleWidget(),
@@ -289,7 +302,30 @@ class _MenuState extends State<Menu> {
                                 ),
                               ],
                             ),
-                            Image.asset("assets/images/chevron_right.png"),
+                            SizedBox(
+                              height: 20,
+                              width: 38,
+                              child: FlutterSwitch(
+                                width: 125.0,
+                                height: 55.0,
+                                valueFontSize: 25.0,
+                                toggleSize: 13.0,
+                                inactiveColor: Colors.white,
+                                inactiveSwitchBorder: Border.all(
+                                  color: const Color(0xFF868FAD),
+                                ),
+                                toggleBorder: Border.all(
+                                    color: const Color(0xFF868FAD), width: 9),
+                                value: light,
+                                borderRadius: 10.0,
+                                padding: 2.0,
+                                onToggle: (val) {
+                                  setState(() {
+                                    light = val;
+                                  });
+                                },
+                              ),
+                            ),
                           ],
                         ),
                       ),

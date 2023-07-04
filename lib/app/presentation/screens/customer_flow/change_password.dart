@@ -69,12 +69,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                           obscureText = !obscureText;
                         });
                       },
-                      child: Icon(
-                        obscureText
-                            ? Icons.visibility_off_outlined
-                            : Icons.visibility_outlined,
-                        color: AppColors.titleBlack,
-                      ),
+                      child: Padding(
+                          padding: const EdgeInsets.only(right: 15.0),
+                          child: obscureText
+                              ? Image.asset("assets/images/eye-slash.png")
+                              : Image.asset("assets/images/eye.png")),
                     ),
                     textFieldkey: formfieldkey_1,
                     label: "Enter a password",
@@ -102,12 +101,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                           obscureText = !obscureText;
                         });
                       },
-                      child: Icon(
-                        obscureText
-                            ? Icons.visibility_off_outlined
-                            : Icons.visibility_outlined,
-                        color: AppColors.titleBlack,
-                      ),
+                      child: Padding(
+                          padding: const EdgeInsets.only(right: 15.0),
+                          child: obscureText
+                              ? Image.asset("assets/images/eye-slash.png")
+                              : Image.asset("assets/images/eye.png")),
                     ),
                     textFieldkey: formfieldkey_2,
                     label: "Confirm password",
@@ -132,7 +130,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 20.0),
+            padding: const EdgeInsets.only(bottom: 20.0, top: 40),
             child: BlocConsumer<AuthBloc, AuthState>(
               listener: (context, state) {
                 if (state is AuthStateError) {

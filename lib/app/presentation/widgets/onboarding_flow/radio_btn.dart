@@ -34,7 +34,7 @@ class _RadioBtnState extends State<RadioBtn> {
                 children: [
                   GradientText("✓",
                       style: const TextStyle(
-                          fontSize: 13, fontWeight: FontWeight.bold),
+                          fontSize: 15, fontWeight: FontWeight.bold),
                       colors: const [
                         Color(0xff61C7F9),
                         Color(0xff0579CE),
@@ -45,7 +45,7 @@ class _RadioBtnState extends State<RadioBtn> {
                   GradientText(
                     widget.label,
                     style: const TextStyle(
-                        fontSize: 14, fontWeight: FontWeight.bold),
+                        fontSize: 16, fontWeight: FontWeight.bold),
                     colors: const [
                       Color(0xff61C7F9),
                       Color(0xff0579CE),
@@ -55,7 +55,7 @@ class _RadioBtnState extends State<RadioBtn> {
               )
             : TextWidget(
                 text: widget.label,
-                fontSize: 14,
+                fontSize: 15,
                 fontWeight: FontWeight.bold,
                 color: const Color.fromARGB(255, 149, 159, 193),
               ));
