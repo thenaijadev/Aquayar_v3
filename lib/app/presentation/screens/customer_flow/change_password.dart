@@ -1,5 +1,4 @@
 import 'package:aquayar/app/bloc/auth/auth_bloc.dart';
-import 'package:aquayar/app/bloc/auth/auth_event.dart';
 import 'package:aquayar/app/bloc/auth/auth_state.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/text_input.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
@@ -11,16 +10,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-class CreateNewPasswordScreen extends StatefulWidget {
-  const CreateNewPasswordScreen({super.key, required this.token});
-  final String token;
+class ChangePasswordScreen extends StatefulWidget {
+  const ChangePasswordScreen({
+    super.key,
+  });
+  // final String token;
 
   @override
-  State<CreateNewPasswordScreen> createState() =>
-      _CreateNewPasswordScreenState();
+  State<ChangePasswordScreen> createState() => _ChangePasswordScreenState();
 }
 
-class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
+class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final formfieldkey_1 = GlobalKey<FormFieldState>();
   final formfieldkey_2 = GlobalKey<FormFieldState>();
 
@@ -32,43 +32,35 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    AuthBloc authBloc = context.watch<AuthBloc>();
+    // AuthBloc authBloc = context.watch<AuthBloc>();
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: AppBar(
+          centerTitle: true,
+          title: const TextWidget(
+            text: "Create new password",
+            color: Color(0xFF20254F),
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
           elevation: 0,
           backgroundColor: AppColors.white,
-          leading: Image.asset(
-            "assets/images/arrow_left_small.png",
-            width: 24,
+          leading: GestureDetector(
+            onTap: () => Navigator.pop(context),
+            child: Image.asset(
+              "assets/images/arrow_left.png",
+              width: 24,
+            ),
           )),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.only(left: 16.0),
-            child: TextWidget(
-              text: "Create new password",
-              color: AppColors.titleBlack,
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.only(left: 16.0, top: 18, right: 30),
-            child: TextWidget(
-              text: "Your new password must be different from used passwords.",
-              color: Color(0xFF868FAD),
-              fontSize: 16,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
           Form(
             key: formKey,
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 58.0),
+                  padding: const EdgeInsets.only(top: 46.0),
                   child: InputFieldWidget(
                     obscureText: obscureText,
                     suffixIcon: GestureDetector(
@@ -167,16 +159,16 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                             padding: const EdgeInsets.symmetric(vertical: 16.0),
                             child: GestureDetector(
                               onTap: () async {
-                                final formIsValid =
-                                    formKey.currentState?.validate();
-                                if (formIsValid!) {
-                                  authBloc.add(AuthEventChangePassword(
-                                      token: widget.token,
-                                      password:
-                                          formfieldkey_1.currentState?.value,
-                                      confirmPassword:
-                                          formfieldkey_2.currentState?.value));
-                                }
+                                // final formIsValid =
+                                //     formKey.currentState?.validate();
+                                // if (formIsValid!) {
+                                //   authBloc.add(AuthEventChangePassword(
+                                //       token: widget.token,
+                                //       password:
+                                //           formfieldkey_1.currentState?.value,
+                                //       confirmPassword:
+                                //           formfieldkey_2.currentState?.value));
+                                // }
                               },
                               child: Image.asset(
                                   "assets/images/reset_password.png"),

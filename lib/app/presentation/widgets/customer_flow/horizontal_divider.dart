@@ -9,7 +9,7 @@ class HorizontalDivider extends StatelessWidget {
       width: width,
       height: 1,
       decoration: const BoxDecoration(
-        color: Color(0xffD6E1EA),
+        color: Color.fromARGB(255, 0, 0, 0),
       ),
     ));
   }

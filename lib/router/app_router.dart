@@ -1,5 +1,6 @@
 import 'package:aquayar/app/data/models/auth_user.dart';
 import 'package:aquayar/app/error/error_screen.dart';
+import 'package:aquayar/app/presentation/screens/customer_flow/change_password.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/edit_location.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/home.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/menu.dart';
@@ -112,6 +113,11 @@ class AppRouter {
       case Routes.renameLocation:
         return MaterialPageRoute(
           builder: (_) => const RenameLocation(),
+        );
+
+      case Routes.changePassword:
+        return MaterialPageRoute(
+          builder: (_) => const ChangePasswordScreen(),
         );
 
       // case Routes.payNowScreen:

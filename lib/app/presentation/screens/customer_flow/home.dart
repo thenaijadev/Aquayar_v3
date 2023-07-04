@@ -49,7 +49,9 @@ class _HomeScreenNoOrderState extends State<HomeScreenNoOrder> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.pushNamed(context, Routes.menu);
+                            },
                             child: const CircleAvatarWidget(
                               image: "assets/images/head.png",
                             ),
@@ -119,7 +121,9 @@ class _HomeScreenNoOrderState extends State<HomeScreenNoOrder> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.pushNamed(context, Routes.menu);
+                            },
                             child: const CircleAvatarWidget(
                               image: "assets/images/head.png",
                             ),
