@@ -3,11 +3,13 @@ import 'package:aquayar/app/error/error_screen.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/change_password.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/edit_location.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/edit_profile.dart';
+import 'package:aquayar/app/presentation/screens/customer_flow/help_support_tickets.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/home.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/menu.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/order_water.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/rename_location.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/water_aqired_screen.dart';
+import 'package:aquayar/app/presentation/screens/customer_flow/water_tank.dart';
 import 'package:aquayar/app/presentation/screens/onboarding_flow/create_new_password_screen.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/locations.dart';
 import 'package:aquayar/app/presentation/screens/onboarding_flow/otp_sent.dart';
@@ -15,7 +17,6 @@ import 'package:aquayar/app/presentation/screens/onboarding_flow/password_set_su
 import 'package:aquayar/app/presentation/screens/onboarding_flow/registration_done_screen.dart';
 import 'package:aquayar/app/presentation/screens/onboarding_flow/reset_password.dart';
 import 'package:aquayar/app/presentation/screens/onboarding_flow/gender_screen.dart';
-import 'package:aquayar/app/presentation/screens/onboarding_flow/home_screen.dart';
 import 'package:aquayar/app/presentation/screens/onboarding_flow/login_screen.dart';
 import 'package:aquayar/app/presentation/screens/onboarding_flow/otp_screen.dart';
 import 'package:aquayar/app/presentation/screens/onboarding_flow/phone_verification_screen.dart';
@@ -28,9 +29,17 @@ class AppRouter {
   Route onGenerateRoute(RouteSettings routeSettings) {
     // logger.i("This is the route: ${routeSettings.name}");
     switch (routeSettings.name) {
+      // case Routes.landing:
+      //   return MaterialPageRoute(
+      //     builder: (_) => const LandingScreen(),
+      //   );
       case Routes.landing:
         return MaterialPageRoute(
-          builder: (_) => const LandingScreen(),
+          builder: (_) => const HelpSupportTickets(),
+        );
+      case Routes.waterTank:
+        return MaterialPageRoute(
+          builder: (_) => const WaterTankScreeen(),
         );
       case Routes.registration:
         return MaterialPageRoute(

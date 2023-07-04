@@ -76,12 +76,15 @@ class _LoginFormState extends State<LoginForm> {
                     obscureText = !obscureText;
                   });
                 },
-                child: Icon(
-                  obscureText
-                      ? Icons.visibility_off_outlined
-                      : Icons.visibility_outlined,
-                  color: AppColors.titleBlack,
-                ),
+                child: obscureText
+                    ? Padding(
+                        padding: const EdgeInsets.only(right: 15.0),
+                        child: Image.asset("assets/images/eye-slash.png"),
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.only(right: 15.0),
+                        child: Image.asset("assets/images/eye.png"),
+                      ),
               ),
               textFieldkey: formfieldkey_2,
               label: "Choose a password",

@@ -21,4 +21,5 @@ class Routes {
   static const String menu = '/menu';
   static const String changePassword = '/changePassword';
   static const String editProfile = '/editProfile';
+  static const String waterTank = '/waterTank';
 }

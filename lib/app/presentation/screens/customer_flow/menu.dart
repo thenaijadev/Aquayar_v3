@@ -238,18 +238,23 @@ class _MenuState extends State<Menu> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
-                              children: [
-                                Image.asset("assets/images/bubble.png"),
-                                const SizedBox(
-                                  width: 12,
-                                ),
-                                const TextWidget(
-                                  text: "Your Water Tank",
-                                  color: Color(0xFF868FAD),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ],
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(context, Routes.waterTank);
+                              },
+                              child: Row(
+                                children: [
+                                  Image.asset("assets/images/bubble.png"),
+                                  const SizedBox(
+                                    width: 12,
+                                  ),
+                                  const TextWidget(
+                                    text: "Your Water Tank",
+                                    color: Color(0xFF868FAD),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ],
+                              ),
                             ),
                             Image.asset("assets/images/chevron_right.png"),
                           ],
