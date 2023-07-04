@@ -22,4 +22,6 @@ class Routes {
   static const String changePassword = '/changePassword';
   static const String editProfile = '/editProfile';
   static const String waterTank = '/waterTank';
+  static const String helpSupportNoTicket = '/helpSupprtNoTicket';
+  static const String deleteAccount = '/deleteAccount';
 }
