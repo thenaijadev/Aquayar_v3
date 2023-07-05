@@ -6,6 +6,7 @@ class InputFieldWidget extends StatelessWidget {
   const InputFieldWidget(
       {super.key,
       required this.label,
+      this.hintColor = AppColors.hintColor,
       this.initialValue,
       required this.hintText,
       this.hintSize = 14,
@@ -38,6 +39,7 @@ class InputFieldWidget extends StatelessWidget {
   final double enabledBorderRadius;
   final double verticalContentPadding;
   final FontWeight fontWeight;
+  final Color hintColor;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +68,7 @@ class InputFieldWidget extends StatelessWidget {
               prefixIcon: prefixicon,
               suffixIcon: suffixIcon,
               hintStyle: TextStyle(
-                  color: AppColors.hintColor,
+                  color: hintColor,
                   fontSize: hintSize,
                   fontFamily: 'Neue Plak'),
               contentPadding: EdgeInsets.symmetric(

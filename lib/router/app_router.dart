@@ -4,6 +4,7 @@ import 'package:aquayar/app/presentation/screens/customer_flow/change_password.d
 import 'package:aquayar/app/presentation/screens/customer_flow/delete_account.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/edit_location.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/edit_profile.dart';
+import 'package:aquayar/app/presentation/screens/customer_flow/help_support.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/help_support_tickets.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/home.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/menu.dart';
@@ -34,6 +35,10 @@ class AppRouter {
       case Routes.landing:
         return MaterialPageRoute(
           builder: (_) => const LandingScreen(),
+        );
+      case Routes.helpAndSupport:
+        return MaterialPageRoute(
+          builder: (_) => const HelpAndSupport(),
         );
 
       case Routes.deleteAccount:
