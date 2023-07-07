@@ -1,6 +1,7 @@
 import 'package:aquayar/app/presentation/screens/customer_flow/delete_account.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/outlined_container.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/payment_method_bottom_sheet.dart';
+import 'package:aquayar/app/presentation/widgets/customer_flow/rounded_linear_progress_bar.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/water_tank.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
@@ -23,9 +24,15 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
     return Scaffold(
       appBar: AppBar(
           title: Padding(
-            padding: const EdgeInsets.only(right: 100.0),
+            padding: EdgeInsets.only(right: step == "four" ? 10 : 100.0),
             child: TextWidget(
-              text: !isLoading ? "Confirm Details" : "Request Recieved",
+              text: step == "one"
+                  ? "Confirm Details"
+                  : step == "two"
+                      ? "Request Recieved"
+                      : step == "three"
+                          ? "Request Recieved"
+                          : "Your delivery is underway...",
               color: const Color(0xFF20254F),
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -70,7 +77,7 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
                           top: 10,
                           bottom: 10,
                           left: 24,
-                          right: step == "four" ? 70 : 0),
+                          right: step == "four" ? 70 : 125),
                       borderRadius: 100,
                       child: const Row(
                         children: [
@@ -1041,46 +1048,6 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
                               ),
                             )
             ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class RoundedProgressBar extends StatelessWidget {
-  final double progress;
-  final double height;
-  final Color backgroundColor;
-  final Color progressColor;
-
-  const RoundedProgressBar({
-    super.key,
-    this.progress = 0.0,
-    this.height = 10.0,
-    this.backgroundColor = Colors.grey,
-    this.progressColor = Colors.blue,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: height,
-      decoration: BoxDecoration(
-        border: Border.all(color: const Color(0xFFD6E0E9), width: .5),
-        color: backgroundColor,
-        borderRadius: BorderRadius.circular(height / 2),
-      ),
-      child: Stack(
-        children: [
-          FractionallySizedBox(
-            widthFactor: progress,
-            child: Container(
-              decoration: BoxDecoration(
-                color: progressColor,
-                borderRadius: BorderRadius.circular(height / 2),
-              ),
-            ),
           ),
         ],
       ),
