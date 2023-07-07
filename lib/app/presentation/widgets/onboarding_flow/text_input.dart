@@ -20,6 +20,7 @@ class InputFieldWidget extends StatelessWidget {
       this.onTap,
       this.maxLines = 1,
       this.fontWeight = FontWeight.w600,
+      this.labelFontSize = 16,
       this.enabledBorderRadius = 30,
       this.verticalContentPadding = 0});
   final String label;
@@ -40,6 +41,7 @@ class InputFieldWidget extends StatelessWidget {
   final double verticalContentPadding;
   final FontWeight fontWeight;
   final Color hintColor;
+  final double labelFontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +55,7 @@ class InputFieldWidget extends StatelessWidget {
             child: TextWidget(
               text: label,
               fontWeight: fontWeight,
-              fontSize: 16,
+              fontSize: labelFontSize,
             ),
           ),
           TextFormField(

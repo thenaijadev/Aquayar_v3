@@ -5,8 +5,14 @@ import 'package:aquayar/router/routes.dart';
 import 'package:flutter/material.dart';
 
 class AddressForm extends StatefulWidget {
-  const AddressForm({super.key, this.onTap});
+  const AddressForm(
+      {super.key,
+      this.onTap,
+      this.labelFontWeight = FontWeight.normal,
+      required this.labelFontSize});
   final void Function()? onTap;
+  final FontWeight labelFontWeight;
+  final double labelFontSize;
   @override
   State<AddressForm> createState() => _AddressFormState();
 }
@@ -14,6 +20,7 @@ class AddressForm extends StatefulWidget {
 class _AddressFormState extends State<AddressForm> {
   final formfieldkey_1 = GlobalKey<FormFieldState>();
   bool isHome = true;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -22,8 +29,14 @@ class _AddressFormState extends State<AddressForm> {
         Padding(
           padding: const EdgeInsets.only(top: 20),
           child: InputFieldWidget(
+              labelFontSize: widget.labelFontSize,
               onTap: widget.onTap,
-              fontWeight: FontWeight.normal,
+              fontWeight: widget.labelFontWeight,
+              verticalContentPadding: 0,
+              suffixIcon: Padding(
+                padding: const EdgeInsets.only(right: 10.0),
+                child: Image.asset("assets/images/x_circle.png"),
+              ),
               label: "Deliver to",
               hintText: "Enter Address",
               onChanged: (val) {},

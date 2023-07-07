@@ -1,4 +1,4 @@
-import 'package:aquayar/app/presentation/widgets/customer_flow/horizontal_divider.dart';
+import 'package:aquayar/app/presentation/screens/customer_flow/delete_account.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -23,21 +23,26 @@ class LocationSuggestionWidget extends StatelessWidget {
           const SizedBox(
             width: 20,
           ),
-          Column(
+          const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const TextWidget(
+              TextWidget(
                 text: "WTC Estate",
-                fontSize: 20,
+                fontSize: 18,
                 color: AppColors.titleBlack,
                 textAlign: TextAlign.left,
               ),
-              const TextWidget(
-                  text: "Odoeze St, Enugu,Nigeria", color: Color(0xff868FAE)),
-              const SizedBox(
+              TextWidget(
+                text: "Odoeze St, Enugu,Nigeria",
+                color: Color(0xff868FAE),
+                fontSize: 16,
+              ),
+              SizedBox(
                 height: 18,
               ),
-              HorizontalDivider(width: MediaQuery.of(context).size.width * 0.81)
+              HorizontalLineWidget(
+                width: 320,
+              )
             ],
           )
         ],

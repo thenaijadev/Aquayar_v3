@@ -2,7 +2,7 @@ import 'package:aquayar/app/presentation/widgets/customer_flow/address_form.dart
 import 'package:aquayar/app/presentation/widgets/customer_flow/location_suggestion_widget.dart';
 import 'package:flutter/material.dart';
 
-void showBottomSheetWidget(BuildContext context) {
+void showAddressFormBottomSheet(BuildContext context) {
   showModalBottomSheet(
     backgroundColor: Colors.transparent,
     context: context,
@@ -22,25 +22,20 @@ void showBottomSheetWidget(BuildContext context) {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Transform.rotate(
-                    angle: 45 * 0.0174533, // 90 degrees in radians
-                    child: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: GestureDetector(
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: GestureDetector(
                         onTap: () {
                           Navigator.pop(context);
                         },
-                        child: const Icon(
-                          Icons.add,
-                          weight: 1,
-                          size: 35,
-                        ),
-                      ),
-                    ),
+                        child: Image.asset("assets/images/x.png")),
                   )
                 ],
               ),
-              const AddressForm(),
+              const AddressForm(
+                labelFontSize: 24,
+                labelFontWeight: FontWeight.bold,
+              ),
               const SizedBox(
                 height: 20,
               ),

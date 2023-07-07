@@ -229,8 +229,9 @@ class _OrderWaterState extends State<OrderWater> with TickerProviderStateMixin {
                     ),
                   ),
                   AddressForm(
+                    labelFontSize: 16,
                     onTap: () {
-                      showBottomSheetWidget(context);
+                      showAddressFormBottomSheet(context);
                     },
                   ),
                   const Padding(
@@ -354,5 +355,3 @@ class _OrderWaterState extends State<OrderWater> with TickerProviderStateMixin {
     );
   }
 }
-
-enum ForWho { myself, friend, nobody }
