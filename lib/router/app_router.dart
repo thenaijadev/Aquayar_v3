@@ -1,6 +1,7 @@
 import 'package:aquayar/app/data/models/auth_user.dart';
 import 'package:aquayar/app/error/error_screen.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/change_password.dart';
+import 'package:aquayar/app/presentation/screens/customer_flow/chat_screen.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/confirm_details.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/delete_account.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/edit_location.dart';
@@ -38,6 +39,11 @@ class AppRouter {
       //   );
 
       case Routes.landing:
+        return MaterialPageRoute(
+          builder: (_) => const ChatScreen(),
+        );
+
+      case Routes.confirmDetails:
         return MaterialPageRoute(
           builder: (_) => const ConfirmDetails(),
         );

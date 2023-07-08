@@ -10,19 +10,25 @@ class OutlinedContainer extends StatelessWidget {
       this.padding = const EdgeInsets.all(20),
       this.child = const TextWidget(text: "hi"),
       this.onTap,
-      this.borderColor = AppColors.inputBorder});
+      this.borderColor = AppColors.inputBorder,
+      this.width,
+      this.boxShadow});
   final double? borderRadius;
   final EdgeInsetsGeometry padding;
   final Widget child;
   final void Function()? onTap;
   final Color? color;
+  final double? width;
   final Color borderColor;
+  final List<BoxShadow>? boxShadow;
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
       child: Container(
+        width: width,
         decoration: BoxDecoration(
+          boxShadow: boxShadow,
           color: color,
           borderRadius: BorderRadius.circular(borderRadius!),
           border: Border.all(color: borderColor),
