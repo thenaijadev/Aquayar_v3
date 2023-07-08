@@ -13,7 +13,7 @@ class DioClient {
       responseType: ResponseType.json));
 
   ///Get Method
-  Future<List<dynamic>> get(String path,
+  Future<Map<String, dynamic>> get(String path,
       {Map<String, dynamic>? queryParameters,
       Options? options,
       CancelToken? cancelToken,

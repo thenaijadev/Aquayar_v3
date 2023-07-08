@@ -1,4 +1,7 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:aquayar/app/bloc/user/user_state.dart';
+import 'package:aquayar/app/data/models/auth_user.dart';
 import 'package:aquayar/app/data/repos/user_repo.dart';
 import 'package:aquayar/app/data/utilities/dio_exception.dart';
 import 'package:aquayar/utilities/logger.dart';
@@ -71,6 +74,30 @@ class UserBloc extends Bloc<UserEvent, UserState> {
             token: token,
           );
           emit(UserStateOtpChecked());
+        } on DioException catch (error) {
+          final message = DioExceptionClass.fromDioError(error);
+          print(error.response?.data);
+
+          emit(UserStateError(message: message.errorMessage));
+        }
+      },
+    );
+
+    on<UserEventGetUser>(
+      (event, emit) async {
+        emit(UserStateIsLoading());
+
+        String? token = event.token;
+
+        if (token == null) {
+          emit(const UserStateError(message: "User not logged in"));
+        }
+
+        try {
+          final response = await userRepo.getUser(
+            token: token!,
+          );
+          emit(UserStateUserRetrieved(user: AuthUser.fromMap(response)));
         } on DioException catch (error) {
           final message = DioExceptionClass.fromDioError(error);
           print(error.response?.data);

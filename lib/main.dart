@@ -3,13 +3,17 @@ import 'package:aquayar/app/bloc/user/user_bloc.dart';
 import 'package:aquayar/app/data/repos/auth_repo.dart';
 import 'package:aquayar/app/data/repos/user_repo.dart';
 import 'package:aquayar/router/app_router.dart';
+import 'package:aquayar/utilities/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  await Hive.openBox("user_token_box");
   HydratedBloc.storage = await HydratedStorage.build(
       storageDirectory: await getApplicationDocumentsDirectory());
   runApp(const MyApp());
@@ -24,10 +28,12 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => AuthBloc(AuthRepo.fromDio(), UserRepo.fromDio()),
+          create: (context) {
+            return UserBloc(UserRepo.fromDio());
+          },
         ),
         BlocProvider(
-          create: (context) => UserBloc(UserRepo.fromDio()),
+          create: (context) => AuthBloc(AuthRepo.fromDio(), UserRepo.fromDio()),
         ),
       ],
       child: GestureDetector(
@@ -35,7 +41,7 @@ class MyApp extends StatelessWidget {
           FocusManager.instance.primaryFocus?.unfocus();
         },
         child: MaterialApp(
-          theme: ThemeData(textTheme: TextTheme()),
+          theme: ThemeData(textTheme: const TextTheme()),
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
           initialRoute: "/",

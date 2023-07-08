@@ -1,14 +1,20 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:aquayar/app/bloc/auth/auth_event.dart';
 import 'package:aquayar/app/bloc/auth/auth_state.dart';
+import 'package:aquayar/app/data/models/auth_user.dart';
 import 'package:aquayar/app/data/repos/auth_repo.dart';
 import 'package:aquayar/app/data/repos/user_repo.dart';
 import 'package:aquayar/app/data/utilities/dio_exception.dart';
+import 'package:aquayar/utilities/logger.dart';
 import 'package:dio/dio.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 
-class AuthBloc extends Bloc<AuthEvent, AuthState> {
+class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
   AuthBloc(AuthRepo authRepo, UserRepo userRepo) : super(AuthStateInitial()) {
+    final tokenBox = Hive.box("user_token_box");
     on<AuthEventRegister>((event, emit) async {
       emit(AuthStateIsLoading());
       final String email = event.email;
@@ -78,6 +84,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         final String password = event.password;
         try {
           final user = await authRepo.logIn(email: email, password: password);
+          await tokenBox.put("token", user.authToken);
+
           emit(AuthStateLoggedIn(user: user));
         } on DioException catch (error) {
           final message = DioExceptionClass.fromDioError(error);
@@ -144,5 +152,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         }
       },
     );
+  }
+
+  @override
+  AuthState? fromJson(Map<String, dynamic> json) {
+    return AuthStateLoggedIn(user: AuthUser.fromMap(json));
+  }
+
+  @override
+  Map<String, dynamic>? toJson(AuthState state) {
+    if (state is AuthStateLoggedIn) {
+      return state.user.toMap();
+    }
+    return null;
   }
 }

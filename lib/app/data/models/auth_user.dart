@@ -1,3 +1,6 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 
 @immutable
@@ -5,7 +8,7 @@ class AuthUser {
   final String? id;
   final String? email;
   final bool? isVerified;
-  final Enum? userType;
+  final String? userType;
   final String? phone;
   final String? authToken;
   final String? displayName;
@@ -21,7 +24,7 @@ class AuthUser {
       required this.email,
       required this.isVerified,
       this.gender,
-      this.userType = UserType.custumer});
+      this.userType = "customer"});
 
   factory AuthUser.fromJson(
     user,
@@ -33,9 +36,43 @@ class AuthUser {
         displayName: user["displayName"],
         phone: "",
         photoUrl: user["photoUrl"],
-        userType: UserType.custumer,
+        userType: "customer",
         authToken: user["data"]["token"]);
   }
-}
 
-enum UserType { custumer, driver }
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'id': id,
+      'email': email,
+      'isVerified': isVerified,
+      'userType': userType,
+      'phone': phone,
+      'authToken': authToken,
+      'displayName': displayName,
+      'photoUrl': photoUrl,
+      'gender': gender,
+    };
+  }
+
+  factory AuthUser.fromMap(Map<String, dynamic> map) {
+    final data = map['data'];
+    return AuthUser(
+      id: data != null ? data['id'] as String : null,
+      email: data != null ? data['email'] as String : null,
+      isVerified: map['isVerified'] as bool?,
+      userType: data['type'] as String?,
+      phone: data['phoneNo'] as String?,
+      authToken: map['authToken'] as String?,
+      displayName: data != null ? data['displayName'] as String? : null,
+      photoUrl: map['photoUrl'] as String?,
+      gender: data['gender'] as String?,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  @override
+  String toString() {
+    return 'AuthUser(id: $id, email: $email, isVerified: $isVerified, userType: $userType, phone: $phone, authToken: $authToken, displayName: $displayName, photoUrl: $photoUrl, gender: $gender)';
+  }
+}

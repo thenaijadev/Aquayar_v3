@@ -212,6 +212,7 @@ class _GenderScreenState extends State<GenderScreen> {
                               fontSize: 14,
                             ),
                             onPressed: () async {
+                              print({"here": textFieldkey.currentState?.value});
                               final formState =
                                   formKey.currentState?.validate();
                               if (formState! && genderChosen!) {

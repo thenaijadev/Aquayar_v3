@@ -52,11 +52,12 @@ class UserProvider implements UserProviderInterface {
     try {
       final response = await DioClient.instance.patch(
         RoutesAndPaths.user,
-        data: {"name": name, "gender": gender},
+        data: {"displayName": name, "gender": gender},
         options: Options(
           headers: {"Authorization": "Bearer $token"},
         ),
       );
+
       // options: Options(headers: {"token": token}));
 
       return {
@@ -123,7 +124,6 @@ class UserProvider implements UserProviderInterface {
   @override
   Future<Map<String, dynamic>> checkOTP(
       {required int otp, required String token}) async {
-    print({"data": "otp: $otp token: $token"});
     try {
       final response = await DioClient.instance.post(
         RoutesAndPaths.checkOtp,
@@ -138,6 +138,25 @@ class UserProvider implements UserProviderInterface {
     } on DioException {
       rethrow;
     } catch (e) {
+      throw GenericAuthException();
+    }
+  }
+
+  @override
+  Future<Map<String, dynamic>> getUser({required String token}) async {
+    try {
+      final response = await DioClient.instance.get(
+        RoutesAndPaths.user,
+        options: Options(
+          headers: {"Authorization": "Bearer $token"},
+        ),
+      );
+      print(response);
+      return response;
+    } on DioException {
+      rethrow;
+    } catch (e) {
+      print(e);
       throw GenericAuthException();
     }
   }

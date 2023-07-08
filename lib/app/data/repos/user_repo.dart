@@ -1,3 +1,6 @@
+// ignore_for_file: unused_local_variable
+
+import 'package:aquayar/app/data/models/auth_user.dart';
 import 'package:aquayar/app/data/models/updated_user.dart';
 import 'package:aquayar/app/data/providers/user_provider.dart';
 
@@ -44,5 +47,9 @@ class UserRepo {
 
   Future<void> checkOTP({required int otp, required String token}) {
     return provider.checkOTP(otp: otp, token: token);
+  }
+
+  Future<Map<String, dynamic>> getUser({required String token}) {
+    return provider.getUser(token: token);
   }
 }

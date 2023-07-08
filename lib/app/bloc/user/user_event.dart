@@ -41,3 +41,11 @@ class UserEventCheckOtp extends UserEvent {
     required this.token,
   });
 }
+
+class UserEventGetUser extends UserEvent {
+  final String? token;
+
+  const UserEventGetUser({
+    required this.token,
+  });
+}

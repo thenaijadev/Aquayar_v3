@@ -1,3 +1,4 @@
+import 'package:aquayar/app/data/models/auth_user.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/outlined_container.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:aquayar/router/routes.dart';
@@ -7,14 +8,14 @@ import 'package:clay_containers/widgets/clay_container.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreenNoOrder extends StatefulWidget {
-  const HomeScreenNoOrder({super.key});
-
+  const HomeScreenNoOrder({super.key, required this.user});
+  final AuthUser user;
   @override
   State<HomeScreenNoOrder> createState() => _HomeScreenNoOrderState();
 }
 
 class _HomeScreenNoOrderState extends State<HomeScreenNoOrder> {
-  bool noOrder = false;
+  bool noOrder = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +51,8 @@ class _HomeScreenNoOrderState extends State<HomeScreenNoOrder> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              Navigator.pushNamed(context, Routes.menu);
+                              Navigator.pushNamed(context, Routes.menu,
+                                  arguments: widget.user);
                             },
                             child: const CircleAvatarWidget(
                               image: "assets/images/head.png",
@@ -66,11 +68,11 @@ class _HomeScreenNoOrderState extends State<HomeScreenNoOrder> {
                       ),
                       const TextWidget(
                         text: "Good Morning,",
-                        fontSize: 30,
+                        fontSize: 32,
                       ),
-                      const TextWidget(
-                        text: "Daniel",
-                        fontSize: 25,
+                      TextWidget(
+                        text: widget.user.displayName!,
+                        fontSize: 32,
                         fontWeight: FontWeight.bold,
                       ),
                       const SizedBox(
@@ -137,8 +139,8 @@ class _HomeScreenNoOrderState extends State<HomeScreenNoOrder> {
                         text: "Good Morning,",
                         fontSize: 32,
                       ),
-                      const TextWidget(
-                        text: "Daniel",
+                      TextWidget(
+                        text: widget.user.displayName!,
                         fontSize: 32,
                         fontWeight: FontWeight.bold,
                       ),

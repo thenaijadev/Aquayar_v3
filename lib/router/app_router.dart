@@ -16,6 +16,7 @@ import 'package:aquayar/app/presentation/screens/customer_flow/water_aqired_scre
 import 'package:aquayar/app/presentation/screens/customer_flow/water_tank.dart';
 import 'package:aquayar/app/presentation/screens/onboarding_flow/create_new_password_screen.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/locations.dart';
+import 'package:aquayar/app/presentation/screens/onboarding_flow/home_screen.dart';
 import 'package:aquayar/app/presentation/screens/onboarding_flow/otp_sent.dart';
 import 'package:aquayar/app/presentation/screens/onboarding_flow/password_set_successfully_screen.dart';
 import 'package:aquayar/app/presentation/screens/onboarding_flow/registration_done_screen.dart';
@@ -33,12 +34,12 @@ class AppRouter {
   Route onGenerateRoute(RouteSettings routeSettings) {
     // logger.i("This is the route: ${routeSettings.name}");
     switch (routeSettings.name) {
-      // case Routes.landing:
-      //   return MaterialPageRoute(
-      //     builder: (_) => const LandingScreen(),
-      //   );
-
       case Routes.landing:
+        return MaterialPageRoute(
+          builder: (_) => const LandingScreen(),
+        );
+
+      case Routes.chat:
         return MaterialPageRoute(
           builder: (_) => const ChatScreen(),
         );
@@ -120,8 +121,10 @@ class AppRouter {
         );
 
       case Routes.home:
+        var data = routeSettings.arguments as AuthUser;
+
         return MaterialPageRoute(
-          builder: (_) => const HomeScreenNoOrder(),
+          builder: (_) => HomeScreenNoOrder(user: data),
         );
       case Routes.orderWater:
         return MaterialPageRoute(
@@ -140,8 +143,10 @@ class AppRouter {
           builder: (_) => const EditLocation(),
         );
       case Routes.menu:
+        var data = routeSettings.arguments as AuthUser;
+
         return MaterialPageRoute(
-          builder: (_) => const Menu(),
+          builder: (_) => Menu(user: data),
         );
       case Routes.renameLocation:
         return MaterialPageRoute(

@@ -1,3 +1,4 @@
+import 'package:aquayar/app/data/models/auth_user.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/home.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/outlined_container.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
@@ -7,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 
 class Menu extends StatefulWidget {
-  const Menu({super.key});
-
+  const Menu({super.key, required this.user});
+  final AuthUser user;
   @override
   State<Menu> createState() => _MenuState();
 }
@@ -76,18 +77,21 @@ class _MenuState extends State<Menu> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const TextWidget(
-                          text: "Daniel",
+                        TextWidget(
+                          text: widget.user.displayName!,
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
                         ),
                         Row(
                           children: [
-                            const TextWidget(
-                              text: 'frankpeterani@gmail.com',
-                              color: Color(0xFF868FAD),
+                            TextWidget(
+                              text: widget.user.email!,
+                              color: const Color(0xFF868FAD),
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
+                            ),
+                            const SizedBox(
+                              width: 5,
                             ),
                             Image.asset("assets/images/tick_circle.png")
                           ],

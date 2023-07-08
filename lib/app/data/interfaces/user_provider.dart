@@ -20,4 +20,6 @@ abstract class UserProviderInterface {
       required String token});
   Future<Map<String, dynamic>> checkOTP(
       {required int otp, required String token});
+
+  Future<Map<String, dynamic>> getUser({required String token});
 }
