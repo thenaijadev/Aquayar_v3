@@ -1,4 +1,5 @@
 import 'package:aquayar/app/presentation/widgets/customer_flow/outlined_container.dart';
+import 'package:aquayar/app/presentation/widgets/onboarding_flow/text_input.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,8 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  final formfieldkey_1 = GlobalKey<FormFieldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,6 +86,60 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
           ],
         ),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Flexible(
+              child: ListView(
+            children: const [],
+          )),
+          Container(
+            decoration: const BoxDecoration(
+                color: Colors.white,
+                border: Border(
+                    top: BorderSide(color: Color(0xFF868FAD), width: .3))),
+            height: 120,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                left: 16.0,
+                right: 16.0,
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const TextWidget(
+                    text: "😂",
+                    fontSize: 30,
+                  ),
+                  SizedBox(
+                    height: 110,
+                    width: 284,
+                    child: InputFieldWidget(
+                        label: "",
+                        hintText: "Type your message",
+                        onChanged: (val) {},
+                        textFieldkey: formfieldkey_1),
+                  ),
+                  OutlinedContainer(
+                    padding: const EdgeInsets.all(10),
+                    borderRadius: 100,
+                    color: Colors.white,
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Color(0x33030D45),
+                        blurRadius: 32,
+                        offset: Offset(0, 8),
+                        spreadRadius: 0,
+                      )
+                    ],
+                    child: Image.asset("assets/images/send_plane.png"),
+                  )
+                ],
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
