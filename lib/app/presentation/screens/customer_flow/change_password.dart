@@ -1,4 +1,5 @@
 import 'package:aquayar/app/bloc/auth/auth_bloc.dart';
+import 'package:aquayar/app/bloc/auth/auth_event.dart';
 import 'package:aquayar/app/bloc/auth/auth_state.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/text_input.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
@@ -9,6 +10,7 @@ import 'package:aquayar/utilities/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({
@@ -32,7 +34,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // AuthBloc authBloc = context.watch<AuthBloc>();
+    AuthBloc authBloc = context.watch<AuthBloc>();
+
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: AppBar(
@@ -157,16 +160,18 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                             padding: const EdgeInsets.symmetric(vertical: 16.0),
                             child: GestureDetector(
                               onTap: () async {
-                                // final formIsValid =
-                                //     formKey.currentState?.validate();
-                                // if (formIsValid!) {
-                                //   authBloc.add(AuthEventChangePassword(
-                                //       token: widget.token,
-                                //       password:
-                                //           formfieldkey_1.currentState?.value,
-                                //       confirmPassword:
-                                //           formfieldkey_2.currentState?.value));
-                                // }
+                                final formIsValid =
+                                    formKey.currentState?.validate();
+                                final tokenBox = Hive.box("user_token_box");
+                                final token = tokenBox.get("token");
+                                if (formIsValid!) {
+                                  authBloc.add(AuthEventChangePassword(
+                                      token: token,
+                                      password:
+                                          formfieldkey_1.currentState?.value,
+                                      confirmPassword:
+                                          formfieldkey_2.currentState?.value));
+                                }
                               },
                               child: Image.asset(
                                   "assets/images/reset_password.png"),

@@ -3,7 +3,7 @@ import 'package:aquayar/app/bloc/user/user_bloc.dart';
 import 'package:aquayar/app/data/repos/auth_repo.dart';
 import 'package:aquayar/app/data/repos/user_repo.dart';
 import 'package:aquayar/router/app_router.dart';
-import 'package:aquayar/utilities/logger.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
