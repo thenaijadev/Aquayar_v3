@@ -158,8 +158,10 @@ class AppRouter {
           builder: (_) => const ChangePasswordScreen(),
         );
       case Routes.editProfile:
+        var data = routeSettings.arguments as AuthUser;
+
         return MaterialPageRoute(
-          builder: (_) => const EditProfile(),
+          builder: (_) => EditProfile(user: data),
         );
 
       // case Routes.payNowScreen:

@@ -180,15 +180,15 @@ class _MenuState extends State<Menu> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 14.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.pushNamed(
-                                    context, Routes.editProfile);
-                              },
-                              child: Row(
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(context, Routes.editProfile,
+                                arguments: widget.user);
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
                                 children: [
                                   Image.asset("assets/images/user_icon.png"),
                                   const SizedBox(
@@ -201,9 +201,9 @@ class _MenuState extends State<Menu> {
                                   ),
                                 ],
                               ),
-                            ),
-                            Image.asset("assets/images/chevron_right.png"),
-                          ],
+                              Image.asset("assets/images/chevron_right.png"),
+                            ],
+                          ),
                         ),
                       ),
                       const HorizontalRuleWidget(),

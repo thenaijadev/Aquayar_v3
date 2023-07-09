@@ -15,33 +15,35 @@ class HomeScreenNoOrder extends StatefulWidget {
 }
 
 class _HomeScreenNoOrderState extends State<HomeScreenNoOrder> {
-  bool noOrder = true;
+  bool noOrder = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
-      floatingActionButton: SizedBox(
-        height: 70,
-        width: 70,
-        child: FloatingActionButton(
-          onPressed: () {
-            Navigator.pushNamed(context, Routes.orderWater);
-          },
-          child: ClayContainer(
-            color: const Color.fromARGB(255, 4, 136, 231),
-            parentColor: Colors.white,
-            height: 150,
-            width: 250,
-            depth: 40,
-            borderRadius: 75,
-            curveType: CurveType.convex,
-            child: Image.asset("assets/images/drop_icon.png"),
-          ),
-        ),
-      ),
+      floatingActionButton: !noOrder
+          ? SizedBox(
+              height: 70,
+              width: 70,
+              child: FloatingActionButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, Routes.orderWater);
+                },
+                child: ClayContainer(
+                  color: const Color.fromARGB(255, 4, 136, 231),
+                  parentColor: Colors.white,
+                  height: 150,
+                  width: 250,
+                  depth: 40,
+                  borderRadius: 75,
+                  curveType: CurveType.convex,
+                  child: Image.asset("assets/images/drop_icon.png"),
+                ),
+              ),
+            )
+          : null,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
           child: SingleChildScrollView(
             child: Column(
               children: noOrder
@@ -95,7 +97,9 @@ class _HomeScreenNoOrderState extends State<HomeScreenNoOrder> {
                         height: 40,
                       ),
                       OutlinedContainer(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(context, Routes.orderWater);
+                        },
                         borderRadius: 40,
                         padding: const EdgeInsets.symmetric(
                             horizontal: 40, vertical: 15),
@@ -124,7 +128,8 @@ class _HomeScreenNoOrderState extends State<HomeScreenNoOrder> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              Navigator.pushNamed(context, Routes.menu);
+                              Navigator.pushNamed(context, Routes.menu,
+                                  arguments: widget.user);
                             },
                             child: const CircleAvatarWidget(
                               image: "assets/images/head.png",
@@ -162,53 +167,80 @@ class _HomeScreenNoOrderState extends State<HomeScreenNoOrder> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           OutlinedContainer(
+                            padding: const EdgeInsets.only(
+                                bottom: 15, left: 16, top: 21, right: 22),
+                            color: Colors.white,
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Color(0x0F030D45),
+                                blurRadius: 24,
+                                offset: Offset(0, 8),
+                                spreadRadius: 0,
+                              )
+                            ],
                             onTap: () {},
                             borderRadius: 25,
-                            child: const Padding(
-                              padding: EdgeInsets.only(right: 30.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 20.0),
+                              child: Row(
                                 children: [
-                                  TextWidget(
-                                    text: "Your water tank",
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14,
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const TextWidget(
+                                        text: "Your water tank   ",
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      CircleAvatar(
+                                        radius: 16,
+                                        backgroundColor:
+                                            const Color(0xFFF2F2F2),
+                                        child: Image.asset(
+                                            "assets/images/arrow_right.png"),
+                                      ),
+                                    ],
                                   ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  CircleAvatar(
-                                    radius: 16,
-                                    backgroundColor: AppColors.inputBorder,
-                                    child: Icon(Icons.chevron_right,
-                                        color: Colors.black),
-                                  )
                                 ],
                               ),
                             ),
                           ),
                           OutlinedContainer(
+                            padding: const EdgeInsets.only(
+                                bottom: 15, left: 20, top: 21, right: 22),
+                            color: Colors.white,
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Color(0x0F030D45),
+                                blurRadius: 24,
+                                offset: Offset(0, 8),
+                                spreadRadius: 0,
+                              )
+                            ],
                             onTap: () {},
                             borderRadius: 25,
-                            child: const Padding(
-                              padding: EdgeInsets.only(right: 30.0),
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 20.0),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  TextWidget(
-                                    text: "Your Locations",
+                                  const TextWidget(
+                                    text: "Your Locations  ",
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 14,
+                                    fontSize: 16,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10,
                                   ),
                                   CircleAvatar(
-                                    radius: 16,
-                                    backgroundColor: AppColors.inputBorder,
-                                    child: Icon(Icons.chevron_right,
-                                        color: Colors.black),
-                                  )
+                                      radius: 16,
+                                      backgroundColor: const Color(0xFFF2F2F2),
+                                      child: Image.asset(
+                                          "assets/images/arrow_right.png"))
                                 ],
                               ),
                             ),
@@ -216,22 +248,26 @@ class _HomeScreenNoOrderState extends State<HomeScreenNoOrder> {
                         ],
                       ),
                       const SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          InkWell(
-                              onTap: () {},
-                              child: Image.asset("assets/images/search.png")),
-                          const TextWidget(
-                            text: "Orders",
-                            fontSize: 20,
-                          ),
-                          InkWell(
-                              onTap: () {},
-                              child: Image.asset("assets/images/calender.png")),
-                        ],
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            InkWell(
+                                onTap: () {},
+                                child: Image.asset("assets/images/search.png")),
+                            const TextWidget(
+                              text: "Orders",
+                              fontSize: 16,
+                            ),
+                            InkWell(
+                                onTap: () {},
+                                child:
+                                    Image.asset("assets/images/calender.png")),
+                          ],
+                        ),
                       ),
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 12),
                       SizedBox(
                         height: 300,
                         child: ListView(
@@ -265,6 +301,8 @@ class Order extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: OutlinedContainer(
+        padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
+        color: const Color(0xFFFAFAFA),
         onTap: () {},
         borderRadius: 30,
         child: Row(
@@ -282,7 +320,10 @@ class Order extends StatelessWidget {
                   text: "WTC Estate",
                   fontWeight: FontWeight.bold,
                 ),
-                TextWidget(text: "Active")
+                TextWidget(
+                  text: "Active",
+                  color: Color(0xFF868FAD),
+                )
               ],
             ),
             const SizedBox(
@@ -306,11 +347,10 @@ class Order extends StatelessWidget {
             ),
             InkWell(
               onTap: () {},
-              child: const CircleAvatar(
-                backgroundColor: AppColors.inputBorder,
-                radius: 14,
-                child: Icon(Icons.chevron_right),
-              ),
+              child: CircleAvatar(
+                  backgroundColor: const Color(0xFFF2F2F2),
+                  radius: 14,
+                  child: Image.asset("assets/images/arrow_right.png")),
             )
           ],
         ),

@@ -1,13 +1,20 @@
+import 'package:aquayar/app/bloc/auth/auth_bloc.dart';
+import 'package:aquayar/app/bloc/auth/auth_event.dart';
+import 'package:aquayar/app/bloc/auth/auth_state.dart';
+import 'package:aquayar/app/data/models/auth_user.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/radio_btn.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/text_input.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:aquayar/utilities/enums.dart';
 import 'package:aquayar/utilities/validators.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class EditProfile extends StatefulWidget {
-  const EditProfile({super.key});
-
+  const EditProfile({super.key, required this.user});
+  final AuthUser user;
   @override
   State<EditProfile> createState() => _EditProfileState();
 }
@@ -15,7 +22,7 @@ class EditProfile extends StatefulWidget {
 class _EditProfileState extends State<EditProfile> {
   final formKey = GlobalKey<FormState>();
   final formfieldkey_1 = GlobalKey<FormFieldState>();
-  bool? emailState = false;
+  bool? nameState = false;
 
   final GlobalKey<FormFieldState> textFieldkey = GlobalKey<FormFieldState>();
   bool? nameHasError = false;
@@ -28,6 +35,7 @@ class _EditProfileState extends State<EditProfile> {
   bool keyboardUp = false;
   @override
   Widget build(BuildContext context) {
+    final AuthBloc authBloc = context.watch<AuthBloc>();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -75,18 +83,18 @@ class _EditProfileState extends State<EditProfile> {
                                 },
                                 textFieldkey: formfieldkey_1,
                                 label: "Your display name",
-                                hintText: "Daze",
+                                hintText: widget.user.displayName!,
                                 onChanged: (val) {
                                   setState(() {
-                                    emailState =
+                                    nameState =
                                         formfieldkey_1.currentState?.validate();
                                   });
                                 },
                                 validator: (val) {
-                                  final emailState = Validator.validateText(
+                                  final nameError = Validator.validateText(
                                       formfieldkey_1.currentState?.value,
                                       "Display name");
-                                  return emailState;
+                                  return nameError;
                                 },
                               ),
                             ),
@@ -150,24 +158,47 @@ class _EditProfileState extends State<EditProfile> {
                         ),
                       ],
                     ),
-                    emailState!
-                        ? Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 16.0),
-                            child: GestureDetector(
-                              onTap: () async {
-                                // final formIsValid =
-                                //     formKey.currentState?.validate();
-                                // if (formIsValid!) {
-                                //   authBloc.add(AuthEventChangePassword(
-                                //       token: widget.token,
-                                //       password:
-                                //           formfieldkey_1.currentState?.value,
-                                //       confirmPassword:
-                                //           formfieldkey_2.currentState?.value));
-                                // }
-                              },
-                              child: Image.asset("assets/images/save.png"),
-                            ),
+                    nameState!
+                        ? BlocConsumer<AuthBloc, AuthState>(
+                            listener: (context, state) {
+                              if (state is AuthStateUserNameAndGenderUpdated) {
+                                Navigator.pop(context);
+                              } else if (state is AuthStateError) {
+                                print(state.message);
+                              }
+                            },
+                            builder: (context, state) {
+                              if (state is AuthStateIsLoading) {
+                                return const Padding(
+                                    padding: EdgeInsets.only(top: 20.0),
+                                    child: SpinKitSpinningLines(
+                                      color: Color.fromARGB(255, 4, 136, 231),
+                                      size: 40.0,
+                                    ));
+                              }
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 16.0),
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    final formIsValid =
+                                        formKey.currentState?.validate();
+                                    if (formIsValid!) {
+                                      final tokenBox =
+                                          Hive.box("user_token_box");
+                                      final token = tokenBox.get("token");
+
+                                      authBloc.add(AuthEventUpdateGenderAndName(
+                                          token: token,
+                                          name: formfieldkey_1
+                                              .currentState?.value,
+                                          gender: choice!.toLowerCase()));
+                                    }
+                                  },
+                                  child: Image.asset("assets/images/save.png"),
+                                ),
+                              );
+                            },
                           )
                         : Padding(
                             padding: const EdgeInsets.all(16.0),

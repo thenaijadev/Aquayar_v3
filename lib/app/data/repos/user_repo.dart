@@ -1,6 +1,5 @@
 // ignore_for_file: unused_local_variable
 
-import 'package:aquayar/app/data/models/auth_user.dart';
 import 'package:aquayar/app/data/models/updated_user.dart';
 import 'package:aquayar/app/data/providers/user_provider.dart';
 

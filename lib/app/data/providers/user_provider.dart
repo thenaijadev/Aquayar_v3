@@ -57,8 +57,7 @@ class UserProvider implements UserProviderInterface {
           headers: {"Authorization": "Bearer $token"},
         ),
       );
-
-      // options: Options(headers: {"token": token}));
+      print(response);
 
       return {
         ...response,
