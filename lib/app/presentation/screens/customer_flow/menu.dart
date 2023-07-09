@@ -1,11 +1,14 @@
 import 'package:aquayar/app/data/models/auth_user.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/circle_avatar_widget.dart';
+import 'package:aquayar/app/presentation/widgets/customer_flow/menu_item_widget.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/outlined_container.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:aquayar/router/routes.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+
+import '../../widgets/customer_flow/horizontal_rule_widget.dart';
 
 class Menu extends StatefulWidget {
   const Menu({super.key, required this.user});
@@ -178,120 +181,40 @@ class _MenuState extends State<Menu> {
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 14.0),
-                        child: GestureDetector(
+                      MenuItemWidget(
                           onTap: () {
                             Navigator.pushNamed(context, Routes.editProfile,
                                 arguments: widget.user);
                           },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  Image.asset("assets/images/user_icon.png"),
-                                  const SizedBox(
-                                    width: 12,
-                                  ),
-                                  const TextWidget(
-                                    text: "Edit Profile",
-                                    color: Color(0xFF868FAD),
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ],
-                              ),
-                              Image.asset("assets/images/chevron_right.png"),
-                            ],
-                          ),
-                        ),
-                      ),
+                          user: widget.user,
+                          image: "assets/images/user_icon.png",
+                          label: "Edit Profile"),
                       const HorizontalRuleWidget(),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 14.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).pushNamed(
-                                  Routes.changePassword,
-                                );
-                              },
-                              child: Row(
-                                children: [
-                                  Image.asset("assets/images/key_icon.png"),
-                                  const SizedBox(
-                                    width: 12,
-                                  ),
-                                  const TextWidget(
-                                    text: "Change Password",
-                                    color: Color(0xFF868FAD),
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Image.asset("assets/images/chevron_right.png"),
-                          ],
-                        ),
-                      ),
+                      MenuItemWidget(
+                          onTap: () {
+                            Navigator.of(context).pushNamed(
+                              Routes.changePassword,
+                            );
+                          },
+                          user: widget.user,
+                          image: "assets/images/key_icon.png",
+                          label: "Change Password"),
                       const HorizontalRuleWidget(),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 14.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.pushNamed(context, Routes.waterTank);
-                              },
-                              child: Row(
-                                children: [
-                                  Image.asset("assets/images/bubble.png"),
-                                  const SizedBox(
-                                    width: 12,
-                                  ),
-                                  const TextWidget(
-                                    text: "Your Water Tank",
-                                    color: Color(0xFF868FAD),
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Image.asset("assets/images/chevron_right.png"),
-                          ],
-                        ),
-                      ),
+                      MenuItemWidget(
+                          onTap: () {
+                            Navigator.pushNamed(context, Routes.waterTank);
+                          },
+                          user: widget.user,
+                          image: "assets/images/bubble.png",
+                          label: "Your Water Tank"),
                       const HorizontalRuleWidget(),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 14.0),
-                        child: GestureDetector(
+                      MenuItemWidget(
                           onTap: () {
                             Navigator.pushNamed(context, Routes.locations);
                           },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  Image.asset("assets/images/routing.png"),
-                                  const SizedBox(
-                                    width: 12,
-                                  ),
-                                  const TextWidget(
-                                    text: "Your Locations",
-                                    color: Color(0xFF868FAD),
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ],
-                              ),
-                              Image.asset("assets/images/chevron_right.png"),
-                            ],
-                          ),
-                        ),
-                      ),
+                          user: widget.user,
+                          image: "assets/images/routing.png",
+                          label: "Your Locations"),
                       const HorizontalRuleWidget(),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 14.0),
@@ -350,51 +273,17 @@ class _MenuState extends State<Menu> {
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 14.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                Image.asset("assets/images/chat.png"),
-                                const SizedBox(
-                                  width: 12,
-                                ),
-                                const TextWidget(
-                                  text: "Help & Support",
-                                  color: Color(0xFF868FAD),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ],
-                            ),
-                            Image.asset("assets/images/chevron_right.png"),
-                          ],
-                        ),
-                      ),
+                      MenuItemWidget(
+                          onTap: () {},
+                          user: widget.user,
+                          image: "assets/images/chat.png",
+                          label: "Help & Support"),
                       const HorizontalRuleWidget(),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 14.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                Image.asset("assets/images/message.png"),
-                                const SizedBox(
-                                  width: 12,
-                                ),
-                                const TextWidget(
-                                  text: "Give Feedback",
-                                  color: Color(0xFF868FAD),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ],
-                            ),
-                            Image.asset("assets/images/chevron_right.png"),
-                          ],
-                        ),
-                      ),
+                      MenuItemWidget(
+                          onTap: () {},
+                          user: widget.user,
+                          image: "assets/images/message.png",
+                          label: "Give Feedback"),
                     ],
                   ),
                 ),
@@ -454,19 +343,6 @@ class _MenuState extends State<Menu> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class HorizontalRuleWidget extends StatelessWidget {
-  const HorizontalRuleWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: const Color(0xFFD6E0E9),
-      width: double.infinity,
-      height: 1,
     );
   }
 }

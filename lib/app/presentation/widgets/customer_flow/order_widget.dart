@@ -62,7 +62,7 @@ class OrderWidget extends StatelessWidget {
                 label: "Your Water Tank"),
             TabWidget(
                 onTap: () {
-                  Navigator.pushNamed(context, Routes.editLocation);
+                  Navigator.pushNamed(context, Routes.locations);
                 },
                 label: "Your Locations")
           ],
