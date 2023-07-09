@@ -1,5 +1,5 @@
 import 'package:aquayar/app/data/models/auth_user.dart';
-import 'package:aquayar/app/presentation/screens/customer_flow/home.dart';
+import 'package:aquayar/app/presentation/widgets/customer_flow/circle_avatar_widget.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/outlined_container.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:aquayar/router/routes.dart';
