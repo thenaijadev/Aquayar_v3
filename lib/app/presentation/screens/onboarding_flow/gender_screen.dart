@@ -2,7 +2,6 @@ import 'package:aquayar/app/bloc/auth/auth_bloc.dart';
 import 'package:aquayar/app/bloc/auth/auth_event.dart';
 import 'package:aquayar/app/bloc/auth/auth_state.dart';
 import 'package:aquayar/app/data/models/auth_user.dart';
-import 'package:aquayar/app/presentation/widgets/onboarding_flow/blue_btn.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/radio_btn.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:aquayar/router/routes.dart';
@@ -95,7 +94,7 @@ class _GenderScreenState extends State<GenderScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -200,31 +199,60 @@ class _GenderScreenState extends State<GenderScreen> {
                               size: 40.0,
                             ),
                           )
-                        : BlueBtn(
-                            enabled: nameHasError! && genderChosen!,
-                            paddingVertical: 12,
-                            label: TextWidget(
-                              text: "      Continue",
-                              color: nameHasError! || genderChosen == false
-                                  ? AppColors.white
-                                  : AppColors.inputBorder,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                            onPressed: () async {
-                              final formState =
-                                  formKey.currentState?.validate();
-                              if (formState! && genderChosen!) {
-                                authBloc.add(AuthEventUpdateGenderAndName(
-                                    name: textFieldkey.currentState?.value,
-                                    gender: choice!.toLowerCase(),
-                                    token: widget.data.authToken!));
-                              } else if (!genderChosen!) {
-                                setState(() {
-                                  showError = true;
-                                });
-                              }
-                            });
+                        : nameHasError! && genderChosen!
+                            ? GestureDetector(
+                                onTap: () async {
+                                  final formState =
+                                      formKey.currentState?.validate();
+                                  if (formState! && genderChosen!) {
+                                    authBloc.add(AuthEventUpdateGenderAndName(
+                                        name: textFieldkey.currentState?.value,
+                                        gender: choice!.toLowerCase(),
+                                        token: widget.data.authToken!));
+                                  } else if (!genderChosen!) {
+                                    setState(() {
+                                      showError = true;
+                                    });
+                                  }
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      right: 16.0, left: 16.0, bottom: 30),
+                                  child: Image.asset(
+                                      "assets/images/continue_blue.png"),
+                                ),
+                              )
+                            : Padding(
+                                padding: const EdgeInsets.only(
+                                    right: 16.0, left: 16.0, bottom: 30),
+                                child: Image.asset(
+                                    "assets/images/continue_grey.png"),
+                              );
+                    // : BlueBtn(
+                    //     enabled: nameHasError! && genderChosen!,
+                    //     paddingVertical: 12,
+                    //     label: TextWidget(
+                    //       text: "      Continue",
+                    //       color: nameHasError! || genderChosen == false
+                    //           ? AppColors.white
+                    //           : AppColors.inputBorder,
+                    //       fontWeight: FontWeight.bold,
+                    //       fontSize: 14,
+                    //     ),
+                    //     onPressed: () async {
+                    //       final formState =
+                    //           formKey.currentState?.validate();
+                    //       if (formState! && genderChosen!) {
+                    //         authBloc.add(AuthEventUpdateGenderAndName(
+                    //             name: textFieldkey.currentState?.value,
+                    //             gender: choice!.toLowerCase(),
+                    //             token: widget.data.authToken!));
+                    //       } else if (!genderChosen!) {
+                    //         setState(() {
+                    //           showError = true;
+                    //         });
+                    //       }
+                    //     });
                   },
                 ),
               ),

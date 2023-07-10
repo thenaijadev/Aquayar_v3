@@ -7,6 +7,7 @@ import 'package:aquayar/router/routes.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../widgets/customer_flow/horizontal_rule_widget.dart';
 
@@ -318,13 +319,19 @@ class _MenuState extends State<Menu> {
                   ),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(top: 24.0),
+              Padding(
+                padding: const EdgeInsets.only(top: 24.0),
                 child: OutlinedContainer(
+                  onTap: () {
+                    final tokenBox = Hive.box("user_token_box");
+
+                    tokenBox.delete("token");
+                    Navigator.popUntil(context, (route) => route.isFirst);
+                  },
                   borderRadius: 24,
-                  color: Color(0xFFFAFAFA),
-                  padding: EdgeInsets.symmetric(horizontal: 24),
-                  child: Padding(
+                  color: const Color(0xFFFAFAFA),
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: const Padding(
                     padding: EdgeInsets.symmetric(vertical: 14.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,

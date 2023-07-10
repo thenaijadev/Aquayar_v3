@@ -145,6 +145,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   onChanged: (val) {
                     otp = val;
                     debugPrint(val);
+                    setState(() {});
                   },
                 ),
               ),
@@ -223,24 +224,32 @@ class _OtpScreenState extends State<OtpScreen> {
                           size: 40.0,
                         ),
                       )
-                    : BlueBtn(
-                        enabled: otp?.length == 4,
-                        paddingVertical: 12,
-                        label: TextWidget(
-                          text: "              Verify",
-                          color: otp?.length == 4
-                              ? AppColors.white
-                              : AppColors.inputBorder,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                        onPressed: () {
-                          if (otp?.length == 4) {
-                            userbloc.add(UserEventCheckOtp(
-                                otp: int.parse(otp!),
-                                token: widget.data[0]["token"]));
-                          }
-                        });
+                    : otp?.length != 4
+                        ? BlueBtn(
+                            enabled: otp?.length == 4,
+                            paddingVertical: 12,
+                            label: TextWidget(
+                              text: "              Verify",
+                              color: otp?.length != 4
+                                  ? AppColors.white
+                                  : AppColors.inputBorder,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                            ),
+                            onPressed: () {})
+                        : GestureDetector(
+                            onTap: () {
+                              if (otp?.length == 4) {
+                                userbloc.add(
+                                  UserEventCheckOtp(
+                                    otp: int.parse(otp!),
+                                    token: widget.data[0]["token"],
+                                  ),
+                                );
+                              }
+                            },
+                            child:
+                                Image.asset("assets/images/verify_blue.png"));
               },
             ),
           )

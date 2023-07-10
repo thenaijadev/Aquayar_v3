@@ -36,8 +36,7 @@ class _LandingScreenState extends State<LandingScreen> {
     return BlocListener<UserBloc, UserState>(
       listener: (context, state) {
         if (state is UserStateUserRetrieved) {
-          Navigator.pushReplacementNamed(context, Routes.home,
-              arguments: state.user);
+          Navigator.pushNamed(context, Routes.home, arguments: state.user);
         }
       },
       child: BlocBuilder<UserBloc, UserState>(

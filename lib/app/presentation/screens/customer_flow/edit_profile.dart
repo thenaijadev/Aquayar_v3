@@ -5,6 +5,7 @@ import 'package:aquayar/app/data/models/auth_user.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/radio_btn.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/text_input.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
+import 'package:aquayar/router/routes.dart';
 import 'package:aquayar/utilities/enums.dart';
 import 'package:aquayar/utilities/validators.dart';
 import 'package:flutter/material.dart';
@@ -162,7 +163,8 @@ class _EditProfileState extends State<EditProfile> {
                         ? BlocConsumer<AuthBloc, AuthState>(
                             listener: (context, state) {
                               if (state is AuthStateUserNameAndGenderUpdated) {
-                                Navigator.pop(context);
+                                Navigator.pushReplacementNamed(
+                                    context, Routes.landing);
                               } else if (state is AuthStateError) {
                                 print(state.message);
                               }

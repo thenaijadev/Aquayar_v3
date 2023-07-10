@@ -22,7 +22,7 @@ class _TankSizeRadioBtnState extends State<TankSizeRadioBtn> {
         onPressed: widget.onPressed,
         style: OutlinedButton.styleFrom(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(16),
           ),
           side: BorderSide(
             color: const Color(0xff61C7F9),

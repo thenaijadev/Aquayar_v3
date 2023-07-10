@@ -1,6 +1,5 @@
 import 'package:aquayar/app/bloc/user/user_bloc.dart';
 import 'package:aquayar/app/bloc/user/user_state.dart';
-import 'package:aquayar/app/presentation/widgets/onboarding_flow/blue_btn.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/tanksize_radio_btns.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/text_input.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
@@ -56,15 +55,9 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColors.white,
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: const Padding(
-            padding: EdgeInsets.only(left: 15.0),
-            child: Icon(
-              Icons.arrow_back,
-              color: Color.fromARGB(212, 33, 37, 80),
-            ),
-          ),
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 24.0),
+          child: Image.asset("assets/images/arrow_left_small.png"),
         ),
       ),
       body: Column(
@@ -79,7 +72,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                 child: TextWidget(
                   text: "Hey, ",
                   color: AppColors.titleBlack,
-                  fontSize: 25,
+                  fontSize: 32,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -88,12 +81,12 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                 child: TextWidget(
                   text: "Hey, ${widget.data["name"]}👑",
                   color: AppColors.titleBlack,
-                  fontSize: 25,
+                  fontSize: 32,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const Padding(
-                padding: EdgeInsets.only(left: 20.0, top: 10),
+                padding: EdgeInsets.only(left: 20.0, top: 18),
                 child: TextWidget(
                   text: "Kindly complete your profile details to proceed.",
                   color: AppColors.darkTitleGrey,
@@ -106,13 +99,16 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 20.0),
+                      padding: const EdgeInsets.only(
+                        top: 20.0,
+                      ),
                       child: InputFieldWidget(
                         obscureText: obscureText,
                         textFieldkey: formfieldkey_1,
                         label: "Your address",
                         hintText: "",
                         hintSize: 20,
+                        labelFontSize: 16,
                         onChanged: (val) {
                           setState(() {
                             addressState =
@@ -128,8 +124,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 25.0,
-                      ),
+                          horizontal: 16.0, vertical: 20),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -138,7 +133,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                             child: TextWidget(
                               text: "Your current city",
                               fontWeight: FontWeight.w600,
-                              fontSize: 12,
+                              fontSize: 16,
                             ),
                           ),
                           SearchField(
@@ -201,6 +196,9 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                             },
                             maxSuggestionsInViewPort: 6,
                             itemHeight: 50,
+                            suggestionsDecoration: SuggestionDecoration(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 20, horizontal: 20)),
                           ),
                         ],
                       ),
@@ -262,14 +260,15 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                 ),
               ),
               const Padding(
-                padding: EdgeInsets.only(top: 20.0, left: 30),
+                padding: EdgeInsets.only(top: 20.0, left: 16),
                 child: TextWidget(
                   text: "Choose your water tank size",
                   color: AppColors.titleBlack,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: SizedBox(
                   height: 50,
                   child: ListView.builder(
@@ -344,33 +343,31 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                         ),
                       );
                     } else {
-                      return BlueBtn(
-                          enabled: addressState! &&
+                      return addressState! &&
                               city.isNotEmpty &&
-                              phoneNumberHasError!,
-                          paddingVertical: 12,
-                          label: TextWidget(
-                            text: "      Continue",
-                            color: addressState! &&
-                                    city.isNotEmpty &&
-                                    phoneNumberHasError!
-                                ? AppColors.white
-                                : AppColors.inputBorder,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                          ),
-                          onPressed: () {
-                            final formIsValid =
-                                formKey.currentState?.validate();
-                            if (formIsValid!) {
-                              userBloc.add(UserEventUpdateCustomerLocation(
-                                  name: widget.data["name"],
-                                  city: city,
-                                  address: formfieldkey_1.currentState?.value,
-                                  tankSize: double.parse(choice!).toDouble(),
-                                  token: widget.data["token"]));
-                            }
-                          });
+                              phoneNumberHasError!
+                          ? GestureDetector(
+                              onTap: () {
+                                final formIsValid =
+                                    formKey.currentState?.validate();
+                                if (formIsValid!) {
+                                  userBloc.add(UserEventUpdateCustomerLocation(
+                                      name: widget.data["name"],
+                                      city: city,
+                                      address:
+                                          formfieldkey_1.currentState?.value,
+                                      tankSize:
+                                          double.parse(choice!).toDouble(),
+                                      token: widget.data["token"]));
+                                }
+                              },
+                              child: Image.asset(
+                                  "assets/images/continue_blue.png"))
+                          : Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Image.asset(
+                                  "assets/images/continue_grey.png"),
+                            );
                     }
                   },
                 ),

@@ -94,45 +94,52 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 20.0),
-            child: BlocConsumer<AuthBloc, AuthState>(
-              listener: (context, state) {
-                logger.e(state);
-                if (state is AuthStatePasswordResetRequestSent) {
-                  Navigator.pushReplacementNamed(context, Routes.emailSent,
-                      arguments: formfieldkey_1.currentState?.value);
-                } else if (state is AuthStateError) {
-                  InfoSnackBar.showErrorSnackBar(context, state.message);
-                }
-              },
-              builder: (context, state) {
-                return state is AuthStateIsLoading
-                    ? const Padding(
-                        padding: EdgeInsets.only(top: 20.0),
-                        child: SpinKitSpinningLines(
-                          color: Color.fromARGB(255, 4, 136, 231),
-                          size: 40.0,
-                        ),
-                      )
-                    : BlueBtn(
-                        enabled: emailState!,
-                        paddingVertical: 12,
-                        label: TextWidget(
-                          text: "  Send Instruction",
-                          color: emailState!
-                              ? AppColors.white
-                              : AppColors.inputBorder,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                        onPressed: () {
-                          final formIsValid = formKey.currentState?.validate();
-                          if (formIsValid!) {
-                            bloc.add(AuthEventForgotPassword(
-                                email: formfieldkey_1.currentState?.value));
-                          }
-                        });
-              },
-            ),
+            child:
+                BlocConsumer<AuthBloc, AuthState>(listener: (context, state) {
+              logger.e(state);
+              if (state is AuthStatePasswordResetRequestSent) {
+                Navigator.pushReplacementNamed(context, Routes.emailSent,
+                    arguments: formfieldkey_1.currentState?.value);
+              } else if (state is AuthStateError) {
+                InfoSnackBar.showErrorSnackBar(context, state.message);
+              }
+            }, builder: (context, state) {
+              return state is AuthStateIsLoading
+                  ? const Padding(
+                      padding: EdgeInsets.only(top: 45.0),
+                      child: SpinKitSpinningLines(
+                        color: Color.fromARGB(255, 4, 136, 231),
+                        size: 40.0,
+                      ),
+                    )
+                  : !emailState!
+                      ? BlueBtn(
+                          enabled: emailState!,
+                          paddingVertical: 12,
+                          label: TextWidget(
+                            text: "  Send Instruction",
+                            color: emailState!
+                                ? AppColors.white
+                                : AppColors.inputBorder,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                          onPressed: () {})
+                      : GestureDetector(
+                          onTap: () {
+                            final formIsValid =
+                                formKey.currentState?.validate();
+                            if (formIsValid!) {
+                              bloc.add(AuthEventForgotPassword(
+                                  email: formfieldkey_1.currentState?.value));
+                            }
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 45),
+                            child: Image.asset(
+                                "assets/images/send_instruction_blue.png"),
+                          ));
+            }),
           )
         ],
       ),

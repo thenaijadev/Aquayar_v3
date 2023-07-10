@@ -1,4 +1,3 @@
-import 'package:aquayar/app/presentation/widgets/onboarding_flow/blue_btn.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:aquayar/router/routes.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
@@ -40,18 +39,12 @@ class _RegistrationDoneScreenState extends State<RegistrationDoneScreen> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 50.0, left: 10, right: 10),
-              child: BlueBtn(
-                  enabled: true,
-                  paddingVertical: 12,
-                  label: const TextWidget(
-                    text: "         Let's go",
-                    color: AppColors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, Routes.login);
-                  }),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, Routes.login);
+                },
+                child: Image.asset("assets/images/lets_go_blue.png"),
+              ),
             )
           ],
         ),

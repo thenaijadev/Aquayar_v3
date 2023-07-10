@@ -1,6 +1,5 @@
 import 'package:aquayar/app/bloc/user/user_bloc.dart';
 import 'package:aquayar/app/bloc/user/user_state.dart';
-import 'package:aquayar/app/presentation/widgets/onboarding_flow/blue_btn.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/text_input.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:aquayar/router/routes.dart';
@@ -166,29 +165,54 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                           size: 40.0,
                         ),
                       )
-                    : BlueBtn(
-                        enabled: phoneNumberHasError!,
-                        paddingVertical: 12,
-                        label: TextWidget(
-                          text: "              Verify",
-                          color: phoneNumberHasError!
-                              ? AppColors.white
-                              : AppColors.inputBorder,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                        onPressed: () {
-                          final formIsValid = formKey.currentState?.validate();
-                          if (formIsValid!) {
-                            String number = formatPhoneNumber(
-                                widget.data[1], widget.data[2]);
-                            String newNumber = number.replaceAll("-", "");
+                    : phoneNumberHasError!
+                        ? GestureDetector(
+                            onTap: () {
+                              final formIsValid =
+                                  formKey.currentState?.validate();
+                              if (formIsValid!) {
+                                final formIsValid =
+                                    formKey.currentState?.validate();
+                                if (formIsValid!) {
+                                  String number = formatPhoneNumber(
+                                      widget.data[1], widget.data[2]);
+                                  String newNumber = number.replaceAll("-", "");
 
-                            userbloc.add(UserEventGetOtp(
-                                phone: newNumber,
-                                token: widget.data[0]["token"]));
-                          }
-                        });
+                                  userbloc.add(UserEventGetOtp(
+                                      phone: newNumber,
+                                      token: widget.data[0]["token"]));
+                                }
+                              }
+                            },
+                            child: Image.asset("assets/images/verify_blue.png"))
+                        : Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child:
+                                Image.asset("assets/images/continue_grey.png"),
+                          );
+                // : BlueBtn(
+                //     enabled: phoneNumberHasError!,
+                //     paddingVertical: 12,
+                //     label: TextWidget(
+                //       text: "              Verify",
+                //       color: phoneNumberHasError!
+                //           ? AppColors.white
+                //           : AppColors.inputBorder,
+                //       fontWeight: FontWeight.bold,
+                //       fontSize: 14,
+                //     ),
+                //     onPressed: () {
+                //       final formIsValid = formKey.currentState?.validate();
+                //       if (formIsValid!) {
+                //         String number = formatPhoneNumber(
+                //             widget.data[1], widget.data[2]);
+                //         String newNumber = number.replaceAll("-", "");
+
+                //         userbloc.add(UserEventGetOtp(
+                //             phone: newNumber,
+                //             token: widget.data[0]["token"]));
+                //       }
+                //     });
               },
             ),
           )
