@@ -106,7 +106,7 @@ class _LandingScreenState extends State<LandingScreen> {
                     },
                     child: Image.asset("assets/images/button.png")),
                 OutlinedBtn(
-                  width: 158,
+                  width: 165,
                   label: const TextWidget(
                     text: "Login",
                     fontSize: 16,

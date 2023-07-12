@@ -37,6 +37,8 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
           final message = DioExceptionClass.fromDioError(error);
 
           emit(AuthStateError(message: message.errorMessage));
+        } catch (e) {
+          emit(AuthStateError(message: e.toString()));
         }
       },
     );

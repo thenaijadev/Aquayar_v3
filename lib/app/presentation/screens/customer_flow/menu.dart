@@ -134,10 +134,12 @@ class _MenuState extends State<Menu> {
                               text: "Completed Orders",
                               color: Colors.white,
                             ),
-                            TextWidget(
-                                text: "12",
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold)
+                            Flexible(
+                              child: TextWidget(
+                                  text: "12",
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            )
                           ],
                         ),
                         const SizedBox(width: 70),
@@ -148,11 +150,13 @@ class _MenuState extends State<Menu> {
                               text: "Beginner",
                               color: Colors.white,
                             ),
-                            TextWidget(
-                              text: "Level 1",
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: Colors.white,
+                            Flexible(
+                              child: TextWidget(
+                                text: "Level 1",
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                color: Colors.white,
+                              ),
                             )
                           ],
                         )
