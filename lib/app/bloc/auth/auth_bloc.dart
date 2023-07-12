@@ -6,6 +6,7 @@ import 'package:aquayar/app/data/models/auth_user.dart';
 import 'package:aquayar/app/data/repos/auth_repo.dart';
 import 'package:aquayar/app/data/repos/user_repo.dart';
 import 'package:aquayar/app/data/utilities/dio_exception.dart';
+import 'package:aquayar/utilities/logger.dart';
 import 'package:dio/dio.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -50,6 +51,8 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
         try {
           final user = await authRepo.signInWithGoogle();
           emit(AuthStateLoggedIn(user: user));
+          await tokenBox.put("token", user.authToken);
+          logger.e(user);
         } on DioException catch (error) {
           final message = DioExceptionClass.fromDioError(error);
 

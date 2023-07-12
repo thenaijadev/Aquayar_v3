@@ -76,40 +76,43 @@ class _CustomAlertState extends State<CustomAlert> {
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20.0, vertical: 10),
-                                    child: Container(
-                                      width: 211,
+                                Flexible(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Padding(
                                       padding: const EdgeInsets.symmetric(
-                                          vertical: 18, horizontal: 10),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: const Color(0xFFD6E0E9)),
-                                        borderRadius: BorderRadius.circular(30),
-                                        color: Colors.white,
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          const SizedBox(
-                                            width: 50,
-                                          ),
-                                          const TextWidget(
-                                            text: "Close",
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                          const SizedBox(
-                                            width: 40,
-                                          ),
-                                          Image.asset("assets/images/x.png")
-                                        ],
+                                          horizontal: 20.0, vertical: 10),
+                                      child: Container(
+                                        width: 211,
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 18, horizontal: 10),
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: const Color(0xFFD6E0E9)),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          color: Colors.white,
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            const SizedBox(
+                                              width: 50,
+                                            ),
+                                            const TextWidget(
+                                              text: "Close",
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            const SizedBox(
+                                              width: 40,
+                                            ),
+                                            Image.asset("assets/images/x.png")
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
