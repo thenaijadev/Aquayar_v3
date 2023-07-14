@@ -12,7 +12,7 @@ import 'package:aquayar/app/presentation/screens/customer_flow/home.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/menu.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/order_water.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/rename_location.dart';
-import 'package:aquayar/app/presentation/screens/customer_flow/water_aqired_screen.dart';
+import 'package:aquayar/app/presentation/screens/customer_flow/water_aquired_screen.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/water_tank.dart';
 import 'package:aquayar/app/presentation/screens/onboarding_flow/create_new_password_screen.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/locations.dart';

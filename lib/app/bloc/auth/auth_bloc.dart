@@ -49,7 +49,7 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
         emit(AuthStateIsLoading());
 
         try {
-          final user = await authRepo.signInWithGoogle();
+          final AuthUser user = await authRepo.signInWithGoogle();
           emit(AuthStateLoggedIn(user: user));
           await tokenBox.put("token", user.authToken);
           logger.e(user);

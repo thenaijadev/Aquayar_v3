@@ -192,7 +192,7 @@ class _RegisterationFormState extends ConsumerState<RegisterationForm> {
           Padding(
             padding: const EdgeInsets.only(top: 35.0, bottom: 20),
             child: OutlinedButtonWidget(
-              width: 360,
+              width: 390,
               image: Image.asset("assets/images/google.png"),
               label: "Sign up with Google",
               onPressed: () async {

@@ -102,42 +102,49 @@ class _LoginFormState extends State<LoginForm> {
               },
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, Routes.forgotPassword);
-                },
-                child: GradientText("Reset Password",
-                    style: const TextStyle(
-                        fontSize: 13, fontWeight: FontWeight.bold),
-                    colors: const [
-                      Color(0xff61C7F9),
-                      Color(0xff0579CE),
-                    ]),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Checkbox(
-                      side: const BorderSide(width: 1, color: Colors.grey),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6)),
-                      value: checkBoxValue,
-                      onChanged: (val) {
-                        setState(() {
-                          checkBoxValue = val;
-                        });
-                      }),
-                  const TextWidget(
-                    text: "Keep me logged in",
-                    fontSize: 15,
-                    color: Color(0xff868FAE),
-                  )
-                ],
-              )
-            ],
+          Padding(
+            padding: const EdgeInsets.only(left: 9.0, right: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, Routes.forgotPassword);
+                  },
+                  child: GradientText("Reset Password",
+                      style: const TextStyle(
+                        fontSize: 14,
+                      ),
+                      colors: const [
+                        Color(0xff61C7F9),
+                        Color(0xff0579CE),
+                      ]),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Transform.translate(
+                      offset: const Offset(10, 0),
+                      child: Checkbox(
+                          side: const BorderSide(width: 1, color: Colors.grey),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6)),
+                          value: checkBoxValue,
+                          onChanged: (val) {
+                            setState(() {
+                              checkBoxValue = val;
+                            });
+                          }),
+                    ),
+                    const TextWidget(
+                      text: "Keep me logged in",
+                      fontSize: 14,
+                      color: Color(0xff868FAE),
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
           BlocConsumer<AuthBloc, AuthState>(
             listener: (context, state) {
@@ -211,15 +218,19 @@ class _LoginFormState extends State<LoginForm> {
               ),
             ],
           ),
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 35.0, bottom: 20),
-              child: OutlinedButtonWidget(
-                image: Image.asset("assets/images/google.png"),
-                label: "Sign in with Google",
-                onPressed: () async {
-                  authBloc.add(const AuthEventSignInWithGoogle());
-                },
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 35.0, bottom: 20),
+                child: OutlinedButtonWidget(
+                  width: 385,
+                  image: Image.asset("assets/images/google.png"),
+                  label: "Sign in with Google",
+                  onPressed: () async {
+                    authBloc.add(const AuthEventSignInWithGoogle());
+                  },
+                ),
               ),
             ),
           ),

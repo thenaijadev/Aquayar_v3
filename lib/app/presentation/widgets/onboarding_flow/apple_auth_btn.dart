@@ -11,7 +11,7 @@ class SignUpWithApple extends StatelessWidget {
       return Padding(
         padding: const EdgeInsets.only(bottom: 40.0),
         child: OutlinedButtonWidget(
-          width: 360,
+          width: 388,
           image: Image.asset(
             "assets/images/apple.png",
           ),

@@ -76,7 +76,10 @@ class _GenderScreenState extends State<GenderScreen> {
                     },
                     key: textFieldkey,
                     cursorColor: AppColors.inputBorder,
-                    style: const TextStyle(fontSize: 40),
+                    style: const TextStyle(
+                      fontSize: 40,
+                      color: AppColors.titleBlack,
+                    ),
                     textAlign: TextAlign.center,
                     decoration: const InputDecoration(
                       enabledBorder: UnderlineInputBorder(
@@ -217,7 +220,7 @@ class _GenderScreenState extends State<GenderScreen> {
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.only(
-                                      right: 16.0, left: 16.0, bottom: 30),
+                                      right: 12.0, left: 12.0, bottom: 30),
                                   child: Image.asset(
                                       "assets/images/continue_blue.png"),
                                 ),
