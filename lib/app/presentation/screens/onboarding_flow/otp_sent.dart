@@ -203,9 +203,9 @@ class _OtpSentState extends State<OtpSent> {
             ],
           ),
           Padding(
-              padding: const EdgeInsets.only(bottom: 20.0),
-              child:
-                  BlocConsumer<AuthBloc, AuthState>(listener: (context, state) {
+            padding: const EdgeInsets.only(bottom: 20.0),
+            child: BlocConsumer<AuthBloc, AuthState>(
+              listener: (context, state) {
                 if (state is AuthStateError) {
                   InfoSnackBar.showErrorSnackBar(context, state.message);
                 } else {
@@ -214,7 +214,8 @@ class _OtpSentState extends State<OtpSent> {
                         arguments: state.resetToken);
                   }
                 }
-              }, builder: (context, state) {
+              },
+              builder: (context, state) {
                 return state is UserStateIsLoading
                     ? const Padding(
                         padding: EdgeInsets.only(top: 20.0),
@@ -223,26 +224,33 @@ class _OtpSentState extends State<OtpSent> {
                           size: 40.0,
                         ),
                       )
-                    : BlueBtn(
-                        enabled: otp?.length == 4,
-                        paddingVertical: 12,
-                        label: TextWidget(
-                          text: "              Verify",
-                          color: otp?.length == 4
-                              ? AppColors.white
-                              : AppColors.inputBorder,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                        onPressed: () {
-                          if (otp?.length == 4) {
-                            authBloc.add(AuthEventCheckOtpForPasswordChange(
-                              otp: otp!,
-                            ));
-                          }
-                        },
-                      );
-              }))
+                    : otp?.length != 4
+                        ? BlueBtn(
+                            enabled: otp?.length == 4,
+                            paddingVertical: 12,
+                            label: TextWidget(
+                              text: "              Verify",
+                              color: otp?.length == 4
+                                  ? AppColors.white
+                                  : AppColors.inputBorder,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                            ),
+                            onPressed: () {},
+                          )
+                        : GestureDetector(
+                            onTap: () {
+                              if (otp?.length == 4) {
+                                authBloc.add(AuthEventCheckOtpForPasswordChange(
+                                  otp: otp!,
+                                ));
+                              }
+                            },
+                            child:
+                                Image.asset("assets/images/verify_blue.png"));
+              },
+            ),
+          ),
         ],
       ),
     );

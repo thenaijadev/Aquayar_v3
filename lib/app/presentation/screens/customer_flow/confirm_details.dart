@@ -4,6 +4,7 @@ import 'package:aquayar/app/presentation/widgets/customer_flow/payment_method_bo
 import 'package:aquayar/app/presentation/widgets/customer_flow/rounded_linear_progress_bar.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/water_tank.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
+import 'package:aquayar/router/routes.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -357,7 +358,7 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
                                           fontSize: 14,
                                         ),
                                         const SizedBox(
-                                          height: 12,
+                                          height: 6,
                                         ),
                                         Container(
                                             width: 80,
@@ -943,6 +944,9 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
                                                                 0xFF868FAD),
                                                             fontSize: 12,
                                                           ),
+                                                          const SizedBox(
+                                                            width: 5,
+                                                          ),
                                                           const TextWidget(
                                                             text: 'ABJ-567-EA',
                                                             color: Color(
@@ -959,7 +963,7 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
                                                     ],
                                                   ),
                                                   const SizedBox(
-                                                    width: 30,
+                                                    width: 25,
                                                   ),
                                                   Column(
                                                     children: [
@@ -1186,7 +1190,7 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
                                                             fontSize: 16,
                                                             color: Color(
                                                                 0xff868FAE))),
-                                                    SizedBox(height: 25),
+                                                    SizedBox(height: 18),
                                                     OutlinedContainer(
                                                         borderRadius: 100,
                                                         padding:
@@ -1222,10 +1226,10 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
                                                       color: Color(0xFF868FAD),
                                                       fontSize: 12,
                                                     ),
-                                                    Row(
+                                                    Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
-                                                              .end,
+                                                              .start,
                                                       children: [
                                                         TextWidget(
                                                           text: '8,500',
@@ -1258,61 +1262,12 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
                                               ],
                                             ),
                                             const SizedBox(
-                                              height: 20,
-                                            ),
-                                            const TextWidget(
-                                                text: "AQUAYAR CHECK",
-                                                color: Color(0xFF20254F),
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold),
-                                            const SizedBox(
-                                              height: 16,
-                                            ),
-                                            const OutlinedContainer(
-                                                color: Color(0xffFAFAFA),
-                                                borderRadius: 22,
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 10,
-                                                    horizontal: 16),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    TextWidget(
-                                                      text:
-                                                          "This water delivery amount is optimal given your current water tank level.",
-                                                      color: Color(0xFF868FAD),
-                                                      fontSize: 16,
-                                                    ),
-                                                    Padding(
-                                                      padding: EdgeInsets.only(
-                                                          top: 8.0),
-                                                      child: OutlinedContainer(
-                                                          color:
-                                                              Color(0xff3FAD57),
-                                                          borderRadius: 100,
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                                  horizontal:
-                                                                      10,
-                                                                  vertical: 2),
-                                                          child: TextWidget(
-                                                            text: "PASSED",
-                                                            color: Colors.white,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 10,
-                                                          )),
-                                                    )
-                                                  ],
-                                                )),
-                                            const SizedBox(
-                                              height: 16.5,
+                                              height: 10,
                                             ),
                                             const HorizontalLineWidget(),
                                             Padding(
                                               padding: const EdgeInsets.only(
-                                                  top: 16.0),
+                                                  top: 11.0),
                                               child: Row(
                                                 children: [
                                                   Container(
@@ -1351,6 +1306,9 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
                                                                 0xFF868FAD),
                                                             fontSize: 12,
                                                           ),
+                                                          const SizedBox(
+                                                            width: 5,
+                                                          ),
                                                           const TextWidget(
                                                             text: 'ABJ-567-EA',
                                                             color: Color(
@@ -1367,7 +1325,7 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
                                                     ],
                                                   ),
                                                   const SizedBox(
-                                                    width: 30,
+                                                    width: 25,
                                                   ),
                                                   Column(
                                                     children: [
@@ -1400,26 +1358,32 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: [
-                                                OutlinedContainer(
-                                                  borderRadius: 100,
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          top: 10,
-                                                          bottom: 10,
-                                                          left: 20,
-                                                          right: 20),
-                                                  child: Row(
-                                                    children: [
-                                                      Image.asset(
-                                                          "assets/images/chat_icon.png"),
-                                                      const SizedBox(
-                                                        width: 10,
-                                                      ),
-                                                      const TextWidget(
-                                                        text: "Chat",
-                                                        fontSize: 14,
-                                                      )
-                                                    ],
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    Navigator.pushNamed(
+                                                        context, Routes.chat);
+                                                  },
+                                                  child: OutlinedContainer(
+                                                    borderRadius: 100,
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 10,
+                                                            bottom: 10,
+                                                            left: 20,
+                                                            right: 20),
+                                                    child: Row(
+                                                      children: [
+                                                        Image.asset(
+                                                            "assets/images/chat_icon.png"),
+                                                        const SizedBox(
+                                                          width: 10,
+                                                        ),
+                                                        const TextWidget(
+                                                          text: "Chat",
+                                                          fontSize: 14,
+                                                        )
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
                                                 OutlinedContainer(
@@ -1444,16 +1408,13 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
                                                     ],
                                                   ),
                                                 ),
-                                                const OutlinedContainer(
-                                                  borderRadius: 200,
-                                                  padding: EdgeInsets.all(10),
-                                                  child: Row(
-                                                    children: [
-                                                      Icon(Icons
-                                                          .expand_more_outlined)
-                                                    ],
-                                                  ),
-                                                )
+                                                OutlinedContainer(
+                                                    borderRadius: 200,
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            10),
+                                                    child: Image.asset(
+                                                        "assets/images/x.png"))
                                               ],
                                             )
                                           ],

@@ -15,7 +15,7 @@ class HomeScreenNoOrder extends StatefulWidget {
 }
 
 class _HomeScreenNoOrderState extends State<HomeScreenNoOrder> {
-  bool noOrder = false;
+  bool noOrder = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,4 +1,3 @@
-import 'package:aquayar/app/presentation/widgets/onboarding_flow/blue_btn.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:aquayar/router/routes.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
@@ -43,20 +42,13 @@ class _PasswordChangeSuccessfulScreenState
                 color: Color(0xff868FAE),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 50.0, left: 10, right: 10),
-              child: BlueBtn(
-                  enabled: true,
-                  paddingVertical: 12,
-                  label: const TextWidget(
-                    text: "           Login",
-                    color: AppColors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, Routes.login);
-                  }),
+            GestureDetector(
+              onTap: () =>
+                  Navigator.pushReplacementNamed(context, Routes.login),
+              child: Padding(
+                  padding:
+                      const EdgeInsets.only(top: 50.0, left: 10, right: 10),
+                  child: Image.asset("assets/images/login_blue.png")),
             )
           ],
         ),

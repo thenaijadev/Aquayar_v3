@@ -1,7 +1,6 @@
 import 'package:aquayar/app/bloc/auth/auth_bloc.dart';
 import 'package:aquayar/app/bloc/auth/auth_event.dart';
 import 'package:aquayar/app/bloc/auth/auth_state.dart';
-import 'package:aquayar/app/presentation/widgets/onboarding_flow/apple_auth_btn.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/oauth_btn.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/text_input.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
@@ -10,6 +9,7 @@ import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:aquayar/utilities/logger.dart';
 import 'package:aquayar/utilities/snackbar.dart';
 import 'package:aquayar/utilities/validators.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -41,10 +41,10 @@ class _LoginFormState extends State<LoginForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Padding(
-            padding: EdgeInsets.only(left: 30.0, top: 20),
+            padding: EdgeInsets.only(left: 16.0, top: 20),
             child: TextWidget(
               text: "Happy to see you again 👋🏿",
-              fontSize: 25,
+              fontSize: 27,
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -218,29 +218,34 @@ class _LoginFormState extends State<LoginForm> {
               ),
             ],
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 35.0, bottom: 20),
-                child: OutlinedButtonWidget(
-                  width: 385,
-                  image: Image.asset("assets/images/google.png"),
-                  label: "Sign in with Google",
-                  onPressed: () async {
-                    authBloc.add(const AuthEventSignInWithGoogle());
-                  },
-                ),
-              ),
-            ),
-          ),
-          Center(
-            child: SignUpWithApple(
-              onPressed: () {
-                debugPrint("Apple");
+          Padding(
+            padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 42),
+            child: GestureDetector(
+              onTap: () {
+                authBloc.add(const AuthEventSignInWithGoogle());
               },
+              child: Image.asset("assets/images/google_login.png"),
             ),
           ),
+          defaultTargetPlatform == TargetPlatform.iOS
+              ? Padding(
+                  padding: const EdgeInsets.only(
+                      left: 16.0, right: 16.0, top: 20, bottom: 40),
+                  child: GestureDetector(
+                    onTap: () {
+                      authBloc.add(const AuthEventSignInWithGoogle());
+                    },
+                    child: Image.asset("assets/images/apple_login.png"),
+                  ),
+                )
+              : const Text(""),
+          // Center(
+          //   child: SignUpWithApple(
+          //     onPressed: () {
+          //       debugPrint("Apple");
+          //     },
+          //   ),
+          // ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

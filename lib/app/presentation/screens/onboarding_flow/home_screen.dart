@@ -89,7 +89,7 @@ class _LandingScreenState extends State<LandingScreen> {
                   padding: EdgeInsets.only(top: 50.0),
                   child: TextWidget(
                       text: "Welcome to Aquayar 👋🏿",
-                      fontSize: 27,
+                      fontSize: 32,
                       fontWeight: FontWeight.w700),
                 ),
                 const Padding(
@@ -105,18 +105,21 @@ class _LandingScreenState extends State<LandingScreen> {
                       Navigator.pushNamed(context, Routes.registration);
                     },
                     child: Image.asset("assets/images/button.png")),
-                OutlinedBtn(
-                  width: 173,
-                  label: const TextWidget(
-                    text: "Login",
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: OutlinedBtn(
+                    width: 158,
+                    label: const TextWidget(
+                      text: "Login",
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    onPressed: () async {
+                      Navigator.pushNamed(context, Routes.login);
+                      // final Position position = await UserProvider().getUserLocation();
+                      // logger.e({position.latitude, position.longitude});
+                    },
                   ),
-                  onPressed: () async {
-                    Navigator.pushNamed(context, Routes.login);
-                    // final Position position = await UserProvider().getUserLocation();
-                    // logger.e({position.latitude, position.longitude});
-                  },
                 ),
               ],
             ),

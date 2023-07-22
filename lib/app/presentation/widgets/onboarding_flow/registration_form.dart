@@ -6,7 +6,6 @@ import 'package:aquayar/app/presentation/widgets/onboarding_flow/text_input.dart
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:aquayar/router/routes.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
-import 'package:aquayar/app/presentation/widgets/onboarding_flow/apple_auth_btn.dart';
 import 'package:aquayar/utilities/logger.dart';
 import 'package:aquayar/utilities/snackbar.dart';
 import 'package:aquayar/utilities/validators.dart';
@@ -189,22 +188,22 @@ class _RegisterationFormState extends ConsumerState<RegisterationForm> {
               ],
             ),
           ),
+
           Padding(
-            padding: const EdgeInsets.only(top: 35.0, bottom: 20),
-            child: OutlinedButtonWidget(
-              width: 390,
-              image: Image.asset("assets/images/google.png"),
-              label: "Sign up with Google",
-              onPressed: () async {
-                authBloc.add(const AuthEventSignUpWithGoogle());
-              },
-            ),
+            padding: const EdgeInsets.only(
+                top: 35.0, bottom: 20, left: 16, right: 16),
+            child: GestureDetector(
+                onTap: () {
+                  authBloc.add(const AuthEventSignUpWithGoogle());
+                },
+                child: Image.asset("assets/images/google_signup.png")),
           ),
-          SignUpWithApple(
-            onPressed: () {
-              debugPrint("Apple");
-            },
+          Padding(
+            padding: const EdgeInsets.only(left: 16, right: 16, bottom: 30),
+            child: GestureDetector(
+                child: Image.asset("assets/images/apple_signup.png")),
           ),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

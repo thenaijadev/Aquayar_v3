@@ -27,7 +27,7 @@ void showPaymentMethodBottomSheet(BuildContext context) {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(15.0),
+                      padding: const EdgeInsets.only(top: 30.0, right: 10),
                       child: GestureDetector(
                           onTap: () {
                             Navigator.pop(context);
@@ -35,6 +35,9 @@ void showPaymentMethodBottomSheet(BuildContext context) {
                           child: Image.asset("assets/images/x.png")),
                     )
                   ],
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
                 const TextWidget(
                   text: "Payment Methods",
