@@ -119,7 +119,7 @@ class DioAuthProvider implements AuthProvider {
 
     try {
       final GoogleSignInAccount? user = await googleSignIn.signIn();
-
+      print(user);
       if (user != null) {
         final userDetails = GoogleAuthUser.fromGoogle(user);
         final response = await DioClient.instance

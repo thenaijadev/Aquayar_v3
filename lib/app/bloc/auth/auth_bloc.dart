@@ -57,6 +57,8 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
           final message = DioExceptionClass.fromDioError(error);
           logger.e(error.message);
           emit(AuthStateError(message: message.errorMessage));
+        } catch (e) {
+          emit(AuthStateError(message: "User not logged in"));
         }
       },
     );

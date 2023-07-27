@@ -95,7 +95,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
         try {
           final response = await userRepo.getUser(
-            token: token!,
+            token: token ?? "",
           );
           emit(UserStateUserRetrieved(user: AuthUser.fromMap(response)));
         } on DioException catch (error) {
