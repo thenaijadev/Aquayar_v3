@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:aquayar/app/test/location_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -81,65 +80,63 @@ class MapSampleState extends State<MapSample> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Google maps"),
-      ),
-      body: Column(
-        children: [
-          Column(
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: _textController_1,
-                      decoration: const InputDecoration(
-                          contentPadding: EdgeInsets.all(20),
-                          hintText: "Start point:"),
-                      onChanged: (value) {},
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: _textController_2,
-                      decoration: const InputDecoration(
-                          contentPadding: EdgeInsets.all(20),
-                          hintText: "End point:"),
-                      onChanged: (value) {},
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          IconButton(
-              onPressed: () async {
-                // final place =
-                //     await LocationService().getPlace(_textController_2.text);
-                // _goToPlace(place!);
-                var directions = await LocationService().getDirections(
-                    _textController_1.text, _textController_2.text);
-                print(directions);
-                _setMarker(LatLng(directions?['start_location']["lat"],
-                    directions?['start_location']["lng"]));
-                _setMarker(LatLng(directions?['end_location']["lat"],
-                    directions?['end_location']["lng"]));
+    return Column(
+      children: [
+        // Column(
+        //   children: [
+        //     Row(
+        //       children: [
+        //         Expanded(
+        //           child: TextFormField(
+        //             controller: _textController_1,
+        //             decoration: const InputDecoration(
+        //                 contentPadding: EdgeInsets.all(20),
+        //                 hintText: "Start point:"),
+        //             onChanged: (value) {},
+        //           ),
+        //         ),
+        //       ],
+        //     ),
+        //     Row(
+        //       children: [
+        //         Expanded(
+        //           child: TextFormField(
+        //             controller: _textController_2,
+        //             decoration: const InputDecoration(
+        //                 contentPadding: EdgeInsets.all(20),
+        //                 hintText: "End point:"),
+        //             onChanged: (value) {},
+        //           ),
+        //         ),
+        //       ],
+        //     ),
+        //   ],
+        // ),
+        // IconButton(
+        //     onPressed: () async {
+        //       // final place =
+        //       //     await LocationService().getPlace(_textController_2.text);
+        //       // _goToPlace(place!);
+        //       var directions = await LocationService().getDirections(
+        //           _textController_1.text, _textController_2.text);
+        //       print(directions);
+        //       _setMarker(LatLng(directions?['start_location']["lat"],
+        //           directions?['start_location']["lng"]));
+        //       _setMarker(LatLng(directions?['end_location']["lat"],
+        //           directions?['end_location']["lng"]));
 
-                _goToPlace(
-                    directions?['start_location']["lat"],
-                    directions?['start_location']["lng"],
-                    directions?["bounds_ne"],
-                    directions?["bounds_sw"]);
+        //       _goToPlace(
+        //           directions?['start_location']["lat"],
+        //           directions?['start_location']["lng"],
+        //           directions?["bounds_ne"],
+        //           directions?["bounds_sw"]);
 
-                _setPolyline(directions?["polyline_decoded"]);
-              },
-              icon: const Icon(Icons.search)),
-          Flexible(
+        //       _setPolyline(directions?["polyline_decoded"]);
+        //     },
+        //     icon: const Icon(Icons.search)),
+        Flexible(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(25.0),
             child: GoogleMap(
               // polylines: {_kPolyline},
               // polygons: {_kPolygon},
@@ -161,8 +158,8 @@ class MapSampleState extends State<MapSample> {
               },
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

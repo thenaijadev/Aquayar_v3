@@ -26,5 +26,6 @@ class Routes {
   static const String deleteAccount = '/deleteAccount';
   static const String helpAndSupport = '/helpAndSupport';
   static const String confirmDetails = '/confirmDetails';
-  static const String chat = '/chata';
+  static const String chat = '/chat';
+  static const String directionMap = '/directionMap';
 }

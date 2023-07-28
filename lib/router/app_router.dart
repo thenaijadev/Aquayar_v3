@@ -9,7 +9,6 @@ import 'package:aquayar/app/presentation/screens/customer_flow/edit_profile.dart
 import 'package:aquayar/app/presentation/screens/customer_flow/help_support.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/help_support_tickets.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/home.dart';
-import 'package:aquayar/app/presentation/screens/customer_flow/map_test.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/menu.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/order_water.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/rename_location.dart';
@@ -17,6 +16,7 @@ import 'package:aquayar/app/presentation/screens/customer_flow/water_aquired_scr
 import 'package:aquayar/app/presentation/screens/customer_flow/water_tank.dart';
 import 'package:aquayar/app/presentation/screens/onboarding_flow/create_new_password_screen.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/locations.dart';
+import 'package:aquayar/app/presentation/screens/onboarding_flow/directions_map.dart';
 import 'package:aquayar/app/presentation/screens/onboarding_flow/otp_sent.dart';
 import 'package:aquayar/app/presentation/screens/onboarding_flow/password_set_successfully_screen.dart';
 import 'package:aquayar/app/presentation/screens/onboarding_flow/registration_done_screen.dart';
@@ -41,7 +41,7 @@ class AppRouter {
 
       case Routes.landing:
         return MaterialPageRoute(
-          builder: (_) => const MapSample(),
+          builder: (_) => const DirectionsMapScreen(),
         );
 
       case Routes.chat:
