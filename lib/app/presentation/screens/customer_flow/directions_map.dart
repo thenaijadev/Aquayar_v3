@@ -48,7 +48,7 @@ class _DirectionsMapScreenState extends State<DirectionsMapScreen> {
             ),
             child: Container(
               width: double.infinity,
-              height: MediaQuery.of(context).size.height * .8,
+              height: MediaQuery.of(context).size.height * .84,
               decoration: BoxDecoration(
                   border: Border.all(
                     color: const Color.fromARGB(255, 29, 32, 34),
@@ -99,7 +99,7 @@ class _DirectionsMapScreenState extends State<DirectionsMapScreen> {
               step == "four"
                   ? Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 32.0, vertical: 55),
+                          horizontal: 32.0, vertical: 40),
                       child: Column(
                         children: [
                           Row(
