@@ -10,6 +10,7 @@ class ButtomMapScreenOne extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OutlinedContainer(
+      color: Colors.white,
       borderRadius: 24,
       child: Column(
         children: [

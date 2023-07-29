@@ -105,21 +105,18 @@ class _LandingScreenState extends State<LandingScreen> {
                       Navigator.pushNamed(context, Routes.registration);
                     },
                     child: Image.asset("assets/images/button.png")),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: OutlinedBtn(
-                    width: 158,
-                    label: const TextWidget(
-                      text: "Login",
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                    ),
-                    onPressed: () async {
-                      Navigator.pushNamed(context, Routes.login);
-                      // final Position position = await UserProvider().getUserLocation();
-                      // logger.e({position.latitude, position.longitude});
-                    },
+                OutlinedBtn(
+                  width: MediaQuery.of(context).size.width * .4,
+                  label: const TextWidget(
+                    text: "Login",
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
                   ),
+                  onPressed: () async {
+                    Navigator.pushNamed(context, Routes.login);
+                    // final Position position = await UserProvider().getUserLocation();
+                    // logger.e({position.latitude, position.longitude});
+                  },
                 ),
               ],
             ),
