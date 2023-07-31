@@ -7,8 +7,9 @@ import 'package:aquayar/router/routes.dart';
 import 'package:flutter/material.dart';
 
 class OrderWidget extends StatelessWidget {
-  const OrderWidget({super.key, required this.user});
+  const OrderWidget({super.key, required this.user, required this.orders});
   final AuthUser user;
+  final List orders;
   @override
   Widget build(BuildContext context) {
     return Column(

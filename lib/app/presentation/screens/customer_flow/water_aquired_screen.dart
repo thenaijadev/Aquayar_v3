@@ -164,7 +164,7 @@ class _WaterAcquiredScreenState extends State<WaterAcquiredScreen>
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const SizedBox(
-                              width: 100,
+                              width: 115,
                             ),
                             GradientText("Proceed to Home",
                                 style: const TextStyle(

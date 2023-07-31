@@ -12,8 +12,8 @@ class MapSample extends StatefulWidget {
 }
 
 class MapSampleState extends State<MapSample> {
-  final TextEditingController _textController_1 = TextEditingController();
-  final TextEditingController _textController_2 = TextEditingController();
+  // final TextEditingController _textController_1 = TextEditingController();
+  // final TextEditingController _textController_2 = TextEditingController();
 
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();

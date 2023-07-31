@@ -1,4 +1,5 @@
 import 'package:aquayar/app/bloc/user/user_bloc.dart';
+import 'package:aquayar/app/bloc/user/user_state.dart';
 import 'package:aquayar/app/data/models/auth_user.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/no_order_widget.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/order_widget.dart';
@@ -8,6 +9,7 @@ import 'package:clay_containers/constants.dart';
 import 'package:clay_containers/widgets/clay_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class HomeScreenNoOrder extends StatefulWidget {
@@ -59,10 +61,28 @@ class _HomeScreenNoOrderState extends State<HomeScreenNoOrder> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
-          child: SingleChildScrollView(
-              child: noOrder
-                  ? NoOrderWidget(user: widget.user)
-                  : OrderWidget(user: widget.user)),
+          child: BlocBuilder<UserBloc, UserState>(
+            builder: (context, state) {
+              if (state is UserStateIsLoading) {
+                return const Center(
+                  child: SpinKitSpinningLines(
+                    color: Color.fromARGB(255, 4, 136, 231),
+                    size: 40.0,
+                  ),
+                );
+              } else if (state is UserStateAllOrdersRetrieved) {
+                print(state.orders);
+                return SingleChildScrollView(
+                    child: state.orders.isEmpty
+                        ? NoOrderWidget(user: widget.user)
+                        : OrderWidget(user: widget.user, orders: state.orders));
+              } else {
+                return SingleChildScrollView(
+                  child: NoOrderWidget(user: widget.user),
+                );
+              }
+            },
+          ),
         ),
       ),
     );

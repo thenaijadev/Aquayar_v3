@@ -121,7 +121,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           final response = await userRepo.getAllOrders(
             token: token ?? "",
           );
-          emit(UserStateAllOrdersRetrieved());
+          emit(UserStateAllOrdersRetrieved(orders: response["data"]["orders"]));
           print({"GetAllUsers": response});
         } on DioException catch (error) {
           final message = DioExceptionClass.fromDioError(error);

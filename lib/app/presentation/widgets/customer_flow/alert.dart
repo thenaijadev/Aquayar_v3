@@ -132,9 +132,27 @@ class _CustomAlertState extends State<CustomAlert> {
                             ),
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.only(top: 34.0),
+                            padding: const EdgeInsets.only(top: 15.0),
                             child: Column(
                               children: [
+                                !formIsSent
+                                    ? Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 20.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            GestureDetector(
+                                                onTap: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Image.asset(
+                                                    "assets/images/x.png")),
+                                          ],
+                                        ),
+                                      )
+                                    : const Text(""),
                                 const TextWidget(
                                   text: "Rate the driver",
                                   fontSize: 20,
@@ -316,17 +334,6 @@ class _CustomAlertState extends State<CustomAlert> {
                 ),
               ),
             ),
-            !formIsSent
-                ? Positioned(
-                    top: 200,
-                    left: 330,
-                    child: GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Image.asset("assets/images/x.png")),
-                  )
-                : const Text("")
           ],
         ),
       ),

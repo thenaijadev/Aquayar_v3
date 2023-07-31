@@ -32,4 +32,7 @@ class UserStateUserRetrieved extends UserState {
   final AuthUser user;
 }
 
-class UserStateAllOrdersRetrieved extends UserState {}
+class UserStateAllOrdersRetrieved extends UserState {
+  const UserStateAllOrdersRetrieved({required this.orders});
+  final List orders;
+}

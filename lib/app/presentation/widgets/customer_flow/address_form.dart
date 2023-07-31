@@ -46,8 +46,9 @@ class _AddressFormState extends State<AddressForm> {
           height: 12,
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 20.0),
+          padding: const EdgeInsets.only(left: 20.0, right: 16),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               OutlinedContainer(
                 color: isHome ? const Color(0xffFEF1E2) : Colors.transparent,
@@ -80,7 +81,7 @@ class _AddressFormState extends State<AddressForm> {
                           : const Color(0xff868FAE),
                     ),
                     const SizedBox(
-                      width: 10,
+                      width: 20,
                     ),
                     isHome ? const Icon(Icons.check) : const Text(""),
                   ],
@@ -111,7 +112,7 @@ class _AddressFormState extends State<AddressForm> {
                           : const Color(0xff868FAE),
                     ),
                     const SizedBox(
-                      width: 10,
+                      width: 20,
                     ),
                     TextWidget(
                       text: "Location 2",

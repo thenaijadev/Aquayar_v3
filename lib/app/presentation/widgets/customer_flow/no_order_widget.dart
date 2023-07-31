@@ -61,7 +61,7 @@ class NoOrderWidget extends StatelessWidget {
         OutlinedContainer(
           onTap: () {
             // Navigator.pushNamed(context, Routes.orderWater);
-            Navigator.pushNamed(context, Routes.confirmDetails);
+            Navigator.pushNamed(context, Routes.orderWater);
           },
           borderRadius: 40,
           padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
