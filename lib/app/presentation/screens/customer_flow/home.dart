@@ -1,3 +1,4 @@
+import 'package:aquayar/app/bloc/user/user_bloc.dart';
 import 'package:aquayar/app/data/models/auth_user.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/no_order_widget.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/order_widget.dart';
@@ -6,6 +7,8 @@ import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:clay_containers/constants.dart';
 import 'package:clay_containers/widgets/clay_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class HomeScreenNoOrder extends StatefulWidget {
   const HomeScreenNoOrder({super.key, required this.user});
@@ -16,6 +19,18 @@ class HomeScreenNoOrder extends StatefulWidget {
 
 class _HomeScreenNoOrderState extends State<HomeScreenNoOrder> {
   bool noOrder = true;
+
+  @override
+  void initState() {
+    final tokenBox = Hive.box("user_token_box");
+    final String token = tokenBox.get("token");
+    final userBloc = context.read<UserBloc>();
+
+    userBloc.add(UserEventGetAllOrders(token: token));
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

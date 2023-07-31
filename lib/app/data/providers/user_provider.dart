@@ -159,4 +159,23 @@ class UserProvider implements UserProviderInterface {
       throw GenericAuthException();
     }
   }
+
+  @override
+  Future<Map<String, dynamic>> getAllOrders({required String token}) async {
+    try {
+      final response = await DioClient.instance.get(
+        RoutesAndPaths.userOrders,
+        options: Options(
+          headers: {"Authorization": "Bearer $token"},
+        ),
+      );
+      print(response);
+      return response;
+    } on DioException {
+      rethrow;
+    } catch (e) {
+      print(e);
+      throw GenericAuthException();
+    }
+  }
 }

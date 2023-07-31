@@ -12,6 +12,7 @@ class RoutesAndPaths {
   static const String verifyPhone = "/api/users/me/verify-phone/";
   static const String location = "/api/customers/me/locations";
   static const String getOtp = "/api/users/me/verify-phone";
+  static const String userOrders = "/api/users/me/orders";
 
 //auth
   static const String authSignUp = "/api/auth/sign-up/";

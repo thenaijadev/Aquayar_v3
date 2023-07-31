@@ -49,3 +49,11 @@ class UserEventGetUser extends UserEvent {
     required this.token,
   });
 }
+
+class UserEventGetAllOrders extends UserEvent {
+  final String? token;
+
+  const UserEventGetAllOrders({
+    required this.token,
+  });
+}

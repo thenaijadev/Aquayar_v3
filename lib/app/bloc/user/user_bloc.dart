@@ -106,5 +106,30 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         }
       },
     );
+
+    on<UserEventGetAllOrders>(
+      (event, emit) async {
+        emit(UserStateIsLoading());
+
+        String? token = event.token;
+
+        if (token == null) {
+          emit(const UserStateError(message: "Order Error"));
+        }
+
+        try {
+          final response = await userRepo.getAllOrders(
+            token: token ?? "",
+          );
+          emit(UserStateAllOrdersRetrieved());
+          print({"GetAllUsers": response});
+        } on DioException catch (error) {
+          final message = DioExceptionClass.fromDioError(error);
+          print(error.response?.data);
+
+          emit(UserStateError(message: message.errorMessage));
+        }
+      },
+    );
   }
 }

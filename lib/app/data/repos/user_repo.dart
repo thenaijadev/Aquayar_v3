@@ -51,4 +51,8 @@ class UserRepo {
   Future<Map<String, dynamic>> getUser({required String token}) {
     return provider.getUser(token: token);
   }
+
+  Future<Map<String, dynamic>> getAllOrders({required String token}) {
+    return provider.getAllOrders(token: token);
+  }
 }
