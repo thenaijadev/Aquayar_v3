@@ -56,7 +56,7 @@ class _AddressFormState extends State<AddressForm> {
                     isHome ? const Color(0xff623903) : const Color(0xff868FAE),
                 borderRadius: 30,
                 padding:
-                    const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+                    const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                 onTap: () {
                   setState(() {
                     isHome = true;
@@ -112,7 +112,7 @@ class _AddressFormState extends State<AddressForm> {
                           : const Color(0xff868FAE),
                     ),
                     const SizedBox(
-                      width: 20,
+                      width: 8,
                     ),
                     TextWidget(
                       text: "Location 2",

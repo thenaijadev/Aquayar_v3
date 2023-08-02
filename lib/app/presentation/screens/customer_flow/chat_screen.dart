@@ -91,8 +91,14 @@ class _ChatScreenState extends State<ChatScreen> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Flexible(
-              child: ListView(
-            children: const [],
+              child: Container(
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("assets/images/chat_background.png"),
+                    fit: BoxFit.cover)),
+            child: ListView(
+              children: const [],
+            ),
           )),
           Container(
             decoration: const BoxDecoration(
