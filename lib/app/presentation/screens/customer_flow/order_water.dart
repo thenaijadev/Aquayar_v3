@@ -235,7 +235,7 @@ class _OrderWaterState extends State<OrderWater> with TickerProviderStateMixin {
                     },
                   ),
                   const Padding(
-                    padding: EdgeInsets.only(left: 30.0, top: 20),
+                    padding: EdgeInsets.only(left: 30.0, top: 40),
                     child: TextWidget(
                       text: "What amount of water do you need?",
                     ),
@@ -343,10 +343,10 @@ class _OrderWaterState extends State<OrderWater> with TickerProviderStateMixin {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, Routes.waterAquired);
+              Navigator.pushNamed(context, Routes.confirmDetails);
             },
             child: Padding(
-              padding: const EdgeInsets.only(top: 10.0, bottom: 20),
+              padding: const EdgeInsets.only(top: 30.0, bottom: 20),
               child: Image.asset("assets/images/start_blue.png"),
             ),
           )

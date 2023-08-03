@@ -48,7 +48,7 @@ class _AddressFormState extends State<AddressForm> {
         Padding(
           padding: const EdgeInsets.only(left: 20.0, right: 16),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               OutlinedContainer(
                 color: isHome ? const Color(0xffFEF1E2) : Colors.transparent,
@@ -81,7 +81,7 @@ class _AddressFormState extends State<AddressForm> {
                           : const Color(0xff868FAE),
                     ),
                     const SizedBox(
-                      width: 20,
+                      width: 35,
                     ),
                     isHome ? const Icon(Icons.check) : const Text(""),
                   ],
@@ -103,7 +103,7 @@ class _AddressFormState extends State<AddressForm> {
                   });
                 },
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Icon(
                       Icons.lightbulb_outline_rounded,
@@ -115,13 +115,13 @@ class _AddressFormState extends State<AddressForm> {
                       width: 8,
                     ),
                     TextWidget(
-                      text: "Location 2",
+                      text: "Work",
                       color: !isHome
                           ? const Color(0xff623903)
                           : const Color(0xff868FAE),
                     ),
                     const SizedBox(
-                      width: 10,
+                      width: 35,
                     ),
                     !isHome ? const Icon(Icons.check) : const Text(""),
                   ],

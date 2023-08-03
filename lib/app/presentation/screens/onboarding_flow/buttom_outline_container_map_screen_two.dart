@@ -65,6 +65,9 @@ class ButtomMapScreenTwo extends StatelessWidget {
               ),
             ],
           ),
+          const SizedBox(
+            height: 10,
+          ),
           const HorizontalLineWidget(),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
