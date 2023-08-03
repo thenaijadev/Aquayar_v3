@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 
 class OrderProvider extends OrderProviderInterface {
   @override
-  Future<Map<String, dynamic>> orderInit({
+  Future<Map<String, dynamic>> getNearestDriver({
     required double waterSize,
     required double longitude,
     required double latitude,

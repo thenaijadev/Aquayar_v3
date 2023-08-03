@@ -1,7 +1,6 @@
 // ignore_for_file: unused_local_variable
 
 import 'package:aquayar/app/data/interfaces/order_provider.dart';
-import 'package:aquayar/app/data/models/updated_user.dart';
 import 'package:aquayar/app/data/providers/order_provider.dart';
 
 class OrderRepo {
@@ -10,19 +9,17 @@ class OrderRepo {
 
   factory OrderRepo.fromDio() => OrderRepo(OrderProvider());
 
-  Future<UpdatedUser> updateUser(
+  Future<Map<String, dynamic>> getNearestDriver(
       {required double waterSize,
       required double longitude,
       required double latitude,
       required String token}) async {
-    final response = await provider.orderInit(
+    final response = await provider.getNearestDriver(
         waterSize: waterSize,
         longitude: longitude,
         latitude: latitude,
         token: token);
 
-    return UpdatedUser.fromJson(
-      response,
-    );
+    return response;
   }
 }
