@@ -115,7 +115,7 @@ class MapSampleState extends State<MapSample> {
         // IconButton(
         //     onPressed: () async {
         //       // final place =
-        //       //     await LocationService().getPlace(_textController_2.text);
+        //     await LocationService().getPlace(_textController_2.text);
         //       // _goToPlace(place!);
         //       var directions = await LocationService().getDirections(
         //           _textController_1.text, _textController_2.text);

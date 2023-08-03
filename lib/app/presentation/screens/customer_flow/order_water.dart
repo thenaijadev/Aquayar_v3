@@ -1,12 +1,16 @@
+import 'package:aquayar/app/bloc/order/order_bloc.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/address_form.dart';
-import 'package:aquayar/app/presentation/widgets/customer_flow/bottom_sheets.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/outlined_container.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/rounded_progress_painter.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/water_tank.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:aquayar/router/routes.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
+import 'package:aquayar/utilities/snackbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class OrderWater extends StatefulWidget {
   const OrderWater({super.key});
@@ -17,11 +21,12 @@ class OrderWater extends StatefulWidget {
 
 class _OrderWaterState extends State<OrderWater> with TickerProviderStateMixin {
   // final ForWho _person = ForWho.myself;
+
   final formfieldkey_1 = GlobalKey<FormFieldState>();
-  final formfieldkey_2 = GlobalKey<FormFieldState>();
 
   late AnimationController _animationController;
   late AnimationController _animationController_2;
+
   int count = 0;
   @override
   void initState() {
@@ -108,10 +113,11 @@ class _OrderWaterState extends State<OrderWater> with TickerProviderStateMixin {
   String countryCode = "234";
   final formKey = GlobalKey<FormState>();
 
-  int liters = 0;
-
+  double liters = 0.0;
+  final token = Hive.box("user_token_box").get("token");
   @override
   Widget build(BuildContext context) {
+    final orderBloc = context.read<OrderBloc>();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -230,9 +236,11 @@ class _OrderWaterState extends State<OrderWater> with TickerProviderStateMixin {
                   ),
                   AddressForm(
                     labelFontSize: 16,
-                    onTap: () {
-                      showAddressFormBottomSheet(context);
-                    },
+                    formfieldkey: formfieldkey_1,
+                    onChanged: (val) {},
+                    // onTap: () {
+                    //   showAddressFormBottomSheet(context);
+                    // },
                   ),
                   const Padding(
                     padding: EdgeInsets.only(left: 30.0, top: 40),
@@ -309,7 +317,7 @@ class _OrderWaterState extends State<OrderWater> with TickerProviderStateMixin {
                           Column(
                             children: [
                               TextWidget(
-                                text: "$liters",
+                                text: "${liters.round()}",
                                 fontWeight: FontWeight.bold,
                                 fontSize: 30,
                               ),
@@ -341,14 +349,51 @@ class _OrderWaterState extends State<OrderWater> with TickerProviderStateMixin {
               ),
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, Routes.confirmDetails);
+          BlocConsumer<OrderBloc, OrderState>(
+            listener: (context, state) {
+              if (state is OrderStateGetNearestDriverFound) {
+                Navigator.pushNamed(context, Routes.confirmDetails);
+              } else if (state is OrderStateGetNearestDiverError) {
+                InfoSnackBar.showErrorSnackBar(context, state.error);
+              }
             },
-            child: Padding(
-              padding: const EdgeInsets.only(top: 30.0, bottom: 20),
-              child: Image.asset("assets/images/start_blue.png"),
-            ),
+            builder: (context, state) {
+              if (state is OrderStateGetNearestDriverIsLoading) {
+                return const Padding(
+                  padding: EdgeInsets.only(top: 20.0),
+                  child: SpinKitSpinningLines(
+                    color: Color.fromARGB(255, 4, 136, 231),
+                    size: 40.0,
+                  ),
+                );
+              } else if (state is OrderStateGetNearestDiverError) {
+                return GestureDetector(
+                  onTap: () {
+                    orderBloc.add(OrderEventGetNearestDriver(
+                        token: token,
+                        waterSize: liters,
+                        address: formfieldkey_1.currentState?.value));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 30.0, bottom: 20),
+                    child: Image.asset("assets/images/start_blue.png"),
+                  ),
+                );
+              } else {
+                return GestureDetector(
+                  onTap: () {
+                    orderBloc.add(OrderEventGetNearestDriver(
+                        token: token,
+                        waterSize: liters,
+                        address: formfieldkey_1.currentState?.value));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 30.0, bottom: 20),
+                    child: Image.asset("assets/images/start_blue.png"),
+                  ),
+                );
+              }
+            },
           )
         ],
       ),

@@ -1,28 +1,35 @@
+import 'package:aquayar/app/bloc/order/order_bloc.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/outlined_container.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/text_input.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:aquayar/router/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddressForm extends StatefulWidget {
   const AddressForm(
       {super.key,
       this.onTap,
       this.labelFontWeight = FontWeight.normal,
-      required this.labelFontSize});
+      required this.labelFontSize,
+      required this.onChanged,
+      required this.formfieldkey});
   final void Function()? onTap;
   final FontWeight labelFontWeight;
   final double labelFontSize;
+  final GlobalKey<FormFieldState> formfieldkey;
+
+  final void Function(String?) onChanged;
   @override
   State<AddressForm> createState() => _AddressFormState();
 }
 
 class _AddressFormState extends State<AddressForm> {
-  final formfieldkey_1 = GlobalKey<FormFieldState>();
   bool isHome = true;
 
   @override
   Widget build(BuildContext context) {
+    final authBloc = context.read<OrderBloc>();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -39,8 +46,8 @@ class _AddressFormState extends State<AddressForm> {
               ),
               label: "Deliver to",
               hintText: "Enter Address",
-              onChanged: (val) {},
-              textFieldkey: formfieldkey_1),
+              onChanged: widget.onChanged,
+              textFieldkey: widget.formfieldkey),
         ),
         const SizedBox(
           height: 12,

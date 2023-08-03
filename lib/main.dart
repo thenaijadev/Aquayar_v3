@@ -1,7 +1,10 @@
 import 'package:aquayar/app/bloc/auth/auth_bloc.dart';
+import 'package:aquayar/app/bloc/order/order_bloc.dart';
 import 'package:aquayar/app/bloc/user/user_bloc.dart';
 import 'package:aquayar/app/data/repos/auth_repo.dart';
+import 'package:aquayar/app/data/repos/order_repository.dart';
 import 'package:aquayar/app/data/repos/user_repo.dart';
+import 'package:aquayar/app/services/location_service.dart';
 import 'package:aquayar/router/app_router.dart';
 
 import 'package:flutter/material.dart';
@@ -34,6 +37,10 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => AuthBloc(AuthRepo.fromDio(), UserRepo.fromDio()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              OrderBloc(OrderRepo.fromDio(), LocationService()),
         ),
       ],
       child: GestureDetector(

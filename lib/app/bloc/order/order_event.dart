@@ -9,12 +9,8 @@ abstract class OrderEvent extends Equatable {
 
 class OrderEventGetNearestDriver extends OrderEvent {
   const OrderEventGetNearestDriver(
-      {required this.token,
-      required this.waterSize,
-      required this.longitude,
-      required this.latitude});
+      {required this.token, required this.waterSize, required this.address});
   final String token;
   final double waterSize;
-  final double longitude;
-  final double latitude;
+  final String address;
 }
