@@ -21,4 +21,7 @@ class RoutesAndPaths {
   static const String forgotPassword = "/api/auth/forgot-password/";
   static const String verifyOtpToChangePassword = "/api/auth/verify-otp";
   static const String resetPassword = "/api/auth/reset-password/";
+
+//Orders
+  static const String orderInit = "/api/orders/drivers";
 }

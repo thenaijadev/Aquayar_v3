@@ -1,6 +1,4 @@
 abstract class AuthProvider {
-  // Future<void> initialize();
-  // AuthUser? get currentUser;
   Future<Map<String, dynamic>> logIn({
     required String email,
     required String password,
@@ -10,7 +8,7 @@ abstract class AuthProvider {
     required String password,
   });
   Future<void> logOut();
-  // Future<Map<String, dynamic>> sendEmailVerification();
+
   Future<Map<String, dynamic>> forgotPassord({required String email});
   Future<Map<String, dynamic>> changePassword(
       {required String password,

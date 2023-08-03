@@ -1,5 +1,4 @@
 import 'package:aquayar/app/data/exceptions/auth_exceptions.dart';
-import 'package:aquayar/app/data/models/auth_user.dart';
 import 'package:aquayar/app/data/interfaces/auth_provider.dart';
 import 'package:aquayar/app/data/models/google_auth_user.dart';
 import 'package:aquayar/app/data/utilities/api_endpoint.dart';
@@ -9,13 +8,6 @@ import 'package:dio/dio.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class DioAuthProvider implements AuthProvider {
-  // @override
-  // Future<void> initialize() async {
-  //   await Firebase.initializeApp(
-  //     options: DefaultFirebaseOptions.currentPlatform,
-  //   );
-  // }
-
   @override
   Future<Map<String, dynamic>> signUp({
     required String email,
@@ -31,17 +23,6 @@ class DioAuthProvider implements AuthProvider {
     } catch (e) {
       throw GenericAuthException();
     }
-  }
-
-  AuthUser? get currentUser {
-    return null;
-
-    // final user = FirebaseAuth.instance.currentUser;
-    // if (user != null) {
-    //   return AuthUser.fromApi(user);
-    // } else {
-    //   return null;
-    // }
   }
 
   @override
@@ -72,16 +53,6 @@ class DioAuthProvider implements AuthProvider {
     //   throw UserNotLoggedInAuthException();
     // }
   }
-
-  // @override
-  // Future<void> sendEmailVerification() async {
-  //   // final user = FirebaseAuth.instance.currentUser;
-  //   // if (user != null) {
-  //   //   await user.sendEmailVerification();
-  //   // } else {
-  //   //   throw UserNotLoggedInAuthException();
-  //   // }
-  // }
 
   @override
   Future<Map<String, dynamic>> signUpWithGoogle() async {
@@ -119,6 +90,7 @@ class DioAuthProvider implements AuthProvider {
 
     try {
       final GoogleSignInAccount? user = await googleSignIn.signIn();
+      // ignore: avoid_print
       print(user);
       if (user != null) {
         final userDetails = GoogleAuthUser.fromGoogle(user);
