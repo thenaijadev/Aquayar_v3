@@ -1,3 +1,4 @@
+import 'package:aquayar/app/presentation/widgets/customer_flow/location_tile.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/outlined_container.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:aquayar/router/routes.dart';
@@ -47,112 +48,47 @@ class _LocationsScreenState extends State<LocationsScreen> {
           children: [
             Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: 18.0,
-                    left: 18,
-                    right: 18,
+                LocationTile(
+                  address: const TextWidget(
+                    text: "33B Sir Ken Nnamdi Drive",
+                    color: Color(0xFF20254F),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
                   ),
-                  child: OutlinedContainer(
-                    onTap: () {},
-                    borderRadius: 22,
-                    padding: const EdgeInsets.only(
-                        left: 24, bottom: 16, top: 16, right: 21),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Image.asset("assets/images/brown_house.png"),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  const TextWidget(
-                                    text: "Home",
-                                    color: Color(0xFF623903),
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 16,
-                                  )
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              const TextWidget(
-                                text: "33B Sir Ken Nnamdi Drive",
-                                color: Color(0xFF20254F),
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              )
-                            ],
-                          ),
-                          GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  isVisible = !isVisible;
-                                  number = 1;
-                                });
-                              },
-                              child: Image.asset("assets/images/menu.png"))
-                        ]),
+                  label: const TextWidget(
+                    text: "Home",
+                    color: Color(0xFF623903),
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16,
                   ),
+                  image: Image.asset("assets/images/brown_house.png"),
+                  onTap: () {
+                    setState(() {
+                      isVisible = !isVisible;
+                      number = 1;
+                    });
+                  },
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: 12.0,
-                    left: 18,
-                    right: 18,
+                LocationTile(
+                  address: const TextWidget(
+                    text: "33B Sir Ken Nnamdi Drive",
+                    color: Color(0xFF20254F),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
                   ),
-                  child: OutlinedContainer(
-                    borderRadius: 22,
-                    padding: const EdgeInsets.only(
-                        left: 24, bottom: 16, top: 16, right: 21),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Image.asset("assets/images/green_lamp.png"),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  const TextWidget(
-                                    text: "Home",
-                                    color: Color(0xFF85A407),
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 16,
-                                  )
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              const TextWidget(
-                                text: "33B Sir Ken Nnamdi Drive",
-                                color: Color(0xFF20254F),
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              )
-                            ],
-                          ),
-                          GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  isVisible = !isVisible;
-                                  number = 2;
-                                });
-                              },
-                              child: Image.asset("assets/images/menu.png"))
-                        ]),
+                  label: const TextWidget(
+                    text: "Alternative ",
+                    color: Color(0xFF85A407),
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16,
                   ),
+                  image: Image.asset("assets/images/green_lamp.png"),
+                  onTap: () {
+                    setState(() {
+                      isVisible = !isVisible;
+                      number = 2;
+                    });
+                  },
                 ),
               ],
             ),

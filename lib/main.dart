@@ -1,6 +1,7 @@
 import 'package:aquayar/app/bloc/auth/auth_bloc.dart';
 import 'package:aquayar/app/bloc/order/order_bloc.dart';
 import 'package:aquayar/app/bloc/user/user_bloc.dart';
+import 'package:aquayar/app/data/models/address.dart';
 import 'package:aquayar/app/data/repos/auth_repo.dart';
 import 'package:aquayar/app/data/repos/order_repository.dart';
 import 'package:aquayar/app/data/repos/user_repo.dart';
@@ -17,6 +18,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   await Hive.openBox("user_token_box");
+  await Hive.openBox<Address>("address");
   HydratedBloc.storage = await HydratedStorage.build(
       storageDirectory: await getApplicationDocumentsDirectory());
   runApp(const MyApp());

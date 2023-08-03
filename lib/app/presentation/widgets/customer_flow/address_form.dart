@@ -2,6 +2,7 @@ import 'package:aquayar/app/presentation/widgets/customer_flow/outlined_containe
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/text_input.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:aquayar/router/routes.dart';
+import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class AddressForm extends StatefulWidget {
@@ -31,7 +32,7 @@ class _AddressFormState extends State<AddressForm> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 20),
+          padding: const EdgeInsets.only(top: 10),
           child: InputFieldWidget(
               labelFontSize: widget.labelFontSize,
               onTap: widget.onTap,
@@ -47,7 +48,31 @@ class _AddressFormState extends State<AddressForm> {
               textFieldkey: widget.formfieldkey),
         ),
         const SizedBox(
-          height: 12,
+          height: 10,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Flexible(
+              child: Image.asset(
+                "assets/images/line.png",
+                width: 150,
+              ),
+            ),
+            const TextWidget(
+              text: "   or   ",
+              color: AppColors.titleBlack,
+            ),
+            Flexible(
+              child: Image.asset(
+                "assets/images/line.png",
+                width: 150,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(
+          height: 10,
         ),
         Padding(
           padding: const EdgeInsets.only(left: 20.0, right: 16),
@@ -132,15 +157,17 @@ class _AddressFormState extends State<AddressForm> {
                 ),
               ),
               const SizedBox(
-                width: 5,
+                width: 10,
               ),
-              OutlinedContainer(
-                padding: const EdgeInsets.all(10),
-                borderRadius: 20,
-                onTap: () {
-                  Navigator.pushNamed(context, Routes.locations);
-                },
-                child: Image.asset("assets/images/pen_icon.png"),
+              Flexible(
+                child: OutlinedContainer(
+                  padding: const EdgeInsets.all(10),
+                  borderRadius: 20,
+                  onTap: () {
+                    Navigator.pushNamed(context, Routes.locations);
+                  },
+                  child: Image.asset("assets/images/pen_icon.png"),
+                ),
               )
             ],
           ),
