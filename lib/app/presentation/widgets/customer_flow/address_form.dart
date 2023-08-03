@@ -1,10 +1,8 @@
-import 'package:aquayar/app/bloc/order/order_bloc.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/outlined_container.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/text_input.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:aquayar/router/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddressForm extends StatefulWidget {
   const AddressForm(
@@ -29,7 +27,6 @@ class _AddressFormState extends State<AddressForm> {
 
   @override
   Widget build(BuildContext context) {
-    final authBloc = context.read<OrderBloc>();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

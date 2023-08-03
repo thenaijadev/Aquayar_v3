@@ -26,6 +26,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
             longitude: location?["geometry"]["location"]["lng"],
             latitude: location?["geometry"]["location"]["lat"],
             token: token);
+        emit(OrderStateGetNearestDriverFound());
       } on DioException catch (e) {
         emit(OrderStateGetNearestDiverError(error: e.response?.data));
       } catch (e) {
