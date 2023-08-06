@@ -4,7 +4,7 @@ part 'address.g.dart';
 @HiveType(typeId: 0)
 class Address extends HiveObject {
   Address({
-    required this.name,
+    this.name = "Home",
     required this.address,
   });
   @HiveField(1)

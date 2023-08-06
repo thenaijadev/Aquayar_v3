@@ -17,8 +17,10 @@ import 'package:path_provider/path_provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
+  Hive.registerAdapter(AddressAdapter());
   await Hive.openBox("user_token_box");
   await Hive.openBox<Address>("address");
+
   HydratedBloc.storage = await HydratedStorage.build(
       storageDirectory: await getApplicationDocumentsDirectory());
   runApp(const MyApp());

@@ -155,8 +155,10 @@ class AppRouter {
           builder: (_) => Menu(user: data),
         );
       case Routes.renameLocation:
+        var data = routeSettings.arguments as int;
+
         return MaterialPageRoute(
-          builder: (_) => const RenameLocation(),
+          builder: (_) => RenameLocation(index: data),
         );
 
       case Routes.changePassword:
