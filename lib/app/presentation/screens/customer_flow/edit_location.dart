@@ -1,12 +1,13 @@
-import 'package:aquayar/app/presentation/widgets/customer_flow/location_suggestion_widget.dart';
+import 'package:aquayar/app/data/models/address.dart';
+import 'package:aquayar/app/data/providers/addressStorage.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/outlined_container.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class EditLocation extends StatefulWidget {
-  const EditLocation({super.key});
-
+  const EditLocation({super.key, required this.address});
+  final Address address;
   @override
   State<EditLocation> createState() => _EditLocationState();
 }
@@ -65,7 +66,7 @@ class _EditLocationState extends State<EditLocation> {
                                     Image.asset("assets/images/pen_icon.png")),
                             const SizedBox(width: 5),
                             const TextWidget(
-                              text: "Editing Home",
+                              text: "Editing Address",
                               fontSize: 16,
                               color: Color(0xff868FAE),
                             ),
@@ -91,6 +92,7 @@ class _EditLocationState extends State<EditLocation> {
                         child: Transform.translate(
                           offset: const Offset(0, -3),
                           child: TextFormField(
+                            key: formfieldkey_1,
                             cursorColor: AppColors.inputBorder,
                             style: const TextStyle(fontWeight: FontWeight.bold),
                             decoration: InputDecoration(
@@ -114,6 +116,21 @@ class _EditLocationState extends State<EditLocation> {
                           ),
                         ),
                       ),
+                    ),
+                    GestureDetector(
+                      onTap: () async {
+                        await AddressStorage.editAddress(
+                            address: widget.address,
+                            location: formfieldkey_1.currentState?.value);
+                        Navigator.pop(context);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            left: 20.0, right: 20, top: 30),
+                        child: Transform.scale(
+                            scale: 1.25,
+                            child: Image.asset("assets/images/save_blue.png")),
+                      ),
                     )
                   ]),
             ),
@@ -121,7 +138,7 @@ class _EditLocationState extends State<EditLocation> {
           const SizedBox(
             height: 10,
           ),
-          const LocationSuggestionWidget()
+          // const LocationSuggestionWidget()
         ],
       ),
     );

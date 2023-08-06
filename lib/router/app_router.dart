@@ -1,3 +1,4 @@
+import 'package:aquayar/app/data/models/address.dart';
 import 'package:aquayar/app/data/models/auth_user.dart';
 import 'package:aquayar/app/error/error_screen.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/change_password.dart';
@@ -145,8 +146,10 @@ class AppRouter {
           builder: (_) => const LocationsScreen(),
         );
       case Routes.editLocation:
+        var address = routeSettings.arguments as Address;
+
         return MaterialPageRoute(
-          builder: (_) => const EditLocation(),
+          builder: (_) => EditLocation(address: address),
         );
       case Routes.menu:
         var data = routeSettings.arguments as AuthUser;
@@ -155,10 +158,10 @@ class AppRouter {
           builder: (_) => Menu(user: data),
         );
       case Routes.renameLocation:
-        var data = routeSettings.arguments as int;
+        var address = routeSettings.arguments as Address;
 
         return MaterialPageRoute(
-          builder: (_) => RenameLocation(index: data),
+          builder: (_) => RenameLocation(address: address),
         );
 
       case Routes.changePassword:

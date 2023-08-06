@@ -1,3 +1,4 @@
+import 'package:aquayar/app/data/models/address.dart';
 import 'package:aquayar/app/data/providers/addressStorage.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/outlined_container.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
@@ -5,8 +6,8 @@ import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class RenameLocation extends StatefulWidget {
-  const RenameLocation({super.key, required this.index});
-  final int index;
+  const RenameLocation({super.key, required this.address});
+  final Address address;
   @override
   State<RenameLocation> createState() => _RenameLocationState();
 }
@@ -64,7 +65,7 @@ class _RenameLocationState extends State<RenameLocation> {
                                 child: Image.asset("assets/images/note.png")),
                             const SizedBox(width: 5),
                             const TextWidget(
-                              text: "Renaming Home",
+                              text: "Renaming Address",
                               fontSize: 16,
                               color: Color(0xff868FAE),
                             ),
@@ -119,7 +120,7 @@ class _RenameLocationState extends State<RenameLocation> {
                       onTap: () async {
                         await AddressStorage.editName(
                             name: formfieldkey_1.currentState?.value,
-                            index: widget.index);
+                            address: widget.address);
                         Navigator.pop(context);
                       },
                       child: Padding(

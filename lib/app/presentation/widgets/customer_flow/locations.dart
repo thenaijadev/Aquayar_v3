@@ -1,4 +1,5 @@
 import 'package:aquayar/app/data/models/address.dart';
+import 'package:aquayar/app/data/providers/addressStorage.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/location_tile.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/outlined_container.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
@@ -15,6 +16,7 @@ class Locations extends StatefulWidget {
 class _LocationsState extends State<Locations> {
   bool isVisible = false;
   int number = 1;
+  Address? currentAddress;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -51,6 +53,7 @@ class _LocationsState extends State<Locations> {
                         } else {
                           number = 2;
                         }
+                        currentAddress = e;
                       });
                     },
                   ),
@@ -59,7 +62,7 @@ class _LocationsState extends State<Locations> {
         Visibility(
           visible: isVisible,
           child: Positioned(
-            top: number == 1 ? 80 : 180,
+            top: number == 1 ? 80 : 190,
             right: 40,
             child: OutlinedContainer(
               borderRadius: 22,
@@ -72,7 +75,7 @@ class _LocationsState extends State<Locations> {
                   GestureDetector(
                     onTap: () {
                       Navigator.pushNamed(context, Routes.editLocation,
-                          arguments: number - 1);
+                          arguments: currentAddress);
                       setState(() {
                         isVisible = false;
                       });
@@ -84,7 +87,7 @@ class _LocationsState extends State<Locations> {
                           width: 5,
                         ),
                         const TextWidget(
-                          text: "Edit Work Address",
+                          text: "Edit Address",
                           color: Color(0xFF868FAD),
                           fontWeight: FontWeight.w400,
                         )
@@ -100,7 +103,7 @@ class _LocationsState extends State<Locations> {
                         isVisible = false;
                       });
                       Navigator.pushNamed(context, Routes.renameLocation,
-                          arguments: number - 1);
+                          arguments: currentAddress);
                     },
                     child: Row(
                       children: [
@@ -119,18 +122,26 @@ class _LocationsState extends State<Locations> {
                   const SizedBox(
                     height: 12,
                   ),
-                  Row(
-                    children: [
-                      Image.asset("assets/images/trash.png"),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      const TextWidget(
-                        text: "Delete",
-                        color: Color(0xFF868FAD),
-                        fontWeight: FontWeight.w400,
-                      )
-                    ],
+                  GestureDetector(
+                    onTap: () {
+                      AddressStorage.deleteAddress(address: currentAddress!);
+                      setState(() {
+                        isVisible = false;
+                      });
+                    },
+                    child: Row(
+                      children: [
+                        Image.asset("assets/images/trash.png"),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        const TextWidget(
+                          text: "Delete",
+                          color: Color(0xFF868FAD),
+                          fontWeight: FontWeight.w400,
+                        )
+                      ],
+                    ),
                   )
                 ],
               ),
