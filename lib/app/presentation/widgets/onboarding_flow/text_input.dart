@@ -22,7 +22,8 @@ class InputFieldWidget extends StatelessWidget {
       this.fontWeight = FontWeight.w600,
       this.labelFontSize = 16,
       this.enabledBorderRadius = 30,
-      this.verticalContentPadding = 0});
+      this.verticalContentPadding = 0,
+      this.controller});
   final String label;
   final String hintText;
   final double hintSize;
@@ -42,7 +43,7 @@ class InputFieldWidget extends StatelessWidget {
   final FontWeight fontWeight;
   final Color hintColor;
   final double labelFontSize;
-
+  final TextEditingController? controller;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -59,6 +60,7 @@ class InputFieldWidget extends StatelessWidget {
             ),
           ),
           TextFormField(
+            controller: controller,
             onTap: onTap,
             key: textFieldkey,
             initialValue: initialValue,

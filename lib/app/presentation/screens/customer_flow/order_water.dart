@@ -28,8 +28,12 @@ class _OrderWaterState extends State<OrderWater> with TickerProviderStateMixin {
   late AnimationController _animationController_2;
 
   int count = 0;
+  late TextEditingController controller;
+
   @override
   void initState() {
+    controller = TextEditingController();
+
     _animationController =
         AnimationController(vsync: this, duration: const Duration(seconds: 1))
           ..addListener(() {
@@ -48,6 +52,12 @@ class _OrderWaterState extends State<OrderWater> with TickerProviderStateMixin {
       0.12,
     );
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   increment() {
@@ -237,6 +247,7 @@ class _OrderWaterState extends State<OrderWater> with TickerProviderStateMixin {
                   AddressForm(
                     labelFontSize: 16,
                     formfieldkey: formfieldkey_1,
+                    controller: controller,
                     onChanged: (val) {},
                     // onTap: () {
                     //   showAddressFormBottomSheet(context);
@@ -372,7 +383,7 @@ class _OrderWaterState extends State<OrderWater> with TickerProviderStateMixin {
                     orderBloc.add(OrderEventGetNearestDriver(
                         token: token,
                         waterSize: liters,
-                        address: formfieldkey_1.currentState?.value));
+                        address: controller.text));
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(top: 30.0, bottom: 20),
@@ -385,7 +396,7 @@ class _OrderWaterState extends State<OrderWater> with TickerProviderStateMixin {
                     orderBloc.add(OrderEventGetNearestDriver(
                         token: token,
                         waterSize: liters,
-                        address: formfieldkey_1.currentState?.value));
+                        address: controller.text));
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(top: 30.0, bottom: 20),
