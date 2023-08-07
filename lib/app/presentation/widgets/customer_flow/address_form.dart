@@ -121,8 +121,11 @@ class _AddressFormState extends State<AddressForm> {
                                 child: SizedBox(
                                   width: 78,
                                   child: TextWidget(
-                                    text: addresses.isEmpty
-                                        ? "Home"
+                                    overflow: TextOverflow.ellipsis,
+                                    text: addresses.length < 2
+                                        ? addresses.length == 1
+                                            ? addresses[0].name
+                                            : "Home"
                                         : addresses[0].name,
                                     fontSize: 14,
                                     color: isHome
@@ -173,7 +176,8 @@ class _AddressFormState extends State<AddressForm> {
                                 child: SizedBox(
                                   width: 78,
                                   child: TextWidget(
-                                    text: addresses.isEmpty
+                                    overflow: TextOverflow.ellipsis,
+                                    text: addresses.length < 2
                                         ? "Work"
                                         : addresses[1].name,
                                     fontSize: 14,
