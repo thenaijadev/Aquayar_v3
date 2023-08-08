@@ -24,4 +24,5 @@ class RoutesAndPaths {
 
 //Orders
   static const String orderInit = "/api/orders/drivers";
+  static const String getPrice = "/api/orders/price";
 }

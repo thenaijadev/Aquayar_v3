@@ -33,4 +33,30 @@ class OrderProvider extends OrderProviderInterface {
       throw GenericAuthException();
     }
   }
+
+  @override
+  Future<Map<String, dynamic>> getPrice(
+      {required String token,
+      required double waterSize,
+      required double distance}) async {
+    try {
+      final response = await DioClient.instance.post(
+        RoutesAndPaths.getPrice,
+        data: {
+          "waterSize": waterSize,
+          "distance": distance,
+        },
+        options: Options(
+          headers: {"Authorization": "Bearer $token"},
+        ),
+      );
+      print(response);
+      return response;
+    } on DioException {
+      rethrow;
+    } catch (e) {
+      print(e);
+      throw GenericAuthException();
+    }
+  }
 }

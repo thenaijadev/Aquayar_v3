@@ -22,4 +22,14 @@ class OrderRepo {
 
     return response;
   }
+
+  Future<Map<String, dynamic>> getPrice(
+      {required double waterSize,
+      required double distance,
+      required String token}) async {
+    final response = await provider.getPrice(
+        waterSize: waterSize, distance: distance, token: token);
+
+    return response;
+  }
 }
