@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:aquayar/app/services/location_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapSample extends StatefulWidget {
@@ -12,9 +14,6 @@ class MapSample extends StatefulWidget {
 }
 
 class MapSampleState extends State<MapSample> {
-  // final TextEditingController _textController_1 = TextEditingController();
-  // final TextEditingController _textController_2 = TextEditingController();
-
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
 
@@ -22,12 +21,6 @@ class MapSampleState extends State<MapSample> {
     target: LatLng(6.5244, 3.3792),
     zoom: 14.4746,
   );
-
-  static const CameraPosition _kLake = CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(6.5244, 3.3792),
-      tilt: 59.440717697143555,
-      zoom: 19.151926040649414);
 
   final Set<Marker> _markers = <Marker>{};
   final Set<Polygon> _polygons = <Polygon>{};
@@ -40,12 +33,43 @@ class MapSampleState extends State<MapSample> {
 
   @override
   void initState() {
+    getAllDirections();
+
     super.initState();
   }
 
-  void _setMarker(LatLng point) {
+  void getAllDirections() async {
+    var directions = await LocationService()
+        .getDirections("Nubiaville ltd ikeja lagos", "NewHorizons Ikeja lagos");
+    print(directions?["start_location"]["lat"]);
+    final distance = Geolocator.distanceBetween(
+        directions?["start_location"]["lat"],
+        directions?["start_location"]["lng"],
+        directions?["end_location"]["lat"],
+        directions?["end_location"]["lng"]);
+
+    print({"distance": distance});
+    _setMarker(
+        LatLng(directions?['end_location']["lat"],
+            directions?['end_location']["lng"]),
+        LatLng(directions?['start_location']["lat"],
+            directions?['start_location']["lng"]));
+
+    _goToPlace(
+        directions?['start_location']["lat"],
+        directions?['start_location']["lng"],
+        directions?["bounds_ne"],
+        directions?["bounds_sw"]);
+
+    _setPolyline(directions?["polyline_decoded"]);
+  }
+
+  void _setMarker(LatLng startPoint, endPoint) {
     setState(() {
-      _markers.add(Marker(markerId: const MarkerId("marker"), position: point));
+      _markers.add(
+          Marker(markerId: const MarkerId("marker"), position: startPoint));
+      _markers.add(
+          Marker(markerId: const MarkerId("markerTwo"), position: endPoint));
     });
   }
 
@@ -82,58 +106,6 @@ class MapSampleState extends State<MapSample> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // Column(
-        //   children: [
-        //     Row(
-        //       children: [
-        //         Expanded(
-        //           child: TextFormField(
-        //             controller: _textController_1,
-        //             decoration: const InputDecoration(
-        //                 contentPadding: EdgeInsets.all(20),
-        //                 hintText: "Start point:"),
-        //             onChanged: (value) {},
-        //           ),
-        //         ),
-        //       ],
-        //     ),
-        //     Row(
-        //       children: [
-        //         Expanded(
-        //           child: TextFormField(
-        //             controller: _textController_2,
-        //             decoration: const InputDecoration(
-        //                 contentPadding: EdgeInsets.all(20),
-        //                 hintText: "End point:"),
-        //             onChanged: (value) {},
-        //           ),
-        //         ),
-        //       ],
-        //     ),
-        //   ],
-        // ),
-        // IconButton(
-        //     onPressed: () async {
-        //       // final place =
-        //     await LocationService().getPlace(_textController_2.text);
-        //       // _goToPlace(place!);
-        //       var directions = await LocationService().getDirections(
-        //           _textController_1.text, _textController_2.text);
-        //       print(directions);
-        //       _setMarker(LatLng(directions?['start_location']["lat"],
-        //           directions?['start_location']["lng"]));
-        //       _setMarker(LatLng(directions?['end_location']["lat"],
-        //           directions?['end_location']["lng"]));
-
-        //       _goToPlace(
-        //           directions?['start_location']["lat"],
-        //           directions?['start_location']["lng"],
-        //           directions?["bounds_ne"],
-        //           directions?["bounds_sw"]);
-
-        //       _setPolyline(directions?["polyline_decoded"]);
-        //     },
-        //     icon: const Icon(Icons.search)),
         Flexible(
           child: ClipRRect(
             borderRadius: BorderRadius.circular(25.0),
@@ -144,6 +116,8 @@ class MapSampleState extends State<MapSample> {
               markers: _markers,
               polygons: _polygons,
               polylines: _polylines,
+              myLocationEnabled: true,
+              myLocationButtonEnabled: false,
 
               initialCameraPosition: _kGooglePlex,
               onMapCreated: (GoogleMapController controller) {
@@ -179,11 +153,11 @@ class MapSampleState extends State<MapSample> {
             southwest: LatLng(boundsSw["lat"], boundsSw["lng"]),
             northeast: LatLng(boundsNe["lat"], boundsNe["lng"])),
         25));
-    _setMarker(LatLng(lat, lng));
+    // _setMarker(LatLng(lat, lng));
   }
 
-  Future<void> _goToTheLake() async {
-    final GoogleMapController controller = await _controller.future;
-    await controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
-  }
+  // Future<void> _goToTheLake() async {
+  //   final GoogleMapController controller = await _controller.future;
+  //   awsait controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
+  // }
 }
