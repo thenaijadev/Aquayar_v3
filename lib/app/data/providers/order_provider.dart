@@ -2,7 +2,9 @@ import 'package:aquayar/app/data/exceptions/auth_exceptions.dart';
 import 'package:aquayar/app/data/interfaces/order_provider.dart';
 import 'package:aquayar/app/data/utilities/api_endpoint.dart';
 import 'package:aquayar/app/data/utilities/dio_client.dart';
+import 'package:aquayar/app/services/location_service.dart';
 import 'package:dio/dio.dart';
+import 'package:geolocator/geolocator.dart';
 
 class OrderProvider extends OrderProviderInterface {
   @override
@@ -38,8 +40,18 @@ class OrderProvider extends OrderProviderInterface {
   Future<Map<String, dynamic>> getPrice(
       {required String token,
       required double waterSize,
-      required double distance}) async {
+      required String startLocation,
+      required String endLocation}) async {
     try {
+      var directions =
+          await LocationService().getDirections(startLocation, endLocation);
+
+      final distance = Geolocator.distanceBetween(
+          directions?["start_location"]["lat"],
+          directions?["start_location"]["lng"],
+          directions?["end_location"]["lat"],
+          directions?["end_location"]["lng"]);
+
       final response = await DioClient.instance.post(
         RoutesAndPaths.getPrice,
         data: {

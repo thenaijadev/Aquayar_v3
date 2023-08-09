@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:aquayar/app/services/location_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapSample extends StatefulWidget {
@@ -39,16 +38,15 @@ class MapSampleState extends State<MapSample> {
   }
 
   void getAllDirections() async {
-    var directions = await LocationService()
-        .getDirections("Nubiaville ltd ikeja lagos", "NewHorizons Ikeja lagos");
-    print(directions?["start_location"]["lat"]);
-    final distance = Geolocator.distanceBetween(
-        directions?["start_location"]["lat"],
-        directions?["start_location"]["lng"],
-        directions?["end_location"]["lat"],
-        directions?["end_location"]["lng"]);
+    var directions =
+        await LocationService().getDirections("6.5244,3.3792", "6.8429,7.3733");
 
-    print({"distance": distance});
+    // final distance = Geolocator.distanceBetween(
+    //     directions?["start_location"]["lat"],
+    //     directions?["start_location"]["lng"],
+    //     directions?["end_location"]["lat"],
+    //     directions?["end_location"]["lng"]);
+
     _setMarker(
         LatLng(directions?['end_location']["lat"],
             directions?['end_location']["lng"]),

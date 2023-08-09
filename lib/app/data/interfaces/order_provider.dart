@@ -8,6 +8,7 @@ abstract class OrderProviderInterface {
   Future<Map<String, dynamic>> getPrice({
     required String token,
     required double waterSize,
-    required double distance,
+    required String startLocation,
+    required String endLocation,
   });
 }

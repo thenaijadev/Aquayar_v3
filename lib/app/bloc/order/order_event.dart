@@ -17,8 +17,14 @@ class OrderEventGetNearestDriver extends OrderEvent {
 
 class OrderEventGetPrice extends OrderEvent {
   const OrderEventGetPrice(
-      {required this.token, required this.waterSize, required this.distance});
+    this.startLocation,
+    this.endLocation, {
+    required this.token,
+    required this.waterSize,
+  });
   final String token;
   final double waterSize;
-  final double distance;
+
+  final String startLocation;
+  final String endLocation;
 }
