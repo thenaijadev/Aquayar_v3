@@ -31,6 +31,8 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
 
   @override
   Widget build(BuildContext context) {
+    final orderBloc = context.read<OrderBloc>();
+
     return Scaffold(
       appBar: AppBar(
           title: Padding(
@@ -70,7 +72,10 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
                 ),
                 borderRadius: BorderRadius.circular(24),
               ),
-              child: const MapSample(),
+              child: MapSample(
+                  startPosition: widget.data["address"],
+                  endPosition:
+                      "${widget.data["driver"].coordinates[1]},${widget.data["driver"].coordinates[0]}"),
             ),
           ),
           Column(
@@ -85,11 +90,8 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
                     Expanded(
                       child: OutlinedContainer(
                         color: Colors.white,
-                        padding: EdgeInsets.only(
-                            top: 10,
-                            bottom: 10,
-                            left: 24,
-                            right: step == "four" ? 70 : 125),
+                        padding: const EdgeInsets.only(
+                            top: 10, bottom: 10, left: 24, right: 25),
                         borderRadius: 100,
                         child: Row(
                           children: [
@@ -100,11 +102,14 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
                             const SizedBox(
                               width: 7,
                             ),
-                            TextWidget(
-                              overflow: TextOverflow.ellipsis,
-                              text: widget.data["address"],
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
+                            SizedBox(
+                              width: 170,
+                              child: TextWidget(
+                                overflow: TextOverflow.ellipsis,
+                                text: widget.data["address"],
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
                             )
                           ],
                         ),
@@ -150,6 +155,13 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
                                 scaleX: 1.07,
                                 child: GestureDetector(
                                   onTap: () {
+                                    orderBloc.add(OrderEventGetOrderDetails(
+                                        token: widget.data["token"],
+                                        waterSize: widget.data["waterSize"],
+                                        startLocation: widget.data["address"],
+                                        endLocation: "6.8429,7.3733",
+                                        price: state.price.toDouble(),
+                                        driver: widget.data["driver"].id));
                                     Navigator.pushNamed(
                                         context, Routes.directionMap);
                                   },
@@ -170,11 +182,7 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
                               Transform.scale(
                                 scaleX: 1.07,
                                 child: GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      step = "two";
-                                    });
-                                  },
+                                  onTap: () {},
                                   child: Image.asset(
                                     "assets/images/confirm_blue.png",
                                   ),

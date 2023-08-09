@@ -1,4 +1,3 @@
-import 'package:aquayar/app/presentation/screens/customer_flow/map.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/direction_map_less.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/direction_map_more.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/outlined_container.dart';
@@ -42,21 +41,21 @@ class _DirectionsMapScreenState extends State<DirectionsMapScreen> {
           )),
       body: Stack(
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
-            ),
-            child: Container(
-              width: double.infinity,
-              height: MediaQuery.of(context).size.height * .84,
-              decoration: BoxDecoration(
-                  border: Border.all(
-                    color: const Color.fromARGB(255, 29, 32, 34),
-                  ),
-                  borderRadius: BorderRadius.circular(24)),
-              child: const MapSample(),
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(
+          //     horizontal: 16,
+          //   ),
+          //   child: Container(
+          //     width: double.infinity,
+          //     height: MediaQuery.of(context).size.height * .84,
+          //     decoration: BoxDecoration(
+          //         border: Border.all(
+          //           color: const Color.fromARGB(255, 29, 32, 34),
+          //         ),
+          //         borderRadius: BorderRadius.circular(24)),
+          //     child: const MapSample(),
+          //   ),
+          // ),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

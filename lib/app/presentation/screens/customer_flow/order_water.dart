@@ -366,6 +366,7 @@ class _OrderWaterState extends State<OrderWater> with TickerProviderStateMixin {
                 Navigator.pushNamed(context, Routes.confirmDetails, arguments: {
                   "token": token,
                   "address": controller.text,
+                  "driver": state.driver,
                   "waterSize": liters
                 });
               } else if (state is OrderStateGetNearestDiverError) {

@@ -76,4 +76,47 @@ class OrderProvider extends OrderProviderInterface {
       throw GenericAuthException();
     }
   }
+
+  @override
+  Future<Map<String, dynamic>> createOrder({
+    required String token,
+    required double waterSize,
+    required String startLocation,
+    required String endLocation,
+    required double price,
+    required String driver,
+  }) async {
+    try {
+      var directions =
+          await LocationService().getDirections(startLocation, endLocation);
+
+      final distance = Geolocator.distanceBetween(
+          directions?["start_location"]["lat"],
+          directions?["start_location"]["lng"],
+          directions?["end_location"]["lat"],
+          directions?["end_location"]["lng"]);
+
+      final response = await DioClient.instance.post(
+        RoutesAndPaths.createOrder,
+        data: {
+          "waterSize": waterSize,
+          "distance": distance,
+          "price": price,
+          "latitude": directions?["start_location"]["lat"],
+          "longitude": directions?["start_location"]["lng"],
+          "driver": driver
+        },
+        options: Options(
+          headers: {"Authorization": "Bearer $token"},
+        ),
+      );
+      print(response);
+      return response;
+    } on DioException {
+      rethrow;
+    } catch (e) {
+      print(e);
+      throw GenericAuthException();
+    }
+  }
 }

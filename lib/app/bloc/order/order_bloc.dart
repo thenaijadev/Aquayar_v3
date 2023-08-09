@@ -20,7 +20,6 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
 
       try {
         final location = await locationService.getPlace(address);
-        print({"location": location?["geometry"]["location"]["lat"]});
 
         final driver = await orderRepo.getNearestDriver(
             waterSize: waterSize,
@@ -47,6 +46,33 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         final response = await orderRepo.getPrice(
             startLocation: startLocation,
             endLocation: endLocation,
+            waterSize: waterSize,
+            token: token);
+        emit(OrderStatePriceRetrieved(price: response["data"]["price"]));
+      } on DioException catch (e) {
+        emit(OrderStateGetPriceError(error: e.response?.data));
+      } catch (e) {
+        emit(OrderStateGetPriceError(error: e.toString()));
+      }
+    });
+
+    on<OrderEventGetOrderDetails>((event, emit) async {
+      emit(OrderStateIsLoading());
+
+      final String token = event.token;
+      final String startLocation = event.startLocation;
+      final String endLocation = event.endLocation;
+      final double price = event.price;
+      final double waterSize = event.waterSize;
+
+      final String driver = event.driver;
+
+      try {
+        final response = await orderRepo.createOrder(
+            driver: driver,
+            price: price,
+            endLocation: endLocation,
+            startLocation: startLocation,
             waterSize: waterSize,
             token: token);
         emit(OrderStatePriceRetrieved(price: response["data"]["price"]));

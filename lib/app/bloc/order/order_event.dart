@@ -33,19 +33,16 @@ class OrderEventGetOrderDetails extends OrderEvent {
   const OrderEventGetOrderDetails({
     required this.token,
     required this.waterSize,
-    required this.address,
+    required this.startLocation,
+    required this.endLocation,
     required this.price,
-    required this.distance,
-    required this.longitude,
-    required this.latitude,
     required this.driver,
   });
   final String token;
   final double waterSize;
-  final String address;
-  final double distance;
+  final String startLocation;
+  final String endLocation;
+
   final double price;
-  final double longitude;
-  final double latitude;
   final String driver;
 }

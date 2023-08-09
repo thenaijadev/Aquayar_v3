@@ -37,4 +37,23 @@ class OrderRepo {
 
     return response;
   }
+
+  Future<Map<String, dynamic>> createOrder({
+    required String token,
+    required double waterSize,
+    required String startLocation,
+    required String endLocation,
+    required double price,
+    required String driver,
+  }) async {
+    final response = await provider.createOrder(
+        waterSize: waterSize,
+        token: token,
+        startLocation: startLocation,
+        endLocation: endLocation,
+        price: price,
+        driver: driver);
+
+    return response;
+  }
 }

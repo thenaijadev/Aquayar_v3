@@ -6,7 +6,10 @@ import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapSample extends StatefulWidget {
-  const MapSample({super.key});
+  const MapSample(
+      {super.key, required this.startPosition, required this.endPosition});
+  final String startPosition;
+  final String endPosition;
 
   @override
   State<MapSample> createState() => MapSampleState();
@@ -38,8 +41,8 @@ class MapSampleState extends State<MapSample> {
   }
 
   void getAllDirections() async {
-    var directions =
-        await LocationService().getDirections("6.5244,3.3792", "6.8429,7.3733");
+    var directions = await LocationService()
+        .getDirections(widget.startPosition, widget.endPosition);
 
     // final distance = Geolocator.distanceBetween(
     //     directions?["start_location"]["lat"],
