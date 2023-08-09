@@ -13,9 +13,17 @@ class OrderStateGetNearestDriverIsLoading extends OrderState {}
 
 class OrderStateGetNearestDriverFound extends OrderState {}
 
-class OrderStatePriceRetrieved extends OrderState {}
+class OrderStatePriceRetrieved extends OrderState {
+  const OrderStatePriceRetrieved({required this.price});
+  final int price;
+}
 
 class OrderStateGetNearestDiverError extends OrderState {
   const OrderStateGetNearestDiverError({required this.error});
+  final String error;
+}
+
+class OrderStateGetPriceError extends OrderState {
+  const OrderStateGetPriceError({required this.error});
   final String error;
 }

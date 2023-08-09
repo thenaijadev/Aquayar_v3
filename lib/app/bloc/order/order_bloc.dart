@@ -33,5 +33,22 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         emit(OrderStateGetNearestDiverError(error: e.toString()));
       }
     });
+
+    on<OrderEventGetPrice>((event, emit) async {
+      emit(OrderStateGetNearestDriverIsLoading());
+      final String token = event.token;
+      final double waterSize = event.waterSize;
+      final double distance = event.distance;
+
+      try {
+        final response = await orderRepo.getPrice(
+            waterSize: waterSize, distance: distance, token: token);
+        emit(OrderStatePriceRetrieved(price: response["data"]["price"]));
+      } on DioException catch (e) {
+        emit(OrderStateGetNearestDiverError(error: e.response?.data));
+      } catch (e) {
+        emit(OrderStateGetNearestDiverError(error: e.toString()));
+      }
+    });
   }
 }

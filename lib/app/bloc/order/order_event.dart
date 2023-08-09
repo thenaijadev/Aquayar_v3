@@ -20,5 +20,5 @@ class OrderEventGetPrice extends OrderEvent {
       {required this.token, required this.waterSize, required this.distance});
   final String token;
   final double waterSize;
-  final String distance;
+  final double distance;
 }
