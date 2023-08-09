@@ -1,3 +1,4 @@
+import 'package:aquayar/app/data/models/driver.dart';
 import 'package:aquayar/app/data/repos/order_repository.dart';
 import 'package:aquayar/app/services/location_service.dart';
 import 'package:bloc/bloc.dart';
@@ -21,12 +22,13 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         final location = await locationService.getPlace(address);
         print({"location": location?["geometry"]["location"]["lat"]});
 
-        orderRepo.getNearestDriver(
+        final driver = await orderRepo.getNearestDriver(
             waterSize: waterSize,
             longitude: location?["geometry"]["location"]["lng"],
             latitude: location?["geometry"]["location"]["lat"],
             token: token);
-        emit(OrderStateGetNearestDriverFound());
+
+        emit(OrderStateGetNearestDriverFound(driver: driver));
       } on DioException catch (e) {
         emit(OrderStateGetNearestDiverError(error: e.response?.data));
       } catch (e) {

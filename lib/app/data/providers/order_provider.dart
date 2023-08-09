@@ -1,5 +1,6 @@
 import 'package:aquayar/app/data/exceptions/auth_exceptions.dart';
 import 'package:aquayar/app/data/interfaces/order_provider.dart';
+import 'package:aquayar/app/data/models/driver.dart';
 import 'package:aquayar/app/data/utilities/api_endpoint.dart';
 import 'package:aquayar/app/data/utilities/dio_client.dart';
 import 'package:aquayar/app/services/location_service.dart';
@@ -8,7 +9,7 @@ import 'package:geolocator/geolocator.dart';
 
 class OrderProvider extends OrderProviderInterface {
   @override
-  Future<Map<String, dynamic>> getNearestDriver({
+  Future<Driver> getNearestDriver({
     required double waterSize,
     required double longitude,
     required double latitude,
@@ -26,8 +27,12 @@ class OrderProvider extends OrderProviderInterface {
           headers: {"Authorization": "Bearer $token"},
         ),
       );
-      print(response);
-      return response;
+      final driverData = response["data"];
+
+      final Driver driver = Driver.fromMap(driverData);
+
+      print(driver);
+      return driver;
     } on DioException {
       rethrow;
     } catch (e) {

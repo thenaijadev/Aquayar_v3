@@ -1,5 +1,7 @@
+import 'package:aquayar/app/data/models/driver.dart';
+
 abstract class OrderProviderInterface {
-  Future<Map<String, dynamic>> getNearestDriver(
+  Future<Driver> getNearestDriver(
       {required double waterSize,
       required double longitude,
       required double latitude,

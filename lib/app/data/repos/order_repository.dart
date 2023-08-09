@@ -1,6 +1,7 @@
 // ignore_for_file: unused_local_variable
 
 import 'package:aquayar/app/data/interfaces/order_provider.dart';
+import 'package:aquayar/app/data/models/driver.dart';
 import 'package:aquayar/app/data/providers/order_provider.dart';
 
 class OrderRepo {
@@ -9,7 +10,7 @@ class OrderRepo {
 
   factory OrderRepo.fromDio() => OrderRepo(OrderProvider());
 
-  Future<Map<String, dynamic>> getNearestDriver(
+  Future<Driver> getNearestDriver(
       {required double waterSize,
       required double longitude,
       required double latitude,

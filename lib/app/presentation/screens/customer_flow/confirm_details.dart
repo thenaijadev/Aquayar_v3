@@ -82,29 +82,32 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    OutlinedContainer(
-                      color: Colors.white,
-                      padding: EdgeInsets.only(
-                          top: 10,
-                          bottom: 10,
-                          left: 24,
-                          right: step == "four" ? 70 : 125),
-                      borderRadius: 100,
-                      child: const Row(
-                        children: [
-                          TextWidget(
-                            text: "Delivering to:",
-                            color: Color(0xFFADAFC2),
-                          ),
-                          SizedBox(
-                            width: 7,
-                          ),
-                          TextWidget(
-                            text: "WTC Estate",
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          )
-                        ],
+                    Expanded(
+                      child: OutlinedContainer(
+                        color: Colors.white,
+                        padding: EdgeInsets.only(
+                            top: 10,
+                            bottom: 10,
+                            left: 24,
+                            right: step == "four" ? 70 : 125),
+                        borderRadius: 100,
+                        child: Row(
+                          children: [
+                            const TextWidget(
+                              text: "Delivering to:",
+                              color: Color(0xFFADAFC2),
+                            ),
+                            const SizedBox(
+                              width: 7,
+                            ),
+                            TextWidget(
+                              overflow: TextOverflow.ellipsis,
+                              text: widget.data["address"],
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ],

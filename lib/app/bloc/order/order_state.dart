@@ -13,7 +13,10 @@ class OrderStateGetNearestDriverIsLoading extends OrderState {}
 
 class OrderStateIsLoading extends OrderState {}
 
-class OrderStateGetNearestDriverFound extends OrderState {}
+class OrderStateGetNearestDriverFound extends OrderState {
+  const OrderStateGetNearestDriverFound({required this.driver});
+  final Driver driver;
+}
 
 class OrderStatePriceRetrieved extends OrderState {
   const OrderStatePriceRetrieved({required this.price});
