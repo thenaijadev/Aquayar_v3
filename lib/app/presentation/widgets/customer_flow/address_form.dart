@@ -4,7 +4,6 @@ import 'package:aquayar/app/presentation/widgets/customer_flow/outlined_containe
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/text_input.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:aquayar/router/routes.dart';
-import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -59,27 +58,6 @@ class _AddressFormState extends State<AddressForm> {
         ),
         const SizedBox(
           height: 10,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Flexible(
-              child: Image.asset(
-                "assets/images/line.png",
-                width: 150,
-              ),
-            ),
-            const TextWidget(
-              text: "   or   ",
-              color: AppColors.titleBlack,
-            ),
-            Flexible(
-              child: Image.asset(
-                "assets/images/line.png",
-                width: 150,
-              ),
-            ),
-          ],
         ),
         const SizedBox(
           height: 10,

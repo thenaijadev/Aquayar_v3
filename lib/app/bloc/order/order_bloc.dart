@@ -75,9 +75,9 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
             startLocation: startLocation,
             waterSize: waterSize,
             token: token);
-        emit(OrderStatePriceRetrieved(price: response["data"]["price"]));
-      } on DioException catch (e) {
-        emit(OrderStateGetPriceError(error: e.response?.data));
+        emit(OrderStateOrderCreated());
+      } on DioException {
+        // emit(OrderStateGetPriceError(error: e.response!.data.toString()));
       } catch (e) {
         emit(OrderStateGetPriceError(error: e.toString()));
       }

@@ -23,6 +23,8 @@ class OrderStatePriceRetrieved extends OrderState {
   final int price;
 }
 
+class OrderStateOrderCreated extends OrderState {}
+
 class OrderStateGetNearestDiverError extends OrderState {
   const OrderStateGetNearestDiverError({required this.error});
   final String error;

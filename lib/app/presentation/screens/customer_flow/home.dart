@@ -20,7 +20,7 @@ class HomeScreenNoOrder extends StatefulWidget {
 }
 
 class _HomeScreenNoOrderState extends State<HomeScreenNoOrder> {
-  bool noOrder = true;
+  bool noOrder = false;
 
   @override
   void initState() {

@@ -6,7 +6,6 @@ import 'package:aquayar/app/presentation/screens/onboarding_flow/buttom_outline_
 import 'package:aquayar/app/presentation/screens/onboarding_flow/payment_container_map_screen.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/outlined_container.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
-import 'package:aquayar/router/routes.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,7 +23,8 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
   void initState() {
     print(widget.data);
     final orderBloc = context.read<OrderBloc>();
-    orderBloc.add(OrderEventGetPrice(widget.data["address"], "6.8429,7.3733",
+    orderBloc.add(OrderEventGetPrice(widget.data["address"],
+        "${widget.data["driver"].coordinates[1]},${widget.data["driver"].coordinates[0]}",
         token: widget.data["token"], waterSize: widget.data["waterSize"]));
     super.initState();
   }
@@ -162,8 +162,8 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
                                         endLocation: "6.8429,7.3733",
                                         price: state.price.toDouble(),
                                         driver: widget.data["driver"].id));
-                                    Navigator.pushNamed(
-                                        context, Routes.directionMap);
+                                    // Navigator.pushNamed(
+                                    //     context, Routes.directionMap);
                                   },
                                   child: Image.asset(
                                     "assets/images/confirm_blue.png",
