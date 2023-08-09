@@ -11,6 +11,8 @@ class OrderInitial extends OrderState {}
 
 class OrderStateGetNearestDriverIsLoading extends OrderState {}
 
+class OrderStateIsLoading extends OrderState {}
+
 class OrderStateGetNearestDriverFound extends OrderState {}
 
 class OrderStatePriceRetrieved extends OrderState {

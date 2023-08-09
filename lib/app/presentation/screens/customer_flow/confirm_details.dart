@@ -1,3 +1,4 @@
+import 'package:aquayar/app/bloc/order/order_bloc.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/map.dart';
 import 'package:aquayar/app/presentation/screens/onboarding_flow/blue_icon_map_scrreen.dart';
 import 'package:aquayar/app/presentation/screens/onboarding_flow/buttom_outline_container_map_screen_two.dart';
@@ -5,8 +6,10 @@ import 'package:aquayar/app/presentation/screens/onboarding_flow/buttom_outline_
 import 'package:aquayar/app/presentation/screens/onboarding_flow/payment_container_map_screen.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/outlined_container.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
+import 'package:aquayar/router/routes.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ConfirmDetails extends StatefulWidget {
   const ConfirmDetails({super.key, required this.data});
@@ -19,6 +22,10 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
   String step = "one";
   @override
   void initState() {
+    print(widget.data);
+    final orderBloc = context.read<OrderBloc>();
+    orderBloc.add(OrderEventGetPrice(widget.data["address"], "6.8429,7.3733",
+        token: widget.data["token"], waterSize: widget.data["waterSize"]));
     super.initState();
   }
 
@@ -120,29 +127,61 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
                     const SizedBox(
                       height: 12,
                     ),
-                    step == "one"
-                        ? const ButtomMapScreenOne()
-                        : step == "two"
-                            ? const ButtomMapScreenTwo()
-                            : const Text(''),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    step == "one"
-                        ? Transform.scale(
-                            scaleX: 1.07,
-                            child: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  step = "two";
-                                });
-                              },
-                              child: Image.asset(
-                                "assets/images/confirm_blue.png",
+                    BlocBuilder<OrderBloc, OrderState>(
+                      builder: (context, state) {
+                        if (state is OrderStateIsLoading) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 20.0),
+                            child: ButtomMapScreenTwo(
+                                waterSize: widget.data["waterSize"]),
+                          );
+                        } else if (state is OrderStatePriceRetrieved) {
+                          final data = {"price": state.price, ...widget.data};
+                          return Column(
+                            children: [
+                              ButtomMapScreenOne(data: data),
+                              const SizedBox(
+                                height: 15,
                               ),
-                            ),
-                          )
-                        : const Text(""),
+                              Transform.scale(
+                                scaleX: 1.07,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, Routes.directionMap);
+                                  },
+                                  child: Image.asset(
+                                    "assets/images/confirm_blue.png",
+                                  ),
+                                ),
+                              )
+                            ],
+                          );
+                        } else {
+                          return Column(
+                            children: [
+                              ButtomMapScreenOne(data: widget.data),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              Transform.scale(
+                                scaleX: 1.07,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      step = "two";
+                                    });
+                                  },
+                                  child: Image.asset(
+                                    "assets/images/confirm_blue.png",
+                                  ),
+                                ),
+                              )
+                            ],
+                          );
+                        }
+                      },
+                    ),
                   ],
                 ),
               )

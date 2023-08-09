@@ -5,8 +5,8 @@ import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart
 import 'package:flutter/material.dart';
 
 class ButtomMapScreenOne extends StatelessWidget {
-  const ButtomMapScreenOne({super.key});
-
+  const ButtomMapScreenOne({super.key, required this.data});
+  final Map<String, dynamic> data;
   @override
   Widget build(BuildContext context) {
     return OutlinedContainer(
@@ -38,29 +38,31 @@ class ButtomMapScreenOne extends StatelessWidget {
                 ],
               ),
               const SizedBox(
-                width: 30,
+                width: 20,
               ),
-              Row(
-                children: [
-                  Image.asset("assets/images/drop.png"),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  const Column(
-                    children: [
-                      TextWidget(
-                        text: "500",
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      TextWidget(
-                        text: "Liters",
-                        color: Color(0xFF868FAD),
-                        fontSize: 14,
-                      )
-                    ],
-                  )
-                ],
+              Flexible(
+                child: Row(
+                  children: [
+                    Image.asset("assets/images/drop.png"),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Column(
+                      children: [
+                        TextWidget(
+                          text: data["waterSize"].round().toString(),
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        const TextWidget(
+                          text: "Liters",
+                          color: Color(0xFF868FAD),
+                          fontSize: 14,
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
             ],
           ),
@@ -79,16 +81,16 @@ class ButtomMapScreenOne extends StatelessWidget {
               const SizedBox(
                 width: 10,
               ),
-              const Column(
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextWidget(
+                  const TextWidget(
                     text: 'Amount to Pay',
                     color: Color(0xFF868FAD),
                     fontSize: 14,
                   ),
                   TextWidget(
-                    text: '8,500 - 8,900',
+                    text: '${data["price"]}',
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
                   ),

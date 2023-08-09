@@ -6,8 +6,8 @@ import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart
 import 'package:flutter/material.dart';
 
 class ButtomMapScreenTwo extends StatelessWidget {
-  const ButtomMapScreenTwo({super.key});
-
+  const ButtomMapScreenTwo({super.key, required this.waterSize});
+  final double waterSize;
   @override
   Widget build(BuildContext context) {
     return OutlinedContainer(
@@ -39,29 +39,31 @@ class ButtomMapScreenTwo extends StatelessWidget {
                 ],
               ),
               const SizedBox(
-                width: 30,
+                width: 20,
               ),
-              Row(
-                children: [
-                  Image.asset("assets/images/drop.png"),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  const Column(
-                    children: [
-                      TextWidget(
-                        text: "500",
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      TextWidget(
-                        text: "Liters",
-                        color: Color(0xFF868FAD),
-                        fontSize: 14,
-                      )
-                    ],
-                  )
-                ],
+              Flexible(
+                child: Row(
+                  children: [
+                    Image.asset("assets/images/drop.png"),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Column(
+                      children: [
+                        TextWidget(
+                          text: waterSize.round().toString(),
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        const TextWidget(
+                          text: "Liters",
+                          color: Color(0xFF868FAD),
+                          fontSize: 13,
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
             ],
           ),

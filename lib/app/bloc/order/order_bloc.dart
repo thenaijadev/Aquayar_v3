@@ -35,7 +35,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     });
 
     on<OrderEventGetPrice>((event, emit) async {
-      emit(OrderStateGetNearestDriverIsLoading());
+      emit(OrderStateIsLoading());
       final String token = event.token;
       final double waterSize = event.waterSize;
       final String startLocation = event.startLocation;
@@ -49,9 +49,9 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
             token: token);
         emit(OrderStatePriceRetrieved(price: response["data"]["price"]));
       } on DioException catch (e) {
-        emit(OrderStateGetNearestDiverError(error: e.response?.data));
+        emit(OrderStateGetPriceError(error: e.response?.data));
       } catch (e) {
-        emit(OrderStateGetNearestDiverError(error: e.toString()));
+        emit(OrderStateGetPriceError(error: e.toString()));
       }
     });
   }
