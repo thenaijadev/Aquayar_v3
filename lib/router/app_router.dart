@@ -52,8 +52,10 @@ class AppRouter {
         );
 
       case Routes.confirmDetails:
+        var data = routeSettings.arguments as Map<String, dynamic>;
+
         return MaterialPageRoute(
-          builder: (_) => const ConfirmDetails(),
+          builder: (_) => ConfirmDetails(data: data),
         );
       case Routes.helpAndSupport:
         return MaterialPageRoute(

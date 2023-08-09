@@ -363,7 +363,11 @@ class _OrderWaterState extends State<OrderWater> with TickerProviderStateMixin {
           BlocConsumer<OrderBloc, OrderState>(
             listener: (context, state) {
               if (state is OrderStateGetNearestDriverFound) {
-                Navigator.pushNamed(context, Routes.confirmDetails);
+                Navigator.pushNamed(context, Routes.confirmDetails, arguments: {
+                  "token": token,
+                  "address": controller.text,
+                  "waterSize": liters
+                });
               } else if (state is OrderStateGetNearestDiverError) {
                 InfoSnackBar.showErrorSnackBar(context, state.error);
               }
@@ -380,10 +384,12 @@ class _OrderWaterState extends State<OrderWater> with TickerProviderStateMixin {
               } else if (state is OrderStateGetNearestDiverError) {
                 return GestureDetector(
                   onTap: () {
-                    orderBloc.add(OrderEventGetNearestDriver(
-                        token: token,
-                        waterSize: liters,
-                        address: controller.text));
+                    orderBloc.add(
+                      OrderEventGetNearestDriver(
+                          token: token,
+                          waterSize: liters,
+                          address: controller.text),
+                    );
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(top: 30.0, bottom: 20),

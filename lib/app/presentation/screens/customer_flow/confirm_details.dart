@@ -9,14 +9,19 @@ import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class ConfirmDetails extends StatefulWidget {
-  const ConfirmDetails({super.key});
-
+  const ConfirmDetails({super.key, required this.data});
+  final Map<String, dynamic> data;
   @override
   State<ConfirmDetails> createState() => _ConfirmDetailsState();
 }
 
 class _ConfirmDetailsState extends State<ConfirmDetails> {
   String step = "one";
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
