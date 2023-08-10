@@ -76,10 +76,12 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
             waterSize: waterSize,
             token: token);
         emit(OrderStateOrderCreated());
-      } on DioException {
-        // emit(OrderStateGetPriceError(error: e.response!.data.toString()));
+      } on DioException catch (e) {
+        emit(OrderStateGetPriceError(error: e.response!.data.toString()));
+        print(e);
       } catch (e) {
         emit(OrderStateGetPriceError(error: e.toString()));
+        print(e);
       }
     });
   }

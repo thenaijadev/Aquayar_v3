@@ -128,7 +128,6 @@ class MapSampleState extends State<MapSample> {
                 setState(() {
                   polygonLatLngs.add(point);
                   _setPolygon();
-                  print(point);
                 });
               },
             ),

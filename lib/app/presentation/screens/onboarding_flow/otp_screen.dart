@@ -64,7 +64,6 @@ class _OtpScreenState extends State<OtpScreen> {
 
   @override
   void initState() {
-    print([widget.data[0]["token"]]);
     super.initState();
 
     startTimer();

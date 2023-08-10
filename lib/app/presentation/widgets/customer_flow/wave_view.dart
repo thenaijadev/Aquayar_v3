@@ -1,8 +1,9 @@
 import 'dart:math' as math;
-import 'package:aquayar/app/presentation/widgets/customer_flow/water_tank_theme.dart';
 
 import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math.dart' as vector;
+
+import 'package:aquayar/app/presentation/widgets/customer_flow/water_tank_theme.dart';
 
 class WaveView extends StatefulWidget {
   final double percentageValue;

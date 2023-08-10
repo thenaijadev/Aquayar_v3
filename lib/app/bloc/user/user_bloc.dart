@@ -76,7 +76,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           emit(UserStateOtpChecked());
         } on DioException catch (error) {
           final message = DioExceptionClass.fromDioError(error);
-          print(error.response?.data);
 
           emit(UserStateError(message: message.errorMessage));
         }
@@ -100,7 +99,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           emit(UserStateUserRetrieved(user: AuthUser.fromMap(response)));
         } on DioException catch (error) {
           final message = DioExceptionClass.fromDioError(error);
-          print(error.response?.data);
 
           emit(UserStateError(message: message.errorMessage));
         }
@@ -122,10 +120,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
             token: token ?? "",
           );
           emit(UserStateAllOrdersRetrieved(orders: response["data"]["orders"]));
-          print({"GetAllUsers": response});
         } on DioException catch (error) {
           final message = DioExceptionClass.fromDioError(error);
-          print(error.response?.data);
 
           emit(UserStateError(message: message.errorMessage));
         }

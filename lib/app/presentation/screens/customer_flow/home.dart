@@ -71,7 +71,6 @@ class _HomeScreenNoOrderState extends State<HomeScreenNoOrder> {
                   ),
                 );
               } else if (state is UserStateAllOrdersRetrieved) {
-                print(state.orders);
                 return SingleChildScrollView(
                     child: state.orders.isEmpty
                         ? NoOrderWidget(user: widget.user)

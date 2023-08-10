@@ -36,8 +36,6 @@ class DioAuthProvider implements AuthProvider {
 
       return {...response, "email": email, "displayName": "", "photoUrl": ""};
     } on DioException catch (e) {
-      print(e.response?.data);
-
       rethrow;
     } catch (e) {
       throw GenericAuthException();

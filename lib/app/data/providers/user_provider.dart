@@ -57,7 +57,6 @@ class UserProvider implements UserProviderInterface {
           headers: {"Authorization": "Bearer $token"},
         ),
       );
-      print(response);
 
       return {
         ...response,
@@ -150,12 +149,10 @@ class UserProvider implements UserProviderInterface {
           headers: {"Authorization": "Bearer $token"},
         ),
       );
-      print(response);
       return response;
     } on DioException {
       rethrow;
     } catch (e) {
-      print(e);
       throw GenericAuthException();
     }
   }
@@ -169,12 +166,10 @@ class UserProvider implements UserProviderInterface {
           headers: {"Authorization": "Bearer $token"},
         ),
       );
-      print(response);
       return response;
     } on DioException {
       rethrow;
     } catch (e) {
-      print(e);
       throw GenericAuthException();
     }
   }

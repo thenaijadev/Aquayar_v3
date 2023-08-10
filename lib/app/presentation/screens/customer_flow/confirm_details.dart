@@ -21,7 +21,6 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
   String step = "one";
   @override
   void initState() {
-    print(widget.data);
     final orderBloc = context.read<OrderBloc>();
     orderBloc.add(OrderEventGetPrice(widget.data["address"],
         "${widget.data["driver"].coordinates[1]},${widget.data["driver"].coordinates[0]}",
@@ -182,7 +181,15 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
                               Transform.scale(
                                 scaleX: 1.07,
                                 child: GestureDetector(
-                                  onTap: () {},
+                                  onTap: () {
+                                    // orderBloc.add(OrderEventGetOrderDetails(
+                                    //   token: widget.data["token"],
+                                    //   waterSize: widget.data["waterSize"],
+                                    //   startLocation: widget.data["address"],
+                                    //   endLocation: "6.8429,7.3733",
+                                    //   price: state.price.toDouble(),
+                                    //   driver: widget.data["driver"].id));
+                                  },
                                   child: Image.asset(
                                     "assets/images/confirm_blue.png",
                                   ),

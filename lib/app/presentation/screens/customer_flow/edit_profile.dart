@@ -165,9 +165,7 @@ class _EditProfileState extends State<EditProfile> {
                               if (state is AuthStateUserNameAndGenderUpdated) {
                                 Navigator.pushReplacementNamed(
                                     context, Routes.landing);
-                              } else if (state is AuthStateError) {
-                                print(state.message);
-                              }
+                              } else if (state is AuthStateError) {}
                             },
                             builder: (context, state) {
                               if (state is AuthStateIsLoading) {
