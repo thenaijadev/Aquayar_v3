@@ -91,7 +91,6 @@ class OrderProvider extends OrderProviderInterface {
           directions?["start_location"]["lng"],
           directions?["end_location"]["lat"],
           directions?["end_location"]["lng"]);
-      print(driver);
 
       final response = await DioClient.instance.post(
         RoutesAndPaths.createOrder,
@@ -107,6 +106,7 @@ class OrderProvider extends OrderProviderInterface {
           headers: {"Authorization": "Bearer $token"},
         ),
       );
+      print(response);
       return response;
     } on DioException {
       rethrow;
