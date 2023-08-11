@@ -95,4 +95,42 @@ class LocationService {
     }
     return null;
   }
+
+  Future<Map<String, dynamic>?> getTransitTime(
+      String origin, String destination) async {
+    String url =
+        "https://maps.googleapis.com/maps/api/distancematrix/json?destinations=$origin&origins=$destination&units=metric&key=$key";
+
+    try {
+      var response = await http.get(Uri.parse(url));
+
+      if (response.statusCode == 200) {
+        if (response.headers['content-type']?.contains('application/json') ==
+            true) {
+          var jsonData = json.decode(response.body);
+          print(jsonData);
+          // final results = {
+          //   "bounds_ne": jsonData['routes'][0]["bounds"]["northeast"],
+          //   "bounds_sw": jsonData['routes'][0]["bounds"]["southwest"],
+          //   "start_location": jsonData['routes'][0]["legs"][0]
+          //       ["start_location"],
+          //   "end_location": jsonData['routes'][0]["legs"][0]["end_location"],
+          //   "polyline": jsonData['routes'][0]["overview_polyline"]["points"],
+          //   "polyline_decoded": PolylinePoints().decodePolyline(
+          //       jsonData['routes'][0]["overview_polyline"]["points"]),
+          // };
+          // return results;
+
+          // var results = jsonData['result'] as Map<String, dynamic>;
+        } else {
+          logger.e('Response does not contain JSON data.');
+        }
+      } else {
+        logger.e('HTTP request failed with status: ${response.statusCode}');
+      }
+    } catch (e) {
+      logger.e(e.toString());
+    }
+    return null;
+  }
 }

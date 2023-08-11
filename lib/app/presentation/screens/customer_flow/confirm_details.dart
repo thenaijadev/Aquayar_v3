@@ -8,6 +8,7 @@ import 'package:aquayar/app/presentation/widgets/customer_flow/direction_map_les
 import 'package:aquayar/app/presentation/widgets/customer_flow/direction_map_more.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/outlined_container.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
+import 'package:aquayar/app/services/location_service.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,6 +28,9 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
     orderBloc.add(OrderEventGetPrice(widget.data["address"],
         "${widget.data["driver"].coordinates[1]},${widget.data["driver"].coordinates[0]}",
         token: widget.data["token"], waterSize: widget.data["waterSize"]));
+
+    LocationService().getTransitTime(widget.data["address"],
+        "${widget.data["driver"].coordinates[1]},${widget.data["driver"].coordinates[0]}");
     super.initState();
   }
 

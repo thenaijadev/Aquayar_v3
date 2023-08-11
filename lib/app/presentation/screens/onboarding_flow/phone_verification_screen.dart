@@ -33,7 +33,6 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
 
   @override
   void initState() {
-    print([widget.data[0]["token"]]);
     super.initState();
   }
 

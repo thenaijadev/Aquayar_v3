@@ -55,6 +55,8 @@ class OrderProvider extends OrderProviderInterface {
           directions?["end_location"]["lat"],
           directions?["end_location"]["lng"]);
 
+      print(distance);
+
       final response = await DioClient.instance.post(
         RoutesAndPaths.getPrice,
         data: {
@@ -106,7 +108,6 @@ class OrderProvider extends OrderProviderInterface {
           headers: {"Authorization": "Bearer $token"},
         ),
       );
-      print(response);
       return response;
     } on DioException {
       rethrow;
