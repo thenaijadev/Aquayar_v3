@@ -9,6 +9,7 @@ import 'package:aquayar/app/services/location_service.dart';
 import 'package:aquayar/router/app_router.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -16,6 +17,12 @@ import 'package:path_provider/path_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+      overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top]);
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   await Hive.initFlutter();
   Hive.registerAdapter(AddressAdapter());
   await Hive.openBox("user_token_box");

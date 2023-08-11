@@ -4,6 +4,8 @@ import 'package:aquayar/app/presentation/screens/onboarding_flow/blue_icon_map_s
 import 'package:aquayar/app/presentation/screens/onboarding_flow/buttom_outline_container_map_screen_two.dart';
 import 'package:aquayar/app/presentation/screens/onboarding_flow/buttom_outline_container_one_map_screen.dart';
 import 'package:aquayar/app/presentation/screens/onboarding_flow/payment_container_map_screen.dart';
+import 'package:aquayar/app/presentation/widgets/customer_flow/direction_map_less.dart';
+import 'package:aquayar/app/presentation/widgets/customer_flow/direction_map_more.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/outlined_container.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
@@ -27,6 +29,8 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
         token: widget.data["token"], waterSize: widget.data["waterSize"]));
     super.initState();
   }
+
+  bool showMore = false;
 
   @override
   Widget build(BuildContext context) {
@@ -171,32 +175,27 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
                               )
                             ],
                           );
-                        } else {
+                        } else if (state is OrderStateOrderCreated) {
                           return Column(
                             children: [
-                              ButtomMapScreenOne(data: widget.data),
+                              showMore
+                                  ? DirectionMapScreenMore(showLessOnMap: () {
+                                      setState(() {
+                                        showMore = false;
+                                      });
+                                    })
+                                  : DirectionMapScreenLess(showMoreOnTap: () {
+                                      setState(() {
+                                        showMore = true;
+                                      });
+                                    }),
                               const SizedBox(
-                                height: 15,
+                                height: 25,
                               ),
-                              Transform.scale(
-                                scaleX: 1.07,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    // orderBloc.add(OrderEventGetOrderDetails(
-                                    //   token: widget.data["token"],
-                                    //   waterSize: widget.data["waterSize"],
-                                    //   startLocation: widget.data["address"],
-                                    //   endLocation: "6.8429,7.3733",
-                                    //   price: state.price.toDouble(),
-                                    //   driver: widget.data["driver"].id));
-                                  },
-                                  child: Image.asset(
-                                    "assets/images/confirm_blue.png",
-                                  ),
-                                ),
-                              )
                             ],
                           );
+                        } else {
+                          return const SizedBox();
                         }
                       },
                     ),
