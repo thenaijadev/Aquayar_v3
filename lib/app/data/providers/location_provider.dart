@@ -4,7 +4,7 @@ import 'package:aquayar/utilities/logger.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:http/http.dart' as http;
 
-class LocationService {
+class LocationProvider {
   final String key = "AIzaSyC8o3ShF1B6EBxuEqY04RTZ9bGKcfYmkM8";
   Future<String?> getPlaceId(String input) async {
     String url =
@@ -96,8 +96,7 @@ class LocationService {
     return null;
   }
 
-  Future<Map<String, dynamic>?> getTransitTime(
-      String origin, String destination) async {
+  Future<String?> getTransitTime(String origin, String destination) async {
     String url =
         "https://maps.googleapis.com/maps/api/distancematrix/json?destinations=$origin&origins=$destination&units=metric&key=$key";
 
@@ -108,20 +107,9 @@ class LocationService {
         if (response.headers['content-type']?.contains('application/json') ==
             true) {
           var jsonData = json.decode(response.body);
-          print(jsonData);
-          // final results = {
-          //   "bounds_ne": jsonData['routes'][0]["bounds"]["northeast"],
-          //   "bounds_sw": jsonData['routes'][0]["bounds"]["southwest"],
-          //   "start_location": jsonData['routes'][0]["legs"][0]
-          //       ["start_location"],
-          //   "end_location": jsonData['routes'][0]["legs"][0]["end_location"],
-          //   "polyline": jsonData['routes'][0]["overview_polyline"]["points"],
-          //   "polyline_decoded": PolylinePoints().decodePolyline(
-          //       jsonData['routes'][0]["overview_polyline"]["points"]),
-          // };
-          // return results;
+          print(jsonData["rows"][0]["elements"][0]["duration"]["text"]);
 
-          // var results = jsonData['result'] as Map<String, dynamic>;
+          return jsonData["rows"][0]["elements"][0]["duration"]["text"];
         } else {
           logger.e('Response does not contain JSON data.');
         }

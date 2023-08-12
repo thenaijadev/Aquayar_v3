@@ -123,7 +123,6 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
         final response = await authRepo.checkOTP(otp: otp);
 
         response.fold((l) {
-          print(l);
           emit(AuthStateError(message: l));
         }, (r) async {
           emit(AuthStatePasswordChangeOtpSent(

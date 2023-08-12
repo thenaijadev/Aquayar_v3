@@ -27,7 +27,7 @@ class ButtomMapScreenTwo extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextWidget(
-                    text: "1H 25M - 1H 25M",
+                    text: "Calculating...",
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),

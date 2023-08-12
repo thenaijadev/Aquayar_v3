@@ -1,6 +1,6 @@
 import 'package:aquayar/app/data/models/driver.dart';
 import 'package:aquayar/app/data/repos/order_repository.dart';
-import 'package:aquayar/app/services/location_service.dart';
+import 'package:aquayar/app/data/providers/location_provider.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
@@ -9,7 +9,7 @@ part 'order_event.dart';
 part 'order_state.dart';
 
 class OrderBloc extends Bloc<OrderEvent, OrderState> {
-  OrderBloc(OrderRepo orderRepo, LocationService locationService)
+  OrderBloc(OrderRepo orderRepo, LocationProvider locationService)
       : super(OrderInitial()) {
     on<OrderEventGetNearestDriver>((event, emit) async {
       emit(OrderStateGetNearestDriverIsLoading());
@@ -48,7 +48,11 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
             endLocation: endLocation,
             waterSize: waterSize,
             token: token);
-        emit(OrderStatePriceRetrieved(price: response["data"]["price"]));
+
+        emit(OrderStatePriceRetrieved(
+            distance: response["distance"],
+            price: response["data"]["price"],
+            time: response["time"]));
       } on DioException catch (e) {
         emit(OrderStateGetPriceError(error: e.response?.data));
       } catch (e) {

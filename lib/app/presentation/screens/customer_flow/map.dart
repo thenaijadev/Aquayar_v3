@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:aquayar/app/services/location_service.dart';
+import 'package:aquayar/app/data/providers/location_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -41,7 +41,7 @@ class MapSampleState extends State<MapSample> {
   }
 
   void getAllDirections() async {
-    var directions = await LocationService()
+    var directions = await LocationProvider()
         .getDirections(widget.startPosition, widget.endPosition);
 
     // final distance = Geolocator.distanceBetween(

@@ -3,24 +3,47 @@ import 'package:aquayar/app/presentation/widgets/customer_flow/outlined_containe
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:flutter/material.dart';
 
-class DirectionMapScreenLess extends StatelessWidget {
-  const DirectionMapScreenLess({super.key, required this.showMoreOnTap});
+class DirectionMapScreenLess extends StatefulWidget {
+  const DirectionMapScreenLess(
+      {super.key, required this.showMoreOnTap, required this.data});
   final void Function() showMoreOnTap;
+  final Map<String, dynamic> data;
+
+  @override
+  State<DirectionMapScreenLess> createState() => _DirectionMapScreenLessState();
+}
+
+class _DirectionMapScreenLessState extends State<DirectionMapScreenLess> {
+  @override
   @override
   Widget build(BuildContext context) {
+    String formatTime(String input) {
+      List<String> parts =
+          input.split(' '); // Split the input string into parts
+      String hours = parts[0]; // Get the hours part
+      String mins = parts[2]; // Get the mins part
+
+      // Construct the formatted string
+      String formattedTime = '${hours}h ${mins}m';
+
+      return formattedTime;
+    }
+
     return OutlinedContainer(
       color: Colors.white,
       borderRadius: 24,
       child: Column(
         children: [
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 children: [
                   TextWidget(
-                      text: "1H", fontSize: 20, fontWeight: FontWeight.bold),
-                  TextWidget(
+                      text: formatTime(widget.data["time"]),
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                  const TextWidget(
                     text: "Est. Time",
                     color: Color(0xFF868FAD),
                     fontSize: 14,
@@ -30,15 +53,18 @@ class DirectionMapScreenLess extends StatelessWidget {
               Column(
                 children: [
                   TextWidget(
-                      text: "3.4KM", fontSize: 20, fontWeight: FontWeight.bold),
-                  TextWidget(
+                      text:
+                          "${(widget.data["distance"] / 1000).toStringAsFixed(1)}KM",
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                  const TextWidget(
                     text: "Distance",
                     color: Color(0xFF868FAD),
                     fontSize: 14,
                   )
                 ],
               ),
-              Column(
+              const Column(
                 children: [
                   TextWidget(
                       text: "500", fontSize: 20, fontWeight: FontWeight.bold),
@@ -165,7 +191,7 @@ class DirectionMapScreenLess extends StatelessWidget {
                 ),
               ),
               GestureDetector(
-                onTap: showMoreOnTap,
+                onTap: widget.showMoreOnTap,
                 child: const OutlinedContainer(
                   borderRadius: 200,
                   padding: EdgeInsets.all(10),

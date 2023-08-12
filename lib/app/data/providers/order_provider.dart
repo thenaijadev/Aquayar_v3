@@ -2,7 +2,7 @@ import 'package:aquayar/app/data/exceptions/auth_exceptions.dart';
 import 'package:aquayar/app/data/interfaces/order_provider.dart';
 import 'package:aquayar/app/data/models/driver.dart';
 
-import 'package:aquayar/app/services/location_service.dart';
+import 'package:aquayar/app/data/providers/location_provider.dart';
 import 'package:aquayar/network/api_endpoint.dart';
 import 'package:aquayar/network/dio_client.dart';
 import 'package:dio/dio.dart';
@@ -48,15 +48,17 @@ class OrderProvider extends OrderProviderInterface {
       required String endLocation}) async {
     try {
       var directions =
-          await LocationService().getDirections(startLocation, endLocation);
+          await LocationProvider().getDirections(startLocation, endLocation);
+
+      final time = await LocationProvider().getTransitTime(
+          "${directions?["start_location"]["lat"]},${directions?["start_location"]["lng"]}",
+          "${directions?["end_location"]["lat"]},${directions?["end_location"]["lng"]}");
 
       final distance = Geolocator.distanceBetween(
           directions?["start_location"]["lat"],
           directions?["start_location"]["lng"],
           directions?["end_location"]["lat"],
           directions?["end_location"]["lng"]);
-
-      print(distance);
 
       final response = await DioClient.instance.post(
         RoutesAndPaths.getPrice,
@@ -68,7 +70,8 @@ class OrderProvider extends OrderProviderInterface {
           headers: {"Authorization": "Bearer $token"},
         ),
       );
-      return response;
+
+      return {...response, "time": time, "distance": distance};
     } on DioException {
       rethrow;
     } catch (e) {
@@ -87,7 +90,7 @@ class OrderProvider extends OrderProviderInterface {
   }) async {
     try {
       var directions =
-          await LocationService().getDirections(startLocation, endLocation);
+          await LocationProvider().getDirections(startLocation, endLocation);
 
       final distance = Geolocator.distanceBetween(
           directions?["start_location"]["lat"],

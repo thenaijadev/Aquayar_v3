@@ -19,8 +19,14 @@ class OrderStateGetNearestDriverFound extends OrderState {
 }
 
 class OrderStatePriceRetrieved extends OrderState {
-  const OrderStatePriceRetrieved({required this.price});
+  const OrderStatePriceRetrieved({
+    required this.time,
+    required this.price,
+    required this.distance,
+  });
   final int price;
+  final String time;
+  final double distance;
 }
 
 class OrderStateOrderCreated extends OrderState {}

@@ -7,8 +7,27 @@ import 'package:flutter/material.dart';
 class ButtomMapScreenOne extends StatelessWidget {
   const ButtomMapScreenOne({super.key, required this.data});
   final Map<String, dynamic> data;
+
+  String formatTime(String input) {
+    List<String> parts = input.split(' '); // Split the input string into parts
+    String hours = parts[0]; // Get the hours part
+    String mins = parts[2]; // Get the mins part
+
+    // Construct the formatted string
+    String formattedTime = '${hours}h ${mins}m';
+
+    return formattedTime;
+  }
+
   @override
   Widget build(BuildContext context) {
+    String formatNumberWithCommas(int number) {
+      String formatted = number.toString();
+      final RegExp regExp = RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))');
+      formatted = formatted.replaceAllMapped(regExp, (Match m) => '${m[1]},');
+      return formatted;
+    }
+
     return OutlinedContainer(
       color: Colors.white,
       borderRadius: 24,
@@ -22,15 +41,15 @@ class ButtomMapScreenOne extends StatelessWidget {
               const SizedBox(
                 width: 10,
               ),
-              const Column(
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextWidget(
-                    text: "1H 25M - 1H 25M",
+                    text: formatTime(data["time"]),
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
-                  TextWidget(
+                  const TextWidget(
                     text: 'Estimated Time of Delivery',
                     color: Color(0xFF868FAD),
                     fontSize: 14,
@@ -90,7 +109,7 @@ class ButtomMapScreenOne extends StatelessWidget {
                     fontSize: 14,
                   ),
                   TextWidget(
-                    text: '${data["price"]}',
+                    text: formatNumberWithCommas(data["price"]),
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
                   ),

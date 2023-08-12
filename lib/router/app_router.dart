@@ -17,7 +17,6 @@ import 'package:aquayar/app/presentation/screens/customer_flow/water_aquired_scr
 import 'package:aquayar/app/presentation/screens/customer_flow/water_tank.dart';
 import 'package:aquayar/app/presentation/screens/onboarding_flow/create_new_password_screen.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/locations.dart';
-import 'package:aquayar/app/presentation/screens/customer_flow/directions_map.dart';
 import 'package:aquayar/app/presentation/screens/onboarding_flow/home_screen.dart';
 import 'package:aquayar/app/presentation/screens/onboarding_flow/otp_sent.dart';
 import 'package:aquayar/app/presentation/screens/onboarding_flow/password_set_successfully_screen.dart';
@@ -41,10 +40,10 @@ class AppRouter {
           builder: (_) => const LandingScreen(),
         );
 
-      case Routes.directionMap:
-        return MaterialPageRoute(
-          builder: (_) => const DirectionsMapScreen(),
-        );
+      // case Routes.directionMap:
+      //   return MaterialPageRoute(
+      //     builder: (_) => const DirectionsMapScreen(),
+      //   );
 
       case Routes.chat:
         return MaterialPageRoute(

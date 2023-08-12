@@ -8,7 +8,7 @@ import 'package:aquayar/app/presentation/widgets/customer_flow/direction_map_les
 import 'package:aquayar/app/presentation/widgets/customer_flow/direction_map_more.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/outlined_container.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
-import 'package:aquayar/app/services/location_service.dart';
+import 'package:aquayar/app/data/providers/location_provider.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,13 +29,13 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
         "${widget.data["driver"].coordinates[1]},${widget.data["driver"].coordinates[0]}",
         token: widget.data["token"], waterSize: widget.data["waterSize"]));
 
-    LocationService().getTransitTime(widget.data["address"],
+    LocationProvider().getTransitTime(widget.data["address"],
         "${widget.data["driver"].coordinates[1]},${widget.data["driver"].coordinates[0]}");
     super.initState();
   }
 
   bool showMore = false;
-
+  late Map<String, dynamic> theData;
   @override
   Widget build(BuildContext context) {
     final orderBloc = context.read<OrderBloc>();
@@ -151,10 +151,15 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
                                 waterSize: widget.data["waterSize"]),
                           );
                         } else if (state is OrderStatePriceRetrieved) {
-                          final data = {"price": state.price, ...widget.data};
+                          theData = {
+                            "price": state.price,
+                            ...widget.data,
+                            "time": state.time,
+                            "distance": state.distance
+                          };
                           return Column(
                             children: [
-                              ButtomMapScreenOne(data: data),
+                              ButtomMapScreenOne(data: theData),
                               const SizedBox(
                                 height: 15,
                               ),
@@ -183,16 +188,20 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
                           return Column(
                             children: [
                               showMore
-                                  ? DirectionMapScreenMore(showLessOnMap: () {
-                                      setState(() {
-                                        showMore = false;
-                                      });
-                                    })
-                                  : DirectionMapScreenLess(showMoreOnTap: () {
-                                      setState(() {
-                                        showMore = true;
-                                      });
-                                    }),
+                                  ? DirectionMapScreenMore(
+                                      data: theData,
+                                      showLessOnMap: () {
+                                        setState(() {
+                                          showMore = false;
+                                        });
+                                      })
+                                  : DirectionMapScreenLess(
+                                      data: theData,
+                                      showMoreOnTap: () {
+                                        setState(() {
+                                          showMore = true;
+                                        });
+                                      }),
                               const SizedBox(
                                 height: 25,
                               ),

@@ -5,10 +5,30 @@ import 'package:aquayar/router/routes.dart';
 import 'package:flutter/material.dart';
 
 class DirectionMapScreenMore extends StatelessWidget {
-  const DirectionMapScreenMore({super.key, required this.showLessOnMap});
+  const DirectionMapScreenMore(
+      {super.key, required this.showLessOnMap, required this.data});
   final void Function() showLessOnMap;
+  final Map<String, dynamic> data;
+  String formatTime(String input) {
+    List<String> parts = input.split(' '); // Split the input string into parts
+    String hours = parts[0]; // Get the hours part
+    String mins = parts[2]; // Get the mins part
+
+    // Construct the formatted string
+    String formattedTime = '${hours}h ${mins}m';
+
+    return formattedTime;
+  }
+
   @override
   Widget build(BuildContext context) {
+    String formatNumberWithCommas(int number) {
+      String formatted = number.toString();
+      final RegExp regExp = RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))');
+      formatted = formatted.replaceAllMapped(regExp, (Match m) => '${m[1]},');
+      return formatted;
+    }
+
     return Column(
       children: [
         const SizedBox(
@@ -34,8 +54,8 @@ class DirectionMapScreenMore extends StatelessWidget {
                         color: Color(0xFF868FAD),
                         fontSize: 14,
                       ),
-                      const TextWidget(
-                          text: "1H",
+                      TextWidget(
+                          text: formatTime(data["time"]),
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
                     ],
@@ -51,8 +71,9 @@ class DirectionMapScreenMore extends StatelessWidget {
                         color: Color(0xFF868FAD),
                         fontSize: 14,
                       ),
-                      const TextWidget(
-                          text: "3.4KM",
+                      TextWidget(
+                          text:
+                              "${(data["distance"] / 1000).toStringAsFixed(1)}KM",
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
                     ],
@@ -76,54 +97,52 @@ class DirectionMapScreenMore extends StatelessWidget {
                   )
                 ],
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(children: [
-                Column(children: [
-                  const CircleAvatar(
-                      radius: 12,
-                      backgroundColor: Color(0xFFF0F0F0),
-                      child: CircleAvatar(
-                          radius: 5, backgroundColor: Color(0xFFADAFC2))),
-                  const SizedBox(
-                    height: 5.5,
-                  ),
-                  Image.asset("assets/images/v_line.png"),
-                  const SizedBox(
-                    height: 5.5,
-                  ),
-                  const CircleAvatar(
-                      radius: 12,
-                      backgroundColor: Color.fromARGB(94, 63, 173, 87),
-                      child: CircleAvatar(
-                        radius: 5,
-                        backgroundColor: Color(0xFF3FAD57),
-                      )),
-                ]),
-                const SizedBox(width: 30),
-                const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      OutlinedContainer(
-                          borderRadius: 100,
-                          padding: EdgeInsets.only(
-                              top: 5, bottom: 5, left: 16, right: 16),
-                          child: TextWidget(
-                              text: "34 Sir Ken Nnamdi Drive",
-                              fontSize: 16,
-                              color: Color(0xff868FAE))),
-                      SizedBox(height: 18),
-                      OutlinedContainer(
-                          borderRadius: 100,
-                          padding: EdgeInsets.only(
-                              top: 5, bottom: 5, left: 16, right: 16),
-                          child: TextWidget(
-                              text: "WTC Estate",
-                              fontSize: 16,
-                              color: Color(0xff868FAE)))
-                    ])
-              ]),
+
+              // Row(children: [
+              //   Column(children: [
+              //     const CircleAvatar(
+              //         radius: 12,
+              //         backgroundColor: Color(0xFFF0F0F0),
+              //         child: CircleAvatar(
+              //             radius: 5, backgroundColor: Color(0xFFADAFC2))),
+              //     const SizedBox(
+              //       height: 5.5,
+              //     ),
+              //     Image.asset("assets/images/v_line.png"),
+              //     const SizedBox(
+              //       height: 5.5,
+              //     ),
+              //     const CircleAvatar(
+              //         radius: 12,
+              //         backgroundColor: Color.fromARGB(94, 63, 173, 87),
+              //         child: CircleAvatar(
+              //           radius: 5,
+              //           backgroundColor: Color(0xFF3FAD57),
+              //         )),
+              //   ]),
+              //   const SizedBox(width: 30),
+              //   const Column(
+              //       crossAxisAlignment: CrossAxisAlignment.start,
+              //       children: [
+              //         OutlinedContainer(
+              //             borderRadius: 100,
+              //             padding: EdgeInsets.only(
+              //                 top: 5, bottom: 5, left: 16, right: 16),
+              //             child: TextWidget(
+              //                 text: "34 Sir Ken Nnamdi Drive",
+              //                 fontSize: 16,
+              //                 color: Color(0xff868FAE))),
+              //         SizedBox(height: 18),
+              //         OutlinedContainer(
+              //             borderRadius: 100,
+              //             padding: EdgeInsets.only(
+              //                 top: 5, bottom: 5, left: 16, right: 16),
+              //             child: TextWidget(
+              //                 text: "WTC Estate",
+              //                 fontSize: 16,
+              //                 color: Color(0xff868FAE)))
+              //       ])
+              // ]),
               const SizedBox(
                 height: 20,
               ),
@@ -135,10 +154,10 @@ class DirectionMapScreenMore extends StatelessWidget {
                   const SizedBox(
                     width: 10,
                   ),
-                  const Column(
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TextWidget(
+                      const TextWidget(
                         text: 'Amount',
                         color: Color(0xFF868FAD),
                         fontSize: 12,
@@ -147,12 +166,12 @@ class DirectionMapScreenMore extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           TextWidget(
-                            text: '8,500',
+                            text: formatNumberWithCommas(data["price"]),
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
                           ),
-                          SizedBox(width: 10),
-                          TextWidget(
+                          const SizedBox(width: 10),
+                          const TextWidget(
                             text: '(Confirmed after scarcity check)',
                             color: Color(0xFF868FAD),
                             fontSize: 10.5,
