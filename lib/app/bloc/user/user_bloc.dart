@@ -3,7 +3,8 @@
 import 'package:aquayar/app/bloc/user/user_state.dart';
 import 'package:aquayar/app/data/models/auth_user.dart';
 import 'package:aquayar/app/data/repos/user_repo.dart';
-import 'package:aquayar/app/data/utilities/dio_exception.dart';
+import 'package:aquayar/network/dio_exception.dart';
+
 import 'package:aquayar/utilities/logger.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';

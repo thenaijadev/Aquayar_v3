@@ -1,4 +1,4 @@
-import 'package:aquayar/app/data/utilities/api_endpoint.dart';
+import 'package:aquayar/network/api_endpoint.dart';
 import 'package:dio/dio.dart';
 
 class DioClient {

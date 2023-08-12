@@ -5,8 +5,8 @@ import 'package:aquayar/app/bloc/auth/auth_state.dart';
 import 'package:aquayar/app/data/models/auth_user.dart';
 import 'package:aquayar/app/data/repos/auth_repo.dart';
 import 'package:aquayar/app/data/repos/user_repo.dart';
-import 'package:aquayar/app/data/utilities/dio_exception.dart';
-import 'package:aquayar/utilities/logger.dart';
+import 'package:aquayar/network/dio_exception.dart';
+
 import 'package:dio/dio.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -19,28 +19,27 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
       emit(AuthStateIsLoading());
       final String email = event.email;
       final String password = event.password;
-      try {
-        final user = await authRepo.signUp(email: email, password: password);
-        emit(AuthStateRegistered(user: user));
-      } on DioException {
-        emit(AuthStateError(message: "Authentication failed."));
-      }
+
+      final user = await authRepo.signUp(email: email, password: password);
+
+      user.fold((l) {
+        emit(AuthStateError(message: l));
+      }, (r) {
+        emit(AuthStateRegistered(user: r));
+      });
     });
 
     on<AuthEventSignUpWithGoogle>(
       (event, emit) async {
         emit(AuthStateIsLoading());
 
-        try {
-          final user = await authRepo.signUpWithGoogle();
-          emit(AuthStateRegistered(user: user));
-        } on DioException catch (error) {
-          final message = DioExceptionClass.fromDioError(error);
+        final user = await authRepo.signUpWithGoogle();
 
-          emit(AuthStateError(message: message.errorMessage));
-        } catch (e) {
-          emit(AuthStateError(message: e.toString()));
-        }
+        user.fold((l) {
+          emit(AuthStateError(message: l));
+        }, (r) {
+          emit(AuthStateRegistered(user: r));
+        });
       },
     );
 
@@ -48,18 +47,14 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
       (event, emit) async {
         emit(AuthStateIsLoading());
 
-        try {
-          final AuthUser user = await authRepo.signInWithGoogle();
-          emit(AuthStateLoggedIn(user: user));
-          await tokenBox.put("token", user.authToken);
-          logger.e(user);
-        } on DioException catch (error) {
-          final message = DioExceptionClass.fromDioError(error);
-          logger.e(error.message);
-          emit(AuthStateError(message: message.errorMessage));
-        } catch (e) {
-          emit(AuthStateError(message: "User not logged in"));
-        }
+        final user = await authRepo.signInWithGoogle();
+
+        user.fold((l) {
+          emit(AuthStateError(message: l));
+        }, (r) async {
+          emit(AuthStateRegistered(user: r));
+          await tokenBox.put("token", r.authToken);
+        });
       },
     );
 
@@ -89,16 +84,15 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
 
         final String email = event.email;
         final String password = event.password;
-        try {
-          final user = await authRepo.logIn(email: email, password: password);
-          await tokenBox.put("token", user.authToken);
 
-          emit(AuthStateLoggedIn(user: user));
-        } on DioException catch (error) {
-          final message = DioExceptionClass.fromDioError(error);
+        final user = await authRepo.logIn(email: email, password: password);
 
-          emit(AuthStateError(message: message.errorMessage));
-        }
+        user.fold((l) {
+          emit(AuthStateError(message: l));
+        }, (r) async {
+          emit(AuthStateLoggedIn(user: r));
+          await tokenBox.put("token", r.authToken);
+        });
       },
     );
 
@@ -126,37 +120,33 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
         emit(AuthStateIsLoading());
         String otp = event.otp;
 
-        try {
-          final response = await authRepo.checkOTP(otp: otp);
+        final response = await authRepo.checkOTP(otp: otp);
 
+        response.fold((l) {
+          print(l);
+          emit(AuthStateError(message: l));
+        }, (r) async {
           emit(AuthStatePasswordChangeOtpSent(
-              resetToken: response["data"]["resetToken"]));
-        } on DioException catch (error) {
-          final message = DioExceptionClass.fromDioError(error);
-
-          emit(AuthStateError(message: message.errorMessage));
-        }
+              resetToken: r["data"]["resetToken"]));
+        });
       },
     );
 
     on<AuthEventChangePassword>(
       (event, emit) async {
         emit(AuthStateIsLoading());
-        try {
-          String password = event.password;
-          String confirmPassword = event.confirmPassword;
-          String token = event.token;
-          final response = await authRepo.changePassword(
-              password: password,
-              confirmPassword: confirmPassword,
-              token: token);
 
+        String password = event.password;
+        String confirmPassword = event.confirmPassword;
+        String token = event.token;
+        final response = await authRepo.changePassword(
+            password: password, confirmPassword: confirmPassword, token: token);
+
+        response.fold((l) {
+          emit(AuthStateError(message: l));
+        }, (r) {
           emit(AuthStatePasswordChanged());
-        } on DioException catch (error) {
-          final message = DioExceptionClass.fromDioError(error);
-
-          emit(AuthStateError(message: message.errorMessage));
-        }
+        });
       },
     );
   }

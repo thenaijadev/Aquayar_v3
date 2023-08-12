@@ -1,15 +1,18 @@
-import 'package:aquayar/app/data/exceptions/auth_exceptions.dart';
 import 'package:aquayar/app/data/interfaces/auth_provider.dart';
+import 'package:aquayar/app/data/models/auth_user.dart';
 import 'package:aquayar/app/data/models/google_auth_user.dart';
-import 'package:aquayar/app/data/utilities/api_endpoint.dart';
-import 'package:aquayar/app/data/utilities/dio_client.dart';
-import 'package:aquayar/utilities/logger.dart';
+import 'package:aquayar/network/api_endpoint.dart';
+import 'package:aquayar/network/dio_client.dart';
+import 'package:aquayar/network/dio_exception.dart';
+import 'package:aquayar/network/typedef.dart';
+
+import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class DioAuthProvider implements AuthProvider {
   @override
-  Future<Map<String, dynamic>> signUp({
+  EitherAuthUser signUp({
     required String email,
     required String password,
   }) async {
@@ -17,16 +20,18 @@ class DioAuthProvider implements AuthProvider {
       final response = await DioClient.instance.post(RoutesAndPaths.authSignUp,
           data: {"email": email, "password": password, "type": "customer"});
 
-      return {...response, "email": email, "displayName": "", "photoUrl": ""};
-    } on DioException {
-      rethrow;
+      return right(AuthUser.fromJson(
+          {...response, "email": email, "displayName": "", "photoUrl": ""}));
+    } on DioException catch (e) {
+      final errorMessage = DioExceptionClass.fromDioError(e).toString();
+      return left(errorMessage);
     } catch (e) {
-      throw GenericAuthException();
+      return left(e.toString());
     }
   }
 
   @override
-  Future<Map<String, dynamic>> logIn({
+  EitherAuthUser logIn({
     required String email,
     required String password,
   }) async {
@@ -34,11 +39,13 @@ class DioAuthProvider implements AuthProvider {
       final response = await DioClient.instance.post(RoutesAndPaths.authSignIn,
           data: {"email": email, "password": password, "type": "customer"});
 
-      return {...response, "email": email, "displayName": "", "photoUrl": ""};
+      return right(AuthUser.fromJson(
+          {...response, "email": email, "displayName": "", "photoUrl": ""}));
     } on DioException catch (e) {
-      rethrow;
+      final errorMessage = DioExceptionClass.fromDioError(e).toString();
+      return left(errorMessage);
     } catch (e) {
-      throw GenericAuthException();
+      return left(e.toString());
     }
   }
 
@@ -53,7 +60,7 @@ class DioAuthProvider implements AuthProvider {
   }
 
   @override
-  Future<Map<String, dynamic>> signUpWithGoogle() async {
+  EitherAuthUser signUpWithGoogle() async {
     final googleSignIn = GoogleSignIn();
 
     try {
@@ -68,28 +75,27 @@ class DioAuthProvider implements AuthProvider {
           "displayName": userDetails.displayName
         });
 
-        return {
+        return right(AuthUser.fromJson({
           ...response,
           "email": userDetails.email,
           "displayName": userDetails.displayName,
           "photoUrl": userDetails.photoUrl
-        };
+        }));
       } else {
-        throw UserNotLoggedInAuthException();
+        return left("No user");
       }
-    } catch (_) {
-      rethrow;
+    } catch (e) {
+      return left(e.toString());
     }
   }
 
   @override
-  Future<Map<String, dynamic>> signInWithGoogle() async {
+  EitherAuthUser signInWithGoogle() async {
     final googleSignIn = GoogleSignIn();
 
     try {
       final GoogleSignInAccount? user = await googleSignIn.signIn();
-      // ignore: avoid_print
-      print(user);
+
       if (user != null) {
         final userDetails = GoogleAuthUser.fromGoogle(user);
         final response = await DioClient.instance
@@ -97,41 +103,42 @@ class DioAuthProvider implements AuthProvider {
           "profileId": userDetails.id,
         });
 
-        return {
+        return right(AuthUser.fromJson({
           ...response,
           "email": userDetails.email,
           "displayName": userDetails.displayName,
           "photoUrl": userDetails.photoUrl
-        };
+        }));
       } else {
-        throw UserNotLoggedInAuthException();
+        return left("Cannot log in with google at this time.");
       }
-    } catch (_) {
-      rethrow;
+    } on DioException catch (e) {
+      final errorMessage = DioExceptionClass.fromDioError(e).toString();
+      return left(errorMessage);
+    } catch (e) {
+      return left(e.toString());
     }
   }
 
   @override
-  Future<Map<String, dynamic>> forgotPassord({required String email}) async {
+  EitherMap forgotPassord({required String email}) async {
     try {
       final response =
           await DioClient.instance.post(RoutesAndPaths.forgotPassword, data: {
         "email": email,
       });
-      logger.e(response);
 
-      return response;
-    } on DioException catch (error) {
-      logger.e(error.response?.data);
-
-      rethrow;
+      return right(response);
+    } on DioException catch (e) {
+      final errorMessage = DioExceptionClass.fromDioError(e).toString();
+      return left(errorMessage);
     } catch (e) {
-      throw GenericAuthException();
+      return left(e.toString());
     }
   }
 
   @override
-  Future<Map<String, dynamic>> checkOTP({
+  EitherMap checkOTP({
     required String otp,
   }) async {
     try {
@@ -142,17 +149,16 @@ class DioAuthProvider implements AuthProvider {
         },
       );
 
-      return response;
-    } on DioException catch (e) {
-      logger.e(e.response?.data);
-      rethrow;
+      return right(response);
+    } on DioException {
+      return left("The code has either expired or is invalid");
     } catch (e) {
-      throw GenericAuthException();
+      return left(e.toString());
     }
   }
 
   @override
-  Future<Map<String, dynamic>> changePassword(
+  EitherMap changePassword(
       {required String password,
       required String confirmPassword,
       required String token}) async {
@@ -164,13 +170,12 @@ class DioAuthProvider implements AuthProvider {
           headers: {"Authorization": "Bearer $token"},
         ),
       );
-      return {
-        ...response,
-      };
-    } on DioException {
-      rethrow;
+      return right(response);
+    } on DioException catch (e) {
+      final errorMessage = DioExceptionClass.fromDioError(e).toString();
+      return left(errorMessage);
     } catch (e) {
-      throw GenericAuthException();
+      return left(e.toString());
     }
   }
 }

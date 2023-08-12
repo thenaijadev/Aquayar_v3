@@ -1,9 +1,10 @@
 import 'package:aquayar/app/data/exceptions/auth_exceptions.dart';
 import 'package:aquayar/app/data/interfaces/order_provider.dart';
 import 'package:aquayar/app/data/models/driver.dart';
-import 'package:aquayar/app/data/utilities/api_endpoint.dart';
-import 'package:aquayar/app/data/utilities/dio_client.dart';
+
 import 'package:aquayar/app/services/location_service.dart';
+import 'package:aquayar/network/api_endpoint.dart';
+import 'package:aquayar/network/dio_client.dart';
 import 'package:dio/dio.dart';
 import 'package:geolocator/geolocator.dart';
 

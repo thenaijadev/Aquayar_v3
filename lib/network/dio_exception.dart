@@ -30,12 +30,13 @@ class DioExceptionClass implements Exception {
         break;
     }
   }
+
   String _handleStatusCode(int? statusCode) {
     switch (statusCode) {
       case 400:
         return 'User already exist ';
       case 401:
-        return 'Authentication failed.';
+        return 'Wrong email or password';
       case 403:
         return 'The authenticated user is not allowed to access the specified API endpoint.';
       case 404:
