@@ -40,7 +40,10 @@ class _DirectionMapScreenLessState extends State<DirectionMapScreenLess> {
               Column(
                 children: [
                   TextWidget(
-                      text: formatTime(widget.data["time"]),
+                      text: widget.data["time"].contains("hours") ||
+                              widget.data["time"].contains("hour")
+                          ? formatTime(widget.data["time"])
+                          : widget.data["time"],
                       fontSize: 20,
                       fontWeight: FontWeight.bold),
                   const TextWidget(

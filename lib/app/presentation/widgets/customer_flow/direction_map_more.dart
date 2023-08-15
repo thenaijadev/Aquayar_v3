@@ -55,7 +55,10 @@ class DirectionMapScreenMore extends StatelessWidget {
                         fontSize: 14,
                       ),
                       TextWidget(
-                          text: formatTime(data["time"]),
+                          text: data["time"].contains("hour") ||
+                                  data["time"].contains("hours")
+                              ? formatTime(data["time"])
+                              : data["time"],
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
                     ],
