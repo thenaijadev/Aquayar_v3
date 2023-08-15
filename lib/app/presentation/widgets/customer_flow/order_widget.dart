@@ -2,25 +2,15 @@ import 'package:aquayar/app/data/models/auth_user.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/circle_avatar_widget.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/home_tab_widget.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/order.dart';
+import 'package:aquayar/app/presentation/widgets/customer_flow/show_promotion_bottom_sheet.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:aquayar/router/routes.dart';
 import 'package:flutter/material.dart';
 
-class OrderWidget extends StatefulWidget {
+class OrderWidget extends StatelessWidget {
   const OrderWidget({super.key, required this.user, required this.orders});
   final AuthUser user;
   final List orders;
-
-  @override
-  State<OrderWidget> createState() => _OrderWidgetState();
-}
-
-class _OrderWidgetState extends State<OrderWidget> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -30,8 +20,7 @@ class _OrderWidgetState extends State<OrderWidget> {
           children: [
             GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, Routes.menu,
-                    arguments: widget.user);
+                Navigator.pushNamed(context, Routes.menu, arguments: user);
               },
               child: const CircleAvatarWidget(
                 image: "assets/images/head.png",
@@ -47,19 +36,24 @@ class _OrderWidgetState extends State<OrderWidget> {
           fontSize: 32,
         ),
         TextWidget(
-          text: widget.user.displayName!,
+          text: user.displayName!,
           fontSize: 32,
           fontWeight: FontWeight.bold,
         ),
         const SizedBox(
           height: 30,
         ),
-        Container(
-          width: 340,
-          height: 120,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
-            color: Colors.blue,
+        GestureDetector(
+          onTap: () {
+            showPromotionBottomSheet(context);
+          },
+          child: Container(
+            width: 340,
+            height: 120,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              color: Colors.blue,
+            ),
           ),
         ),
         const SizedBox(
@@ -101,24 +95,18 @@ class _OrderWidgetState extends State<OrderWidget> {
         const SizedBox(height: 12),
         SizedBox(
           height: 300,
-          child: ListView.builder(
-            itemCount: widget.orders.length,
-            itemBuilder: (context, index) {
-              return const Order(
+          child: ListView(
+            children: const [
+              Order(
                 image: "assets/images/order_icon.png",
-              );
-            },
-            // children: const [
-            //   Order(
-            //     image: "assets/images/order_icon.png",
-            //   ),
-            //   Order(
-            //     image: "assets/images/completed_order_icon.png",
-            //   ),
-            //   Order(
-            //     image: "assets/images/cancelled_order.png",
-            //   )
-            // ],
+              ),
+              Order(
+                image: "assets/images/completed_order_icon.png",
+              ),
+              Order(
+                image: "assets/images/cancelled_order.png",
+              )
+            ],
           ),
         )
       ],
