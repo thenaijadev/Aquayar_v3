@@ -157,6 +157,7 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
                             "time": state.time,
                             "distance": state.distance
                           };
+
                           return Column(
                             children: [
                               ButtomMapScreenOne(data: theData),

@@ -45,7 +45,7 @@ class ButtomMapScreenOne extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextWidget(
-                    text: formatTime(data["time"]),
+                    text: data["time"],
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
