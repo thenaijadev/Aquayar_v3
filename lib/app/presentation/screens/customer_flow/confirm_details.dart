@@ -110,7 +110,7 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
                               width: 7,
                             ),
                             SizedBox(
-                              width: 170,
+                              width: 171,
                               child: TextWidget(
                                 overflow: TextOverflow.ellipsis,
                                 text: widget.data["address"],
