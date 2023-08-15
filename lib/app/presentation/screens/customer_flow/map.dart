@@ -7,10 +7,13 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapSample extends StatefulWidget {
   const MapSample(
-      {super.key, required this.startPosition, required this.endPosition});
+      {super.key,
+      required this.startPosition,
+      required this.endPosition,
+      this.onTap});
   final String startPosition;
   final String endPosition;
-
+  final Future<void>? onTap;
   @override
   State<MapSample> createState() => MapSampleState();
 }
@@ -36,7 +39,7 @@ class MapSampleState extends State<MapSample> {
   @override
   void initState() {
     getAllDirections();
-
+    // widget.onTap = _goToPlace(lat, lng, boundsNe, boundsSw);
     super.initState();
   }
 

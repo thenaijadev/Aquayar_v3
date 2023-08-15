@@ -80,6 +80,7 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
                 borderRadius: BorderRadius.circular(24),
               ),
               child: MapSample(
+                  // onTap:(){},
                   startPosition: widget.data["address"],
                   endPosition:
                       "${widget.data["driver"].coordinates[1]},${widget.data["driver"].coordinates[0]}"),
@@ -136,7 +137,8 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
                         step == "one"
                             ? const PaymentContainerMapScreen()
                             : const Text(""),
-                        const BlueArrowMouseIcon(),
+                        GestureDetector(
+                            onTap: () {}, child: const BlueArrowMouseIcon()),
                       ],
                     ),
                     const SizedBox(
