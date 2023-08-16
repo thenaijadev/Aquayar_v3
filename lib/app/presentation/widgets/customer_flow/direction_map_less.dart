@@ -1,6 +1,7 @@
 import 'package:aquayar/app/presentation/screens/customer_flow/delete_account.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/outlined_container.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
+import 'package:aquayar/router/routes.dart';
 import 'package:flutter/material.dart';
 
 class DirectionMapScreenLess extends StatefulWidget {
@@ -159,21 +160,26 @@ class _DirectionMapScreenLessState extends State<DirectionMapScreenLess> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              OutlinedContainer(
-                borderRadius: 100,
-                padding: const EdgeInsets.only(
-                    top: 10, bottom: 10, left: 20, right: 20),
-                child: Row(
-                  children: [
-                    Image.asset("assets/images/chat_icon.png"),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    const TextWidget(
-                      text: "Chat",
-                      fontSize: 14,
-                    )
-                  ],
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, Routes.chat);
+                },
+                child: OutlinedContainer(
+                  borderRadius: 100,
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 10, left: 20, right: 20),
+                  child: Row(
+                    children: [
+                      Image.asset("assets/images/chat_icon.png"),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      const TextWidget(
+                        text: "Chat",
+                        fontSize: 14,
+                      )
+                    ],
+                  ),
                 ),
               ),
               OutlinedContainer(
