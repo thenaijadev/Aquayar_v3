@@ -9,7 +9,6 @@ import 'package:aquayar/app/presentation/widgets/customer_flow/direction_map_mor
 import 'package:aquayar/app/presentation/widgets/customer_flow/outlined_container.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:aquayar/app/data/providers/location_provider.dart';
-import 'package:aquayar/router/routes.dart';
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -69,8 +68,7 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
             builder: (context, state) {
               return state is OrderStateOrderCreated
                   ? GestureDetector(
-                      onTap: () => Navigator.pushReplacementNamed(
-                          context, Routes.orderWater),
+                      onTap: () => Navigator.pop(context),
                       child: Image.asset(
                         "assets/images/x.png",
                         width: 24,
