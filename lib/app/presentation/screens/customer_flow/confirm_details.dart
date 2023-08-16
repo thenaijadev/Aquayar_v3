@@ -44,27 +44,44 @@ class _ConfirmDetailsState extends State<ConfirmDetails> {
       appBar: AppBar(
           title: Padding(
             padding: EdgeInsets.only(right: step == "four" ? 10 : 100.0),
-            child: TextWidget(
-              text: step == "one"
-                  ? "Confirm Details"
-                  : step == "two"
-                      ? "Request Recieved"
-                      : step == "three"
-                          ? "Request Recieved"
-                          : "Your delivery is underway...",
-              color: const Color(0xFF20254F),
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
+            child: BlocBuilder<OrderBloc, OrderState>(
+              builder: (context, state) {
+                return state is OrderStateOrderCreated
+                    ? const TextWidget(
+                        text: "Your delivery is underway",
+                        color: Color(0xFF20254F),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      )
+                    : const TextWidget(
+                        text: "Confirm details",
+                        color: Color(0xFF20254F),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      );
+              },
             ),
           ),
           elevation: 0,
           backgroundColor: Colors.transparent,
-          leading: GestureDetector(
-            onTap: () => Navigator.pop(context),
-            child: Image.asset(
-              "assets/images/arrow_left.png",
-              width: 24,
-            ),
+          leading: BlocBuilder<OrderBloc, OrderState>(
+            builder: (context, state) {
+              return state is OrderStateOrderCreated
+                  ? GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: Image.asset(
+                        "assets/images/x.png",
+                        width: 24,
+                      ),
+                    )
+                  : GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: Image.asset(
+                        "assets/images/arrow_left.png",
+                        width: 24,
+                      ),
+                    );
+            },
           )),
       body: Stack(
         children: [
