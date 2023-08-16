@@ -21,8 +21,11 @@ class _ChatScreenState extends State<ChatScreen> {
         elevation: 0.2,
         shadowColor: const Color(0xFF868FAD),
         backgroundColor: Colors.white,
-        leading:
-            GestureDetector(child: Image.asset("assets/images/arrow_left.png")),
+        leading: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Image.asset("assets/images/arrow_left.png")),
         title: Row(
           children: [
             Image.asset("assets/images/head_shot.png"),
