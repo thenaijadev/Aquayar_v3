@@ -2,6 +2,7 @@ import 'package:aquayar/app/data/models/auth_user.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/circle_avatar_widget.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/home_tab_widget.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/order.dart';
+import 'package:aquayar/app/presentation/widgets/customer_flow/show_promotion_bottom_sheet.dart';
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:aquayar/router/routes.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class _OrderWidgetState extends State<OrderWidget> {
   @override
   void initState() {
     super.initState();
+    print(widget.orders);
   }
 
   @override
@@ -54,12 +56,17 @@ class _OrderWidgetState extends State<OrderWidget> {
         const SizedBox(
           height: 30,
         ),
-        Container(
-          width: 340,
-          height: 120,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
-            color: Colors.blue,
+        GestureDetector(
+          onTap: () {
+            showPromotionBottomSheet(context);
+          },
+          child: Container(
+            width: 340,
+            height: 120,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              color: Colors.blue,
+            ),
           ),
         ),
         const SizedBox(
