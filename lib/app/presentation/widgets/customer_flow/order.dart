@@ -3,9 +3,25 @@ import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart
 import 'package:aquayar/utilities/constants.dart/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class Order extends StatelessWidget {
-  const Order({super.key, required this.image});
+class Order extends StatefulWidget {
+  const Order(
+      {super.key,
+      required this.image,
+      required this.order,
+      required this.address});
   final String image;
+  final Map<String, dynamic> order;
+  final String address;
+  @override
+  State<Order> createState() => _OrderState();
+}
+
+class _OrderState extends State<Order> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -18,35 +34,39 @@ class Order extends StatelessWidget {
         child: Row(
           children: [
             Center(
-              child: Image.asset(image),
+              child: Image.asset(widget.image),
             ),
             const SizedBox(
               width: 20,
             ),
-            const Column(
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TextWidget(
-                  text: "WTC Estate",
-                  fontWeight: FontWeight.bold,
+                SizedBox(
+                  width: 90,
+                  child: TextWidget(
+                    text: widget.address,
+                    overflow: TextOverflow.ellipsis,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 TextWidget(
-                  text: "Active",
-                  color: Color(0xFF868FAD),
+                  text: widget.order["status"].toString().toUpperCase(),
+                  color: const Color(0xFF868FAD),
                 )
               ],
             ),
             const SizedBox(
               width: 70,
             ),
-            const Column(
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextWidget(
-                  text: "500",
+                  text: widget.order["waterSize"].toString(),
                   fontWeight: FontWeight.bold,
                 ),
-                TextWidget(
+                const TextWidget(
                   text: "Liters",
                   color: AppColors.hintColor,
                 )

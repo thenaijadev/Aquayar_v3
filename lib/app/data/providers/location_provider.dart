@@ -121,4 +121,31 @@ class LocationProvider {
     }
     return null;
   }
+
+  Future<String?> getAddressFromCorrdinates(
+    String origin,
+  ) async {
+    String url =
+        "https://maps.googleapis.com/maps/api/geocode/json?latlng=$origin&key=$key";
+
+    try {
+      var response = await http.get(Uri.parse(url));
+
+      if (response.statusCode == 200) {
+        if (response.headers['content-type']?.contains('application/json') ==
+            true) {
+          var jsonData = json.decode(response.body);
+
+          return jsonData["results"][0]["formatted_address"];
+        } else {
+          logger.e('Response does not contain JSON data.');
+        }
+      } else {
+        logger.e('HTTP request failed with status: ${response.statusCode}');
+      }
+    } catch (e) {
+      logger.e(e.toString());
+    }
+    return null;
+  }
 }

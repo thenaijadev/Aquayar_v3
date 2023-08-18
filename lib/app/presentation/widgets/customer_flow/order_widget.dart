@@ -1,4 +1,5 @@
 import 'package:aquayar/app/data/models/auth_user.dart';
+import 'package:aquayar/app/data/providers/location_provider.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/circle_avatar_widget.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/home_tab_widget.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/order.dart';
@@ -6,6 +7,7 @@ import 'package:aquayar/app/presentation/widgets/customer_flow/show_promotion_bo
 import 'package:aquayar/app/presentation/widgets/onboarding_flow/title_text.dart';
 import 'package:aquayar/router/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class OrderWidget extends StatefulWidget {
   const OrderWidget({super.key, required this.user, required this.orders});
@@ -17,10 +19,25 @@ class OrderWidget extends StatefulWidget {
 }
 
 class _OrderWidgetState extends State<OrderWidget> {
+  bool isLoading = true;
   @override
   void initState() {
     super.initState();
-    print(widget.orders);
+
+    getAddress(widget.orders);
+  }
+
+  List<String> addresses = [];
+  getAddress(orders) async {
+    for (var order in orders) {
+      final address = await LocationProvider().getAddressFromCorrdinates(
+          '${order["customer"]["coordinates"][1]},${order["customer"]["coordinates"][0]}');
+      addresses.add(address!);
+    }
+
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -106,28 +123,38 @@ class _OrderWidgetState extends State<OrderWidget> {
           ),
         ),
         const SizedBox(height: 12),
-        SizedBox(
-          height: 300,
-          child: ListView.builder(
-            itemCount: widget.orders.length,
-            itemBuilder: (context, index) {
-              return const Order(
-                image: "assets/images/order_icon.png",
-              );
-            },
-            // children: const [
-            //   Order(
-            //     image: "assets/images/order_icon.png",
-            //   ),
-            //   Order(
-            //     image: "assets/images/completed_order_icon.png",
-            //   ),
-            //   Order(
-            //     image: "assets/images/cancelled_order.png",
-            //   )
-            // ],
-          ),
-        )
+        isLoading
+            ? const Padding(
+                padding: EdgeInsets.only(top: 20.0),
+                child: SpinKitSpinningLines(
+                  color: Color.fromARGB(255, 4, 136, 231),
+                  size: 40.0,
+                ),
+              )
+            : SizedBox(
+                height: 300,
+                child: ListView.builder(
+                  itemCount: widget.orders.length,
+                  itemBuilder: (context, index) {
+                    return Order(
+                      order: widget.orders[index],
+                      address: addresses[index],
+                      image: "assets/images/order_icon.png",
+                    );
+                  },
+                  // children: const [
+                  //   Order(
+                  //     image: "assets/images/order_icon.png",
+                  //   ),
+                  //   Order(
+                  //     image: "assets/images/completed_order_icon.png",
+                  //   ),
+                  //   Order(
+                  //     image: "assets/images/cancelled_order.png",
+                  //   )
+                  // ],
+                ),
+              )
       ],
     );
   }
