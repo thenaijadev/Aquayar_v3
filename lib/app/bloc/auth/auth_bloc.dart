@@ -52,7 +52,7 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
         user.fold((l) {
           emit(AuthStateError(message: l));
         }, (r) async {
-          emit(AuthStateRegistered(user: r));
+          emit(AuthStateLoggedIn(user: r));
           await tokenBox.put("token", r.authToken);
         });
       },
@@ -152,7 +152,7 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
 
   @override
   AuthState? fromJson(Map<String, dynamic> json) {
-    return AuthStateLoggedIn(user: AuthUser.fromMap(json));
+    return AuthStateLoggedIn(user: AquayarAuthUser.fromMap(json));
   }
 
   @override

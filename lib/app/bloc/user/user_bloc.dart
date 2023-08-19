@@ -97,7 +97,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           final response = await userRepo.getUser(
             token: token ?? "",
           );
-          emit(UserStateUserRetrieved(user: AuthUser.fromMap(response)));
+          emit(UserStateUserRetrieved(user: AquayarAuthUser.fromMap(response)));
         } on DioException catch (error) {
           final message = DioExceptionClass.fromDioError(error);
 

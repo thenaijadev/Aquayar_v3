@@ -14,7 +14,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class HomeScreenNoOrder extends StatefulWidget {
   const HomeScreenNoOrder({super.key, required this.user});
-  final AuthUser user;
+  final AquayarAuthUser user;
   @override
   State<HomeScreenNoOrder> createState() => _HomeScreenNoOrderState();
 }

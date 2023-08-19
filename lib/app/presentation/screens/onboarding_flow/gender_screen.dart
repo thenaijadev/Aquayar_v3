@@ -15,7 +15,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class GenderScreen extends StatefulWidget {
   const GenderScreen({super.key, required this.data});
-  final AuthUser data;
+  final AquayarAuthUser data;
   @override
   State<GenderScreen> createState() => _GenderScreenState();
 }

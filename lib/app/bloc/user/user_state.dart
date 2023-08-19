@@ -29,7 +29,7 @@ class UserStateOtpChecked extends UserState {}
 
 class UserStateUserRetrieved extends UserState {
   const UserStateUserRetrieved({required this.user});
-  final AuthUser user;
+  final AquayarAuthUser user;
 }
 
 class UserStateAllOrdersRetrieved extends UserState {

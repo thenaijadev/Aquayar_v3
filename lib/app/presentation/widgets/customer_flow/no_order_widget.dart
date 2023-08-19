@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 class NoOrderWidget extends StatelessWidget {
   const NoOrderWidget({super.key, required this.user});
-  final AuthUser user;
+  final AquayarAuthUser user;
   @override
   Widget build(BuildContext context) {
     return Column(

@@ -9,7 +9,7 @@ class MenuItemWidget extends StatelessWidget {
       required this.image,
       required this.label,
       required this.onTap});
-  final AuthUser user;
+  final AquayarAuthUser user;
   final String image;
   final String label;
   final void Function() onTap;

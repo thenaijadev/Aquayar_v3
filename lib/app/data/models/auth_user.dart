@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
 @immutable
-class AuthUser {
+class AquayarAuthUser {
   final String? id;
   final String? email;
   final bool? isVerified;
@@ -15,7 +15,7 @@ class AuthUser {
   final String? photoUrl;
   final String? gender;
 
-  const AuthUser(
+  const AquayarAuthUser(
       {required this.authToken,
       required this.photoUrl,
       required this.id,
@@ -26,10 +26,10 @@ class AuthUser {
       this.gender,
       this.userType = "customer"});
 
-  factory AuthUser.fromJson(
+  factory AquayarAuthUser.fromJson(
     user,
   ) {
-    return AuthUser(
+    return AquayarAuthUser(
         id: user["data"]["user"]["id"],
         isVerified: false,
         email: user["email"],
@@ -54,9 +54,9 @@ class AuthUser {
     };
   }
 
-  factory AuthUser.fromMap(Map<String, dynamic> map) {
+  factory AquayarAuthUser.fromMap(Map<String, dynamic> map) {
     final data = map['data'];
-    return AuthUser(
+    return AquayarAuthUser(
       id: data != null ? data['id'] as String : null,
       email: data != null ? data['email'] as String : null,
       isVerified: map['isVerified'] as bool?,

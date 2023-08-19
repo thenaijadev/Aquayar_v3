@@ -13,7 +13,7 @@ import '../../widgets/customer_flow/horizontal_rule_widget.dart';
 
 class Menu extends StatefulWidget {
   const Menu({super.key, required this.user});
-  final AuthUser user;
+  final AquayarAuthUser user;
   @override
   State<Menu> createState() => _MenuState();
 }
@@ -91,7 +91,7 @@ class _MenuState extends State<Menu> {
                             TextWidget(
                               text: widget.user.email!,
                               color: const Color(0xFF868FAD),
-                              fontSize: 16,
+                              fontSize: 14,
                               fontWeight: FontWeight.bold,
                             ),
                             const SizedBox(

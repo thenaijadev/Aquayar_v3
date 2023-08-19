@@ -1,14 +1,14 @@
-import 'package:aquayar/app/data/interfaces/auth_provider.dart';
 import 'package:aquayar/app/data/models/auth_user.dart';
-import 'package:aquayar/app/data/models/google_auth_user.dart';
+import 'package:aquayar/app/data/providers/supa_base_auth_provider.dart';
+import 'package:dartz/dartz.dart';
+
+import 'package:aquayar/app/data/interfaces/auth_provider.dart';
 import 'package:aquayar/network/api_endpoint.dart';
 import 'package:aquayar/network/dio_client.dart';
 import 'package:aquayar/network/dio_exception.dart';
 import 'package:aquayar/network/typedef.dart';
 
-import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class DioAuthProvider implements AuthProvider {
   @override
@@ -20,7 +20,7 @@ class DioAuthProvider implements AuthProvider {
       final response = await DioClient.instance.post(RoutesAndPaths.authSignUp,
           data: {"email": email, "password": password, "type": "customer"});
 
-      return right(AuthUser.fromJson(
+      return right(AquayarAuthUser.fromJson(
           {...response, "email": email, "displayName": "", "photoUrl": ""}));
     } on DioException catch (e) {
       final errorMessage = DioExceptionClass.fromDioError(e).toString();
@@ -39,7 +39,7 @@ class DioAuthProvider implements AuthProvider {
       final response = await DioClient.instance.post(RoutesAndPaths.authSignIn,
           data: {"email": email, "password": password, "type": "customer"});
 
-      return right(AuthUser.fromJson(
+      return right(AquayarAuthUser.fromJson(
           {...response, "email": email, "displayName": "", "photoUrl": ""}));
     } on DioException catch (e) {
       final errorMessage = DioExceptionClass.fromDioError(e).toString();
@@ -61,29 +61,25 @@ class DioAuthProvider implements AuthProvider {
 
   @override
   EitherAuthUser signUpWithGoogle() async {
-    final googleSignIn = GoogleSignIn();
-
     try {
-      final GoogleSignInAccount? user = await googleSignIn.signIn();
+      final googleUser = await SuperBaseAuthProvider().signUpWithGoogle();
 
-      if (user != null) {
-        final userDetails = GoogleAuthUser.fromGoogle(user);
+      final response = await googleUser.fold((l) => null, (r) async {
         final response = await DioClient.instance
             .post(RoutesAndPaths.googleAuthSignUp, data: {
-          "profileId": userDetails.id,
-          "email": userDetails.email,
-          "displayName": userDetails.displayName
+          "profileId": r.id,
+          "email": r.email,
+          "displayName": "anonymous"
         });
+        return AquayarAuthUser.fromJson(
+            {...response, "email": r.email, "displayName": '', "photoUrl": ""});
+      });
+      print(response.toString());
 
-        return right(AuthUser.fromJson({
-          ...response,
-          "email": userDetails.email,
-          "displayName": userDetails.displayName,
-          "photoUrl": userDetails.photoUrl
-        }));
-      } else {
-        return left("No user");
-      }
+      return right(response!);
+    } on DioException catch (e) {
+      print(e.response?.data);
+      return left(e.toString());
     } catch (e) {
       return left(e.toString());
     }
@@ -91,30 +87,19 @@ class DioAuthProvider implements AuthProvider {
 
   @override
   EitherAuthUser signInWithGoogle() async {
-    final googleSignIn = GoogleSignIn();
-
     try {
-      final GoogleSignInAccount? user = await googleSignIn.signIn();
+      final googleUser = await SuperBaseAuthProvider().signUpWithGoogle();
 
-      if (user != null) {
-        final userDetails = GoogleAuthUser.fromGoogle(user);
+      final response = await googleUser.fold((l) => null, (r) async {
         final response = await DioClient.instance
             .post(RoutesAndPaths.googleAuthSignIn, data: {
-          "profileId": userDetails.id,
+          "profileId": r.id,
         });
+        return AquayarAuthUser.fromJson(
+            {...response, "email": r.email, "displayName": '', "photoUrl": ""});
+      });
 
-        return right(AuthUser.fromJson({
-          ...response,
-          "email": userDetails.email,
-          "displayName": userDetails.displayName,
-          "photoUrl": userDetails.photoUrl
-        }));
-      } else {
-        return left("Cannot log in with google at this time.");
-      }
-    } on DioException catch (e) {
-      final errorMessage = DioExceptionClass.fromDioError(e).toString();
-      return left(errorMessage);
+      return right(response!);
     } catch (e) {
       return left(e.toString());
     }

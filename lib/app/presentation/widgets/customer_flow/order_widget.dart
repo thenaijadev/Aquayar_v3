@@ -11,7 +11,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class OrderWidget extends StatefulWidget {
   const OrderWidget({super.key, required this.user, required this.orders});
-  final AuthUser user;
+  final AquayarAuthUser user;
   final List orders;
 
   @override

@@ -82,7 +82,7 @@ class AppRouter {
           builder: (_) => const LoginScreen(),
         );
       case Routes.gender:
-        var data = routeSettings.arguments as AuthUser;
+        var data = routeSettings.arguments as AquayarAuthUser;
         return MaterialPageRoute(
           builder: (_) => GenderScreen(data: data),
         );
@@ -129,7 +129,7 @@ class AppRouter {
         );
 
       case Routes.home:
-        var data = routeSettings.arguments as AuthUser;
+        var data = routeSettings.arguments as AquayarAuthUser;
 
         return MaterialPageRoute(
           builder: (_) => HomeScreenNoOrder(user: data),
@@ -153,7 +153,7 @@ class AppRouter {
           builder: (_) => EditLocation(address: address),
         );
       case Routes.menu:
-        var data = routeSettings.arguments as AuthUser;
+        var data = routeSettings.arguments as AquayarAuthUser;
 
         return MaterialPageRoute(
           builder: (_) => Menu(user: data),
@@ -170,7 +170,7 @@ class AppRouter {
           builder: (_) => const ChangePasswordScreen(),
         );
       case Routes.editProfile:
-        var data = routeSettings.arguments as AuthUser;
+        var data = routeSettings.arguments as AquayarAuthUser;
 
         return MaterialPageRoute(
           builder: (_) => EditProfile(user: data),

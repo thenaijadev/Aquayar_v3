@@ -15,7 +15,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key, required this.user});
-  final AuthUser user;
+  final AquayarAuthUser user;
   @override
   State<EditProfile> createState() => _EditProfileState();
 }

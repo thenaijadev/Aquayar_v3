@@ -14,6 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,7 +31,16 @@ void main() async {
 
   HydratedBloc.storage = await HydratedStorage.build(
       storageDirectory: await getApplicationDocumentsDirectory());
+  supaBaseInti();
   runApp(const MyApp());
+}
+
+supaBaseInti() async {
+  await Supabase.initialize(
+    url: 'https://mwukqrbysdwiyonnjfoi.supabase.co',
+    anonKey:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im13dWtxcmJ5c2R3aXlvbm5qZm9pIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTI0NDQyMDgsImV4cCI6MjAwODAyMDIwOH0.dscUW1smbhRJUs13-1jbw921WLtvMjK7d_vadyZxJ1w',
+  );
 }
 
 class MyApp extends StatelessWidget {

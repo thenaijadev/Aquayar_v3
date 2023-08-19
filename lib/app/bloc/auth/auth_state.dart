@@ -20,21 +20,21 @@ class AuthStateError extends AuthState {
 }
 
 class AuthStateLoggedIn extends AuthState {
-  final AuthUser user;
+  final AquayarAuthUser user;
   AuthStateLoggedIn({
     required this.user,
   });
 }
 
 class AuthStateRegistered extends AuthState {
-  final AuthUser user;
+  final AquayarAuthUser user;
   AuthStateRegistered({
     required this.user,
   });
   @override
   List<Object?> get props => [user];
 
-  AuthUser get getUser => user;
+  AquayarAuthUser get getUser => user;
 }
 
 class AuthStateLocationUpdated extends AuthState {}
