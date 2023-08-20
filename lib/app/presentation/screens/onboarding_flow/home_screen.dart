@@ -24,7 +24,7 @@ class _LandingScreenState extends State<LandingScreen> {
   void initState() {
     final tokenBox = Hive.box("user_token_box");
     token = tokenBox.get("token");
-
+    print(token);
     final UserBloc bloc = context.read<UserBloc>();
     bloc.add(UserEventGetUser(token: token));
 

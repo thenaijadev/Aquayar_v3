@@ -29,7 +29,9 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
 
         emit(OrderStateGetNearestDriverFound(driver: driver));
       } on DioException catch (e) {
-        emit(OrderStateGetNearestDiverError(error: e.response?.data));
+        print(e.response?.data);
+        print(e.message);
+        emit(OrderStateGetNearestDiverError(error: e.toString()));
       } catch (e) {
         emit(OrderStateGetNearestDiverError(error: e.toString()));
       }

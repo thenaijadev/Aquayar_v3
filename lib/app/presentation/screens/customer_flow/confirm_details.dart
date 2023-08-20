@@ -1,8 +1,8 @@
 import 'package:aquayar/app/bloc/order/order_bloc.dart';
 import 'package:aquayar/app/presentation/screens/customer_flow/map.dart';
-import 'package:aquayar/app/presentation/screens/onboarding_flow/blue_icon_map_scrreen.dart';
-import 'package:aquayar/app/presentation/screens/onboarding_flow/buttom_outline_container_map_screen_two.dart';
-import 'package:aquayar/app/presentation/screens/onboarding_flow/buttom_outline_container_one_map_screen.dart';
+import 'package:aquayar/app/presentation/screens/customer_flow/blue_icon_map_scrreen.dart';
+import 'package:aquayar/app/presentation/screens/customer_flow/buttom_outline_container_map_screen_two.dart';
+import 'package:aquayar/app/presentation/screens/customer_flow/buttom_outline_container_one_map_screen.dart';
 import 'package:aquayar/app/presentation/screens/onboarding_flow/payment_container_map_screen.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/direction_map_less.dart';
 import 'package:aquayar/app/presentation/widgets/customer_flow/direction_map_more.dart';
