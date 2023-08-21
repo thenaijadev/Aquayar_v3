@@ -10,9 +10,7 @@ class DriverWebSocket {
   /// Listen for all incoming data
   listenToStream() {
     channel.stream.listen(
-      (data) {
-        print(data);
-      },
+      (data) {},
       onError: (error) => print(error),
     );
   }

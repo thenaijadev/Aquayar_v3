@@ -189,29 +189,6 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                             child:
                                 Image.asset("assets/images/continue_grey.png"),
                           );
-                // : BlueBtn(
-                //     enabled: phoneNumberHasError!,
-                //     paddingVertical: 12,
-                //     label: TextWidget(
-                //       text: "              Verify",
-                //       color: phoneNumberHasError!
-                //           ? AppColors.white
-                //           : AppColors.inputBorder,
-                //       fontWeight: FontWeight.bold,
-                //       fontSize: 14,
-                //     ),
-                //     onPressed: () {
-                //       final formIsValid = formKey.currentState?.validate();
-                //       if (formIsValid!) {
-                //         String number = formatPhoneNumber(
-                //             widget.data[1], widget.data[2]);
-                //         String newNumber = number.replaceAll("-", "");
-
-                //         userbloc.add(UserEventGetOtp(
-                //             phone: newNumber,
-                //             token: widget.data[0]["token"]));
-                //       }
-                //     });
               },
             ),
           )

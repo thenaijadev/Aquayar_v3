@@ -107,7 +107,6 @@ class LocationProvider {
         if (response.headers['content-type']?.contains('application/json') ==
             true) {
           var jsonData = json.decode(response.body);
-          print(jsonData["rows"][0]["elements"][0]["duration"]["text"]);
 
           return jsonData["rows"][0]["elements"][0]["duration"]["text"];
         } else {

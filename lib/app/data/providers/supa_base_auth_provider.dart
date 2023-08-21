@@ -77,11 +77,8 @@ class SuperBaseAuthProvider {
 
       return right(user!);
     } on AuthException catch (e) {
-      print(e);
       return left(e.message);
     } catch (e) {
-      print(e);
-
       return left(e.toString());
     }
   }

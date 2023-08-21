@@ -74,11 +74,9 @@ class DioAuthProvider implements AuthProvider {
         return AquayarAuthUser.fromJson(
             {...response, "email": r.email, "displayName": '', "photoUrl": ""});
       });
-      print(response.toString());
 
       return right(response!);
     } on DioException catch (e) {
-      print(e.response?.data);
       return left(e.toString());
     } catch (e) {
       return left(e.toString());
